@@ -14,6 +14,7 @@ or run the command **'/openlogin nlogin'** using OpenLogin. <br>
 <br>
 
 3°) Wait a few moments and wait for the download to be finalized.
+
 ![download-actionbar2](https://i.imgur.com/1MlWqSj.png)
 
 4°) Restart your server.
