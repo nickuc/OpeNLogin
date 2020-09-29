@@ -8,12 +8,14 @@
 package com.nickuc.openlogin.bukkit.api.events;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 
-@RequiredArgsConstructor
 public class AsyncAuthenticateEvent extends OpenLoginEvent {
 
     @Getter private final Player player;
 
+    public AsyncAuthenticateEvent(Player player) {
+        super(true);
+        this.player = player;
+    }
 }
