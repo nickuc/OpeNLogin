@@ -1,0 +1,50 @@
+name: OpeNLogin
+version: 1.0
+main: com.nickuc.openlogin.bukkit.OpenLoginBukkit
+description: 'A practical, secure and friendly authentication plugin'
+website: 'https://www.nickuc.com'
+api-version: 1.13
+author: NickUC
+commands:
+  changepassword:
+    description: 'Changes your password'
+    aliases:
+      - 'changepass'
+  login:
+    description: 'Log in to your account'
+    aliases:
+      - 'log'
+      - 'l'
+  openlogin:
+    description: 'OpenLogin management command'
+    aliases:
+      - 'ologin'
+      - 'nlogin'
+  register:
+    description: 'Register your account'
+    aliases:
+      - 'reg'
+  unregister:
+    description: 'Unregister your account'
+    aliases:
+      - 'unreg'
+
+permissions:
+  openlogin.admin:
+    description: 'Defines a player as admin'
+    default: op
+  openlogin.command.changepassword:
+    description: 'Allows use the command /changepassword'
+    default: true
+  openlogin.command.login:
+    description: 'Allows use the command /login'
+    default: true
+  openlogin.command.openlogin:
+    description: 'Allows use the command /openlogin'
+    default: true
+  openlogin.command.register:
+    description: 'Allows use the command /register'
+    default: true
+  openlogin.command.unregister:
+    description: 'Allows use the command /unregister'
+    default: true

@@ -1,0 +1,128 @@
+#    ___                __  __
+#   /___\_ __   ___  /\ \ \/ /  ___   __ _(_)_ __
+#  //  // '_ \ / _ \/  \/ / /  / _ \ / _` | | '_ \
+# / \_//| |_) |  __/ /\  / /__| (_) | (_| | | | | |
+# \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
+#       |_|                          |___/
+
+# Official Website: https://www.nickuc.com
+# Discord: https://www.nickuc.com/discord
+
+# Do not change this setting
+file-version: 2
+
+Messages:
+  # Messages shown on screen
+  Title:
+    # Message sent before login
+    before-login:
+      title: "&a&lWELCOME!"
+      subtitle: "&7Use: /login <your password>"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent before registration
+    before-register:
+      title: "&a&lWELCOME!"
+      subtitle: "&7Use: /register <your password> <your password>"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent after login
+    after-login:
+      title: ""
+      subtitle: "&aYou have successfully logged in!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+    # Message sent after register
+    after-register:
+      title: ""
+      subtitle: "&aYou have successfully registered!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+
+  delay-kick:
+    # Message sent when a user takes a long time to register
+    register-kick: "&cYou took too long to register."
+
+    # Message sent when a user takes a long time to log in
+    login-kick: "&cYou took too long to login."
+
+  successful-operations:
+    # Message when a user exchanges their password
+    password-changed: "&aYour password has been successfully changed."
+
+    # Message sent when a user successfully logs
+    successful-login: "&aYou have successfully logged."
+
+    # Message sent when a user successfully registers
+    successful-register: "&aYou have successfully registered."
+
+    # Message sent when a player successfully disregisters
+    unregister-kick: "&cYou have successfully unregistered."
+
+  kick-messages:
+    # Message when a player tries to log on to the server with a small difference in the nickname
+    nick-already-registered: "&cYou can not enter with nickname {0}&r\n&r&cThis username has already been registered as {1}&r\n&r\n&r&cTo enter, you must use your nickname without uppercase/lowercase"
+
+    # Message sent when a user misses many times
+    failed-many-times: "&cYou entered the incorrect password."
+
+    # Message sent when password entered is incorrect
+    incorrect-password: "&cIncorrect password. Please, try again."
+
+  error-messages:
+    # Message sent when you are already logged in.
+    already-login: "&cYou are already logged in."
+
+    # Message sent when a nickname has already been registered.
+    already-registered: "&cThis nickname has already been registered."
+
+    # Message sent when a nickname has not yet been registered.
+    not-registered: "&cThis nickname has not yet been registered."
+
+    # Message sent when the entered password is not equal to the second
+    passwords-dont-match: "&cPasswords are not the same."
+
+    # Message sent when a player tries to change password by entering the same password as the current
+    password-same-as-old: "&cThe password entered is the same as the current."
+
+    # Message sent when the password entered is too large
+    password-too-large: "&cThe password entered is too large."
+
+    # Message sent when the password entered is too small
+    password-too-small: "&cThe password entered is too small."
+
+    # Message when a player does not possess the required permission
+    insufficient-permissions: "&cYou do not have permission to run this command."
+
+    # Message to kick a player now online
+    already-online: "&cThis player is already online."
+
+    # Message to show that the command cannot be executed via console
+    player-command-usage: "&cThis command has been disabled via console."
+
+    # Message shown when the plugin is reloaded.
+    plugin-reload-message: "&eThe plugin has been successfully reloaded."
+
+    # Message sent when a database operation has not been successfully performed
+    database-error: "&cSorry, we were unable to complete this operation. Please try again. [SQL FAIL]"
+
+  other-messages:
+    # Mensagem enviada para o uso do comando /logar
+    message-login: "&eUse the command /login <password>"
+
+    # Mensagem enviada para o uso do comando /register
+    message-register: "&eUse the command /register <password> <password>"
+
+    # Mensagem enviada para o uso do comando /mudarsenha
+    message-changepassword: "&eUse the command /changepassword <current password> <new password>"
+
+    # Message sent to use the /unregister command
+    message-unregister: "&eUse the command /unregister <current password>"
