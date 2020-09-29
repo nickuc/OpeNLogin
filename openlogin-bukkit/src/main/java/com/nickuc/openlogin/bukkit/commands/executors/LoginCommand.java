@@ -53,12 +53,12 @@ public class LoginCommand extends BukkitAbstractCommand {
         Account account = accountOpt.get();
         String password = args[0];
 
+        Player player = (Player) sender;
         if (!account.comparePassword(password)) {
-            sender.sendMessage(Messages.INCORRECT_PASSWORD.asString());
+            plugin.getServer().getScheduler().runTask(plugin, () -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
             return;
         }
 
-        Player player = (Player) sender;
         AsyncLoginEvent loginEvent = new AsyncLoginEvent(player);
         if (loginEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
