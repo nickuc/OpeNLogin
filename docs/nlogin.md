@@ -2,6 +2,11 @@
 
 The nLogin plugin is **NOT** available on Spigot anymore. <br>
 
+### Important information:
+**nLogin** is a proprietary authentication plugin, updated and maintained by www.nickuc.com. <br>
+This means that you cannot view and modify the source code of the plugin.
+<br>
+
 ### How to migrate from OpeNLogin to nLogin?
 
 1°) To download nLogin, use the official website (www.nickuc.com) <br>
@@ -18,11 +23,6 @@ or run the command **'/openlogin nlogin'** using OpenLogin. <br>
 ![download-actionbar2](https://i.imgur.com/1MlWqSj.png)
 
 4°) Restart your server.
-
-### Important information:
-nLogin is a proprietary authentication plugin pdated and maintained by www.nickuc.com. <br>
-This means that you cannot view and modify the source code of the plugin.
-<br>
 
 <a href="https://nickuc.com/repo/find?name=nLogin">Click here to download nLogin</a>
 
