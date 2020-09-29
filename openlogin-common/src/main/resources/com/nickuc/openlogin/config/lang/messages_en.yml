@@ -12,7 +12,6 @@
 file-version: 2
 
 Messages:
-  # Messages shown on screen
   Title:
     # Message sent before login
     before-login:

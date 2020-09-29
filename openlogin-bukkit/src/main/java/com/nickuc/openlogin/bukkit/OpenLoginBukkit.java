@@ -166,7 +166,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     public boolean setupSettings() {
         File configFile = new File(getDataFolder(), "config.yml");
         if (!configFile.exists() && !FileUtils.copyFromJar("com/nickuc/openlogin/config/config.yml", configFile)) {
-            sendMessage("§cFailed to create 'config.yml' file. Disabling server...");
+            sendMessage("§cFailed to create 'config.yml' file.");
             return false;
         }
 
@@ -178,7 +178,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         String lang = Settings.LANGUAGE_FILE.asString();
         File messagesFile = new File(getDataFolder() + "/lang", lang);
         if (!messagesFile.exists() && !FileUtils.copyFromJar("com/nickuc/openlogin/config/lang/" + lang, messagesFile) && !FileUtils.copyFromJar("com/nickuc/openlogin/config/lang/messages_en.yml", messagesFile)) {
-            sendMessage("§cFailed to create '" + lang + "' language file. Disabling server...");
+            sendMessage("§cFailed to create '" + lang + "' language file.");
             return false;
         }
 

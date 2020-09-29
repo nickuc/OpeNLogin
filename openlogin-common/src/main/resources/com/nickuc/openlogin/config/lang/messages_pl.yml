@@ -1,0 +1,129 @@
+#    ___                __  __
+#   /___\_ __   ___  /\ \ \/ /  ___   __ _(_)_ __
+#  //  // '_ \ / _ \/  \/ / /  / _ \ / _` | | '_ \
+# / \_//| |_) |  __/ /\  / /__| (_) | (_| | | | | |
+# \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
+#       |_|                          |___/
+
+# Official Website: https://www.nickuc.com
+# Discord: https://www.nickuc.com/discord
+
+# Polish translation made by Gh77ost#8539 <3
+
+# Do not change this setting
+file-version: 4
+
+Messages:
+  Title:
+    # Message sent before login
+    before-login:
+      title: "&a&lWitaj!"
+      subtitle: "&7Wpisz: /login <hasło>"
+      delays:
+        start: 0
+        duration: 120
+        end: 6
+    # Message sent before registration
+    before-register:
+      title: "&a&lWitaj!"
+      subtitle: "&7Wpisz: /register <hasło> <hasło>"
+      delays:
+        start: 0
+        duration: 120
+        end: 6
+    # Message sent after login
+    after-login:
+      title: "&a&lWeryfikacja!"
+      subtitle: "Pomyślnie zalogowano!"
+      delays:
+        start: 0
+        duration: 30
+        end: 6
+    # Message sent after registration
+    after-register:
+      title: "&a&lWeryfikacja!"
+      subtitle: "Pomyślnie zarejestrowano!"
+      delays:
+        start: 0
+        duration: 30
+        end: 6
+
+  delay-kick:
+    # Message sent when a user takes a long time to register
+    register-kick: "&cMinął czas rejestracji."
+
+    # Message sent when a user takes a long time to log in
+    login-kick: "&cMinął czas logowania."
+
+  successful-operations:
+    # Message when a user exchanges their password
+    password-changed: "&aTwoje hasło zostało zmienione pomyślnie."
+
+    # Message sent when a user successfully logs
+    successful-login: "&aPomyślnie się zalogowałeś."
+
+    # Message sent when a user successfully registers
+    successful-register: "&aPomyślnie się zarejestrowałeś."
+
+    # Message sent when a player successfully disregisters
+    unregister-kick: "&cRejestr został pomyślnie usunięty."
+
+  kick-messages:
+    # Message when a player tries to log on to the server with a small difference in the nickname
+    nick-already-registered: "&cNie możesz wejść pod tym nickiem {0}\n&cTen użytkownik został zarejestrowany jako {1}\n\n&cBy wejść na serwer musisz użyć starego nicku zwróć uwagę na wielkie litery"
+
+    # Message sent when a user misses many times
+    failed-many-times: "&cZbyt wiele razy wpisałeś złe hasło."
+
+    # Message sent when password entered is incorrect
+    incorrect-password: "&cNie właściwe hasło! Spróbuj ponownie."
+
+  error-messages:
+    # Message sent when you are already logged in.
+    already-login: "&cJesteś już zalogowany."
+
+    # Message sent when a nickname has already been registered.
+    already-registered: "&cTen pseudonim został już zarejestrowany."
+
+    # Message sent when a nickname has not yet been registered.
+    not-registered: "&cTen pseudonim nie został jeszcze zarejestrowany."
+
+    # Message sent when the entered password is not equal to the second
+    passwords-dont-match: "&cHasła nie są takie same."
+
+    # Message sent when a player tries to change password by entering the same password as the current
+    password-same-as-old: "&cWprowadzone hasło jest takie samo jak bieżące."
+
+    # Message sent when the password entered is too large
+    password-too-large: "&cPodane hasło jest za długie."
+
+    # Message sent when the password entered is too small
+    password-too-small: "&cPodane hasło jest za krótkie."
+
+    # Message when a player does not possess the required permission
+    insufficient-permissions: "&cNie masz uprawnień by to zrobić."
+
+    # Message to kick a player now online
+    already-online: "&cTen gracz jest aktualnie online."
+
+    # Message to show that the command cannot be executed via console
+    player-command-usage: "&cTo polecenie zostało wyłączone za pomocą konsoli."
+
+    # Message shown when the plugin is reloaded
+    plugin-reload-message: "&ePomyślnie przeładowano plugin."
+
+    # Komunikat wysyłany, gdy operacja na bazie danych nie została pomyślnie wykonana
+    database-error: "&cPrzepraszamy, nie mogliśmy ukończyć tej operacji. Proszę spróbuj ponownie. [SQL FAIL]"
+
+  other-messages:
+    # Mensagem enviada para o uso do comando /logar
+    message-login: "&eUżyj komendy &7/login <hasło>&e."
+
+    # Mensagem enviada para o uso do comando /register
+    message-register: "&eUżyj komendy &7/register <hasło> <hasło>&e."
+
+    # Mensagem enviada para o uso do comando /mudarsenha
+    message-changepassword: "&eUżyj komendy &7/changepassword <stare Hasło> <nowe Hasło>&e."
+
+    # Wiadomość wysłana w celu użycia polecenia /unregister
+    message-unregister: "&eUżyj polecenia &7/unregister <bieżące hasło>&e."

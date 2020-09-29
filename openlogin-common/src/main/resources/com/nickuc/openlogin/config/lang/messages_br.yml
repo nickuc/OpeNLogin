@@ -1,0 +1,127 @@
+#    ___                __  __
+#   /___\_ __   ___  /\ \ \/ /  ___   __ _(_)_ __
+#  //  // '_ \ / _ \/  \/ / /  / _ \ / _` | | '_ \
+# / \_//| |_) |  __/ /\  / /__| (_) | (_| | | | | |
+# \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
+#       |_|                          |___/
+
+# Site oficial: https://www.nickuc.com
+# Discord: https://www.nickuc.com/discord
+
+# Não altere essa configuração
+file-version: 1
+
+Messages:
+  Title:
+    # Mensagem enviada antes de logar.
+    before-login:
+      title: "&a&lBEM-VINDO!"
+      subtitle: "&7Utilize /logar <sua senha> para autenticar"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Mensagem enviada antes de registrar.
+    before-register:
+      title: "&a&lBEM-VINDO!"
+      subtitle: "&7Utilize /registrar <sua senha> <sua senha> para registrar"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Mensagem enviada após logar.
+    after-login:
+      title: ""
+      subtitle: "&aVocê se autenticou com sucesso!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+    # Mensagem enviada após registrar.
+    after-register:
+      title: ""
+      subtitle: "&aVocê se registrou com sucesso!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+
+  delay-kick:
+    # Mensagem enviada quando um usuário demora muito para se registrar.
+    register-kick: "&cVocê demorou muito para registrar."
+
+    # Mensagem enviada quando um usuário demora muito para se logar.
+    login-kick: "&cVocê demorou muito para logar."
+
+  successful-operations:
+    # Mensagem enviada quando um usuário troca a sua senha.
+    password-changed: "&aA sua senha foi alterada com sucesso."
+
+    # Mensagem enviada quando um usuário loga com sucesso..
+    successful-login: "&aVocê logou com sucesso."
+
+    # Mensagem enviada quando um usuário se registra com sucesso.
+    successful-register: "&aVocê se registrou com sucesso."
+
+    # Mensagem enviada quando um jogador se desregistra com sucesso.
+    unregister-kick: "&cVocê se desregistrou com sucesso."
+
+  kick-messages:
+    # Mensagem quando um jogador tenta logar no servidor com uma pequena diferença no nick.
+    nick-already-registered: "&cVocê não pode entrar com o nick {0}&r\n&r&cEste nick já foi registrado como {1}&r\n&r\n&r&cPara entrar, você deverá usar seu nick sem letras maiúsculas/minúsculas"
+
+    # Mensagem enviada quando um usuário erra muitas vezes.
+    failed-many-times: "&cVocê inseriu a senha incorreta."
+
+    # Mensagem enviada quando a senha inserida é incorreta.
+    incorrect-password: "&cSenha incorreta. Por favor, tente novamente."
+
+  error-messages:
+    # Mensagem enviada quando você já está logado.
+    already-login: "&cVocê já está logado."
+
+    # Mensagem enviada quando um nickname já foi registrado.
+    already-registered: "&cEste nickname já foi registrado."
+
+    # Mensagem enviada quando um nickname ainda não foi registrado.
+    not-registered: "&cEste nickname ainda não foi registrado."
+
+    # Mensagem enviada quando a senha inserida não é igual a segunda.
+    passwords-dont-match: "&cAs senhas não são iguais."
+
+    # Mensagem enviada quando um jogador tenta trocar a senha igual a atual.
+    password-same-as-old: "&cA senha inserida é a mesma que a atual."
+
+    # Mensagem enviada quando a senha inserida é muito grande.
+    password-too-large: "&cA senha inserida é muito grande."
+
+    # Mensagem enviada quando a senha inserida é muito pequena.
+    password-too-small: "&cA senha inserida é muito pequena."
+
+    # Mensagem quando um jogador não possuí a permissão necessária para executar determinado comando.
+    insufficient-permissions: "&cVocê não tem permissão para executar este comando."
+
+    # Mensagem enviada quando um jogador com o mesmo nickname já está online.
+    already-online: "&cEste jogador já está online."
+
+    # Mensagem enviada quando um comando só pode ser executado por jogadores.
+    player-command-usage: "&cEste comando foi desativado via console."
+
+    # Mensagem enviada quando o plugin é recarregado.
+    plugin-reload-message: "&eO plugin foi recarregado com sucesso."
+
+    # Mensagem enviada quando uma operação no banco de dados não foi executada com êxito.
+    database-error: "&cDesculpe, mas não foi possível completar esta operação. Por favor, tente novamente. [SQL FAIL]"
+
+  other-messages:
+    # Uso do comando /logar.
+    message-login: "&eUtilize o comando &7/logar <senha>&e."
+
+    # Uso do comando /register.
+    message-register: "&eUtilize o comando &7/registrar <senha> <senha>&e."
+
+    # Uso do comando /mudarsenha.
+    message-changepassword: "&eUtilize o comando &7/mudarsenha <senha atual> <nova senha>&e."
+
+    # Uso do comando /unregister.
+    message-unregister: "&eUtilize o comando &7/unregister <senha atual>&e."
