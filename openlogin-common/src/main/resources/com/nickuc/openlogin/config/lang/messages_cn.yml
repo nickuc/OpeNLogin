@@ -1,0 +1,130 @@
+#    ___                __  __
+#   /___\_ __   ___  /\ \ \/ /  ___   __ _(_)_ __
+#  //  // '_ \ / _ \/  \/ / /  / _ \ / _` | | '_ \
+# / \_//| |_) |  __/ /\  / /__| (_) | (_| | | | | |
+# \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
+#       |_|                          |___/
+
+# Official Website: https://www.nickuc.com
+# Discord: https://www.nickuc.com/discord
+
+# Chinese version (with some small detail change!) translated by SnowCutieOwO
+# Contact in SpigotMC: https://www.spigotmc.org/members/snowcutieowo.849243/
+
+# Do not change this setting
+file-version: 6
+
+Messages:
+  Title:
+    # Message sent before login
+    before-login:
+      title: "&a&l欢迎!"
+      subtitle: "&7输入 &a/login <密码> &7来登录!"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent before registration
+    before-register:
+      title: "&a&l欢迎!"
+      subtitle: "&7输入 &a/register <密码> <重复密码> &7来注册!"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent after login
+    after-login:
+      title: ""
+      subtitle: "&a你已成功登录!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+    # Message sent after register
+    after-register:
+      title: ""
+      subtitle: "&a你已成功注册!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+
+  delay-kick:
+    # Message sent when a user takes a long time to register
+    register-kick: "&c超出注册等待时间."
+
+    # Message sent when a user takes a long time to log in
+    login-kick: "&c超出登录等待时间."
+
+  successful-operations:
+    # Message when a user exchanges their password
+    password-changed: "&a你的密码已成功更换."
+
+    # Message sent when a user successfully logs
+    successful-login: "&a你已成功登陆."
+
+    # Message sent when a user successfully registers
+    successful-register: "&a你已成功注册."
+
+    # Message sent when a player successfully disregisters
+    unregister-kick: "&c你已成功登出."
+
+  kick-messages:
+    # Message when a player tries to log on to the server with a small difference in the nickname
+    nick-already-registered: "&d[大小写验证]&r\n&c你不能使用名称 &4{0} &c来注册&r\n&r&c此用户名已被名称 &4{1} &c注册&r\n&r\n&r&c请使用后者提到的用户名登入服务器&r\n&d[大小写验证]"
+
+    # Message sent when a user misses many times
+    failed-many-times: "&c你输入了错误的密码."
+
+    # Message sent when password entered is incorrect
+    incorrect-password: "&c错误的密码. &7请输入正确的密码."
+
+  error-messages:
+    # Message sent when you are already logged in.
+    already-login: "&c你已经登陆过了."
+
+    # Message sent when a nickname has already been registered.
+    already-registered: "&c此名称已被注册."
+
+    # Message sent when a nickname has not yet been registered.
+    not-registered: "&c此名称还未被注册."
+
+    # Message sent when the entered password is not equal to the second
+    passwords-dont-match: "&c前后密码不一致."
+
+    # Message sent when a player tries to change password by entering the same password as the current
+    password-same-as-old: "&c此密码与旧密码相同."
+
+    # Message sent when the password entered is too large
+    password-too-large: "&c密码长度过大."
+
+    # Message sent when the password entered is too small
+    password-too-small: "&c密码长度过小."
+
+    # Message when a player does not possess the required permission
+    insufficient-permissions: "&c你没有使用此命令的权限."
+
+    # Message to kick a player now online
+    already-online: "&c此玩家已经在线."
+
+    # Message to show that the command cannot be executed via console
+    player-command-usage: "&c此命令只能在控制台执行."
+
+    # Message shown when the plugin is reloaded.
+    plugin-reload-message: "&7插件已被&a成功重载!&7中文汉化By &b雪萌SnowCutieOwO"
+
+    # Message sent when a database operation has not been successfully performed
+    database-error: "&c出错了! &7插件运行过程中出现问题,请更改配置文件后重试. &c(错误原因: 数据库连接不成功)"
+
+  other-messages:
+    # Mensagem enviada para o uso do comando /logar
+    message-login: "&e请使用指令 /login <密码> 来登录"
+
+    # Mensagem enviada para o uso do comando /register
+    message-register: "&e请使用指令 /register <密码> <重复密码> 来注册"
+
+    # Mensagem enviada para o uso do comando /mudarsenha
+    message-changepassword: "&e请使用指令 /changepassword <当前密码> <新密码> 来更换密码"
+
+    # Message sent to use the /unregister command
+    message-unregister: "&e请使用指令 /unregister <当前密码> 来登出"
