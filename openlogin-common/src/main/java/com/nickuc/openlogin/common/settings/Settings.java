@@ -16,7 +16,9 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public enum Settings {
 
-    LANGUAGE_FILE("languageFile", "messages_en.yml");
+    LANGUAGE_FILE("languageFile", "messages_en.yml"),
+    PASSWORD_SMALL("Security.password.small", 5),
+    PASSWORD_LARGE("Security.password.large", 15);
 
     static final HashMap<String, Object> SETTINGS = new HashMap<>();
 
@@ -41,11 +43,20 @@ public enum Settings {
     }
 
     public String asString() {
-        if (def != null && !(def instanceof String)) {
-            throw new ClassCastException("Setting " + key + " is not a string!");
+        return get(String.class);
+    }
+
+    public int asInt() {
+        return get(Integer.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T get(@NonNull Class<T> clasz) {
+        if (def != null && !clasz.isAssignableFrom(def.getClass())) {
+            throw new ClassCastException("Setting " + key + " is not assignable to " + clasz.getCanonicalName() + "!");
         }
         Object obj = SETTINGS.get(key);
-        return (String) (!(obj instanceof String) ? def : obj);
+        return (T) (obj == null || !clasz.isAssignableFrom(obj.getClass()) ? def : obj);
     }
 
 }

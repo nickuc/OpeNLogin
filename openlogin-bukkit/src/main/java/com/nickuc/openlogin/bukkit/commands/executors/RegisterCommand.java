@@ -17,6 +17,7 @@ import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.security.encryption.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
+import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -45,6 +46,18 @@ public class RegisterCommand extends BukkitAbstractCommand {
         }
 
         String password = args[0];
+        int length = password.length();
+
+        if (length <= Settings.PASSWORD_SMALL.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            return;
+        }
+
+        if (length >= Settings.PASSWORD_LARGE.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            return;
+        }
+
         if (!password.equals(args[1])) {
             sender.sendMessage(Messages.PASSWORDS_DONT_MATCH.asString());
             return;

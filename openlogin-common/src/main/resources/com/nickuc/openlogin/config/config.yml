@@ -14,3 +14,11 @@ file-version: 1
 # Language of the plugin
 languageFile: 'messages_en.yml'
 
+# Security system related settings.
+Security:
+  password:
+    # Small password size.
+    small: 5
+
+    # Size for big passwords.
+    large: 15

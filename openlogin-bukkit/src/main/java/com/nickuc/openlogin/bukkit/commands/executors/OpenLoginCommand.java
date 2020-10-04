@@ -52,7 +52,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         return;
                     }
                     Player player = (Player) sender;
-                    downloadActionbar(player, false);
+                    downloadActionbar(player, true);
                     return;
 
                 case "nlogin":
@@ -70,7 +70,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         sender.sendMessage(" §eIf you still have questions, please contact us:");
                         sender.sendMessage(" §bnickuc.com/discord");
                         sender.sendMessage("");
-                        sender.sendMessage(" §7To proceed with the download, type §f'/openlogin nlogin' §7again.");
+                        sender.sendMessage(" §7To proceed with the download, type §b/openlogin nlogin §7again.");
                         sender.sendMessage("");
                         confirmNLogin = true;
                     } else {
@@ -92,8 +92,8 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
         player.sendMessage("§eDownloading...");
         ActionBarAPI.sendActionBar(player, "§eConnecting...");
 
-        Http http = new Http(update ? "https://github.com/nickuc/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpeNLogin.jar" : "https://nickuc.com/repo/files/nLogin.jar");
-        final int barsCount = 30;
+        Http http = new Http(update ? "https://github.com/nickuc/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpenLogin.jar" : "https://nickuc.com/repo/files/nLogin.jar");
+        final int barsCount = 40;
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -109,7 +109,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
             }
         }.runTaskTimer(plugin, 0, 4);
         try {
-            File output = update ? new File(plugin.getDataFolder().getParentFile(), "OpeNLogin-" + plugin.getLatestVersion() + ".jar") : new File(plugin.getDataFolder().getParentFile(), "nLogin.jar");
+            File output = update ? new File(plugin.getDataFolder().getParentFile(), "OpenLogin-" + plugin.getLatestVersion() + ".jar") : new File(plugin.getDataFolder().getParentFile(), "nLogin.jar");
             if (http.download(output)) {
                 File pluginFile = getJarFile();
                 pluginFile.deleteOnExit();

@@ -13,6 +13,7 @@ import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.security.encryption.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
+import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -37,6 +38,18 @@ public class ChangePasswordCommand extends BukkitAbstractCommand {
 
         String currentPassword = args[0];
         String newPassword = args[1];
+        int length = newPassword.length();
+
+        if (length <= Settings.PASSWORD_SMALL.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            return;
+        }
+
+        if (length >= Settings.PASSWORD_LARGE.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            return;
+        }
+
         if (currentPassword.equals(newPassword)) {
             sender.sendMessage(Messages.PASSWORD_SAME_AS_OLD.asString());
             return;
