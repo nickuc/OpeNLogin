@@ -9,7 +9,6 @@ package com.nickuc.openlogin.bukkit.listeners;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,13 +43,13 @@ public class PlayerAuthenticateListener implements Listener {
                 player.sendMessage("");
                 notNlogin = true;
                 newUser = false;
-                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
                     if (player.isOnline()) sendNLoginWarning(player);
                 }, 20*5); // run after 5 seconds
             } else if (plugin.isUpdateAvailable()) {
                 player.sendMessage("");
-                player.sendMessage(" §7A new version of OpeNLogin is available (v" + plugin.getDescription().getVersion() + " - " + plugin.getLatestVersion() + ").");
-                player.sendMessage(" §7Use the command §f'/openlogin update' to download new version.");
+                player.sendMessage(" §7A new version of §aOpeNLogin §7is available §a(v" + plugin.getDescription().getVersion() + " -> " + plugin.getLatestVersion() + ")§7.");
+                player.sendMessage(" §7Use the command §f'/openlogin update' §7to download new version.");
                 player.sendMessage("");
             }
         }
@@ -61,6 +60,9 @@ public class PlayerAuthenticateListener implements Listener {
         player.sendMessage(" §e§lIMPORTANT NOTICE!");
         player.sendMessage("");
         player.sendMessage(" §aOpeNLogin §7is not the same plugin as §anLogin§7!");
+        player.sendMessage("");
+        player.sendMessage(" §7To download §anLogin§7, perform the follow command:");
+        player.sendMessage(" §b/openlogin nlogin");
         player.sendMessage("");
         player.sendMessage(" §7For more information:");
         player.sendMessage(" §bgithub.com/nickuc/OpeNLogin/blob/master/docs/nlogin.md");
