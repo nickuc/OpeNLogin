@@ -97,15 +97,22 @@ public class OpenLoginBukkit extends JavaPlugin {
         // start login queue task
         LoginQueue.startTask(this);
 
+        // setup api
+        OpenLogin.setApi(new OLBukkitAPI(this));
+
         // metrics
         setupMetrics();
 
-        // setup api
-        OpenLogin.setApi(new OLBukkitAPI(this));
+        // updates
+        getServer().getScheduler().runTaskAsynchronously(this, this::detectUpdates);
     }
 
     public void sendMessage(String message) {
         getServer().getConsoleSender().sendMessage("[" + getName() + "] " + message);
+    }
+
+    public void sendMessage(String message, String color) {
+        getServer().getConsoleSender().sendMessage(color + "[" + getName() + "] " + message);
     }
 
     private boolean setupDatabase() {
@@ -144,10 +151,10 @@ public class OpenLoginBukkit extends JavaPlugin {
             String result = http.result();
 
             // avoid use Google Gson to avoid problems with older versions.
-            if (result.contains("\"tag_name\": \"")) {
-                tagName = result.split("\"tag_name\": \"")[1];
+            if (result.contains("\"tag_name\":\"")) {
+                tagName = result.split("\"tag_name\":\"")[1];;
                 if (tagName.contains("\",")) {
-                    tagName = latestVersion = result.split("\",")[0];
+                    tagName = latestVersion = tagName.split("\",")[0];
                 }
             }
         } catch (IOException e) {
@@ -159,7 +166,9 @@ public class OpenLoginBukkit extends JavaPlugin {
             sendMessage("§cDownload the latest version at: https://github.com/nickuc/OpeNLogin/releases");
         } else {
             String currentVersion = "v" + getDescription().getVersion();
-            updateAvailable = !currentVersion.equals(tagName);
+            if (updateAvailable = !currentVersion.equals(tagName)) {
+                sendMessage("A new version of OpeNLogin is available (" + currentVersion + " -> " + latestVersion + ").", "§e");
+            }
         }
     }
 
