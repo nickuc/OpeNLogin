@@ -14,7 +14,6 @@ import com.nickuc.openlogin.common.model.Account;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +25,10 @@ public class LoginManagement {
                 .expireAfterWrite(30, TimeUnit.SECONDS)
                 .build();
 
-    private final HashMap<String, Long> lock = new HashMap<>();
+    private final Cache<String, Long> lock = CacheBuilder.newBuilder()
+                .expireAfterWrite(5, TimeUnit.SECONDS)
+                .build();
+
     private final HashSet<String> logged = new HashSet<>();
     private final Database database;
 
@@ -37,7 +39,7 @@ public class LoginManagement {
      */
     public void cleanup(@NonNull String name) {
         String toLower = name.toLowerCase();
-        lock.remove(toLower);
+        lock.invalidate(toLower);
         logged.remove(toLower);
         accountCache.invalidate(toLower);
     }
@@ -93,12 +95,9 @@ public class LoginManagement {
      *
      * @param name the name of the player
      */
-    public void setLock(@NonNull String name, boolean locked) {
+    public void setLock(@NonNull String name) {
         String toLower = name.toLowerCase();
-        if (locked)
-            lock.put(toLower, System.currentTimeMillis() + 750L);
-        else
-            lock.remove(toLower);
+        lock.put(toLower, System.currentTimeMillis() + 750L);
     }
 
     /**
@@ -109,11 +108,7 @@ public class LoginManagement {
      */
     public boolean isLocked(@NonNull String name) {
         String toLower = name.toLowerCase();
-        Long millis = lock.get(toLower);
-        boolean locked = millis != null && millis - System.currentTimeMillis() >= 0;
-        if (!locked) {
-            lock.remove(toLower);
-        }
-        return locked;
+        Long millis = lock.getIfPresent(toLower);
+        return millis != null && millis - System.currentTimeMillis() >= 0;
     }
 }
