@@ -108,7 +108,12 @@ public class LoginManagement {
      * @return true if locked
      */
     public boolean isLocked(@NonNull String name) {
-        Long millis = lock.get(name);
-        return millis != null && millis - System.currentTimeMillis() >= 0;
+        String toLower = name.toLowerCase();
+        Long millis = lock.get(toLower);
+        boolean locked = millis != null && millis - System.currentTimeMillis() >= 0;
+        if (!locked) {
+            lock.remove(toLower);
+        }
+        return locked;
     }
 }

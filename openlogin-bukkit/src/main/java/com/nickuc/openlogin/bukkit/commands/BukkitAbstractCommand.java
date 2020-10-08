@@ -35,7 +35,9 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String lb, String[] args) {
         final String name = sender.getName();
         final LoginManagement loginManagement = plugin.getLoginManagement();
-        if ((requireAuth && sender instanceof Player) && !loginManagement.isAuthenticated(name)) return true;
+
+        if (requireAuth && sender instanceof Player && !loginManagement.isAuthenticated(name)) return true;
+
         if (loginManagement.isLocked(name)) return true;
 
         if (!sender.hasPermission(permission)) {
@@ -50,8 +52,6 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
             } catch (Exception e) {
                 e.printStackTrace();
                 plugin.sendMessage("§cFailed to perform the command '" + lb + "', sender: " + sender.getName());
-            } finally {
-                plugin.getLoginManagement().setLock(name, false);
             }
         });
         return true;
