@@ -15,16 +15,16 @@ Messages:
   Title:
     # Mensagem enviada antes de logar
     before-login:
-      title: "&a&lBienvenido!"
-      subtitle: "&7Usa: /login contraseña."
+      title: "&a&l¡Bienvenido!"
+      subtitle: "&7Usa: /login <contraseña>."
       delays:
         start: 0
         duration: 9999
         end: 6
     # Mensagem enviada antes de registrar
     before-register:
-      title: "&a&lBienvenido!"
-      subtitle: "&7Usa: /register contraseña contraseña."
+      title: "&a&l¡Bienvenido!"
+      subtitle: "&7Usa: /register <contraseña> <contraseña>."
       delays:
         start: 0
         duration: 9999
@@ -32,7 +32,7 @@ Messages:
     # Mensagem enviada após logar
     after-login:
       title: ""
-      subtitle: "&aHas inicio sesión con éxito!"
+      subtitle: "&a¡Has inicio sesión con éxito!"
       delays:
         start: 0
         duration: 30
@@ -40,7 +40,7 @@ Messages:
     # Mensagem enviada após registrar
     after-register:
       title: ""
-      subtitle: "&aTe has registrado con éxito!"
+      subtitle: "&a¡Te has registrado con éxito!"
       delays:
         start: 0
         duration: 30
@@ -48,23 +48,23 @@ Messages:
 
   delay-kick:
     # Mensagem enviada quando um usuário demora muito para se registrar
-    register-kick: "&cTe has tardado mucho en registrarte."
+    register-kick: "&cHas tardado mucho en registrarte."
 
     # Mensagem enviada quando um usuário demora muito para se logar
-    login-kick: "&cTe has tardado mucho en iniciar sesión."
+    login-kick: "&cHas tardado mucho en iniciar sesión."
 
   successful-operations:
     # Mensagem quando um usuário troca a sua senha
     password-changed: "&aSu contraseña ha cambiado con éxito."
 
     # Mensagem enviada quando um usuário loga com sucesso
-    successful-login: "&aTe has logueado con éxito."
+    successful-login: "&aHas iniciado sesión con éxito."
 
     # Mensagem enviada quando um usuário se registra com sucesso
     successful-register: "&aTe has registrado con éxito."
 
     # Mensagem enviada quando um jogador se desregistra com sucesso
-    unregister-kick: "&cTe desregistraste con éxito."
+    unregister-kick: "&cRegistro cancelado con éxito."
 
   kick-messages:
     # Mensagem quando um jogador tenta se logar no servidor com uma pequena diferença no nick
@@ -74,35 +74,35 @@ Messages:
     failed-many-times: "&cLa contraseña ingresada es incorrecta."
 
     # Mensagem enviada quando a senha inserida é incorreta
-    incorrect-password: "&cContraseña incorrecta! Vuelve a intentarlo."
+    incorrect-password: "&c¡Contraseña incorrecta! Vuelve a intentarlo."
 
   error-messages:
     # Mensaje enviado cuando ya está conectado.
-    already-login: "&cYa se ha autentificado."
+    already-login: "&cYa has iniciado sesión."
 
     # Mensaje enviado cuando ya se ha registrado un apodo.
-    already-registered: "&cEste apodo ya ha sido registrado."
+    already-registered: "&cEste usuario ya ha sido registrado."
 
     # Mensaje enviado cuando aún no se ha registrado un apodo.
-    not-registered: "&cEste apodo aún no se ha registrado."
+    not-registered: "&cEste usuario aún no se ha registrado."
 
     # Mensagem enviada quando a senha inserida não é igual a segunda
-    passwords-dont-match: "&cLas contraseñas no son las mismas."
+    passwords-dont-match: "&cLas contraseñas no coinciden."
 
     # Mensagem enviada quando um jogador tenta mudar senha inserindo a mesma senha que a atual
     password-same-as-old: "&cLa contraseña introducida es la misma que la actual."
 
     # Mensagem enviada quando a senha inserida é muito grande
-    password-too-large: "&cLa contraseña introducida es muy grande."
+    password-too-large: "&cLa contraseña introducida es muy larga."
 
     # Mensagem enviada quando a senha inserida é muito pequena
-    password-too-small: "&cLa contraseña introducida es muy pequeña."
+    password-too-small: "&cLa contraseña introducida es muy corta."
 
     # Mensagem quando um jogador não possuí a permissão necessária
-    insufficient-permissions: "&cNo tiene permiso para ejecutar este comando."
+    insufficient-permissions: "&cNo tienes permiso para ejecutar este comando."
 
     # Mensagem para kickar um jogador já online
-    already-online: "&cEste reproductor ya está en línea."
+    already-online: "&cEste usuario ya está en línea."
 
     # Mensagem para mostrar que o comando não pode ser executado via console
     player-command-usage: "&cEste comando se ha inhabilitado a través de la consola."
