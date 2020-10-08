@@ -1,0 +1,129 @@
+#    ___                __  __
+#   /___\_ __   ___  /\ \ \/ /  ___   __ _(_)_ __
+#  //  // '_ \ / _ \/  \/ / /  / _ \ / _` | | '_ \
+# / \_//| |_) |  __/ /\  / /__| (_) | (_| | | | | |
+# \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
+#       |_|                          |___/
+
+# Official Website: https://www.nickuc.com
+# Discord: https://www.nickuc.com/discord
+
+# Argentinean translation made by Gann4
+
+# Do not change this setting
+file-version: 2
+
+Messages:
+  Title:
+    # Message sent before login
+    before-login:
+      title: "&a&l¡Bienvenido!"
+      subtitle: "&7Usá: /login <contraseña>"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent before registration
+    before-register:
+      title: "&a&l¡Bienvenido!"
+      subtitle: "&7Usá: /register <contraseña> <contraseña>"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent after login
+    after-login:
+      title: ""
+      subtitle: "&a¡Iniciaste sesión correctamente!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+    # Message sent after register
+    after-register:
+      title: ""
+      subtitle: "&a¡Te registraste correctamente!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+
+  delay-kick:
+    # Message sent when a user takes a long time to register
+    register-kick: "&cTardaste mucho en registrarte."
+
+    # Message sent when a user takes a long time to log in
+    login-kick: "&cTardaste mucho en iniciar sesión."
+
+  successful-operations:
+    # Message when a user exchanges their password
+    password-changed: "&aTu contraseña se cambió correctamente."
+
+    # Message sent when a user successfully logs
+    successful-login: "&aIniciaste sesión correctamente."
+
+    # Message sent when a user successfully registers
+    successful-register: "&aTe registraste correctamente."
+
+    # Message sent when a player successfully disregisters
+    unregister-kick: "&cCancelaste tu registro correctamente."
+
+  kick-messages:
+    # Message when a player tries to log on to the server with a small difference in the nickname
+    nick-already-registered: "&cNo podés registrarte como {0}&r\n&r&cEste nombre de usuario ya se registró como {1}&r\n&r\n&r&cPara entrar, tenés que usar tu nickname sin mayúsculas o minúsculas."
+
+    # Message sent when a user misses many times
+    failed-many-times: "&cIntroduciste una contraseña incorrecta."
+
+    # Message sent when password entered is incorrect
+    incorrect-password: "&cContraseña incorrecta. Por favor, intenta de nuevo."
+
+  error-messages:
+    # Message sent when you are already logged in.
+    already-login: "&cYa iniciaste sesión."
+
+    # Message sent when a nickname has already been registered.
+    already-registered: "&cEste usuario ya está registrado."
+
+    # Message sent when a nickname has not yet been registered.
+    not-registered: "&cEste usuario todavía no está registrado."
+
+    # Message sent when the entered password is not equal to the second
+    passwords-dont-match: "&cLas contraseñas no coinciden."
+
+    # Message sent when a player tries to change password by entering the same password as the current
+    password-same-as-old: "&cLa nueva contraseña es igual a la que ya tenés. Cambiala."
+
+    # Message sent when the password entered is too large
+    password-too-large: "&cLa contraseña es muy larga."
+
+    # Message sent when the password entered is too small
+    password-too-small: "&cLa contraseña es muy corta."
+
+    # Message when a player does not possess the required permission
+    insufficient-permissions: "&cNo tenés permisos para ejecutar este comando."
+
+    # Message to kick a player now online
+    already-online: "&cEste jugador ya está conectado."
+
+    # Message to show that the command cannot be executed via console
+    player-command-usage: "&cEste comando se deshabilitó a través de la consola."
+
+    # Message shown when the plugin is reloaded.
+    plugin-reload-message: "&eEl plugin se recargó correctamente."
+
+    # Message sent when a database operation has not been successfully performed
+    database-error: "&cLo sentimos, no pudimos completar esta operación. Por favor, intenta de nuevo. [Error SQL]"
+
+  other-messages:
+    # Mensagem enviada para o uso do comando /logar
+    message-login: "&eUsá el comando /login <contraseña>"
+
+    # Mensagem enviada para o uso do comando /register
+    message-register: "&eUsá el comando /register <contraseña> <contraseña>"
+
+    # Mensagem enviada para o uso do comando /mudarsenha
+    message-changepassword: "&eUsá el comando /changepassword <contraseña actual> <contraseña nueva>"
+
+    # Message sent to use the /unregister command
+    message-unregister: "&eUsá el comando /unregister <contraseña actual>"
