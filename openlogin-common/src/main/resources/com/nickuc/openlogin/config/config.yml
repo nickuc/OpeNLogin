@@ -5,13 +5,14 @@
 # \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
 #       |_|                          |___/
 
-# Site oficial: https://www.nickuc.com
+# Official website: https://www.nickuc.com
 # Discord: https://www.nickuc.com/discord
 
 # Do not change this setting
 file-version: 1
 
-# Language of the plugin
+# Language of the plugin.
+# For more information: https://github.com/nickuc/OpeNLogin/blob/master/docs/lang.md
 languageFile: 'messages_en.yml'
 
 # Security system related settings.
