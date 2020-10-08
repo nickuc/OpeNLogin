@@ -96,8 +96,7 @@ public class LoginManagement {
      * @param name the name of the player
      */
     public void setLock(@NonNull String name) {
-        String toLower = name.toLowerCase();
-        lock.put(toLower, System.currentTimeMillis() + 750L);
+        lock.put(name.toLowerCase(), System.currentTimeMillis() + 750L);
     }
 
     /**
