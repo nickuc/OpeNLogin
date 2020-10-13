@@ -7,13 +7,14 @@
 
 package com.nickuc.openlogin.bukkit.reflection.packets;
 
-import com.nickuc.openlogin.bukkit.reflection.ReflectionUtils;
 import com.nickuc.openlogin.bukkit.reflection.ServerVersion;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.UUID;
+
+import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getNMS;
 
 public class ActionBarAPI extends Packet {
 
@@ -47,13 +48,13 @@ public class ActionBarAPI extends Packet {
 	
 	static {
 		try {
-			Class<?> icbc = ReflectionUtils.getNMS("IChatBaseComponent");
-			Class<?> ppoc = ReflectionUtils.getNMS("PacketPlayOutChat");
+			Class<?> icbc = getNMS("IChatBaseComponent");
+			Class<?> ppoc = getNMS("PacketPlayOutChat");
 
 			if (icbc.getDeclaredClasses().length > 0) {
 				a = icbc.getDeclaredClasses()[0].getMethod("a", String.class);
 			} else {
-				a = ReflectionUtils.getNMS("ChatSerializer").getMethod("a", String.class);
+				a = getNMS("ChatSerializer").getMethod("a", String.class);
 			}
 
 			Class<?> typeMessageClass;
@@ -68,7 +69,7 @@ public class ActionBarAPI extends Packet {
 				case v1_13:
 				case v1_14:
 				case v1_15:
-					typeMessageClass = ReflectionUtils.getNMS("ChatMessageType");
+					typeMessageClass = getNMS("ChatMessageType");
 					typeMessage = typeMessageClass.getEnumConstants()[2];
 					break;
 

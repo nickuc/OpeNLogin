@@ -7,13 +7,14 @@
 
 package com.nickuc.openlogin.bukkit.reflection.packets;
 
-import com.nickuc.openlogin.bukkit.reflection.ReflectionUtils;
 import com.nickuc.openlogin.common.model.Title;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+
+import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getNMS;
 
 public class TitleAPI extends Packet {
 
@@ -55,19 +56,19 @@ public class TitleAPI extends Packet {
 
 	static {
 		try {
-			Class<?> icbc = ReflectionUtils.getNMS("IChatBaseComponent");
-			Class<?> ppot = ReflectionUtils.getNMS("PacketPlayOutTitle");
+			Class<?> icbc = getNMS("IChatBaseComponent");
+			Class<?> ppot = getNMS("PacketPlayOutTitle");
 			Class<?> enumClass;
 
 			if (ppot.getDeclaredClasses().length > 0) {
 				enumClass = ppot.getDeclaredClasses()[0];
 			} else {
-				enumClass = ReflectionUtils.getNMS("EnumTitleAction");
+				enumClass = getNMS("EnumTitleAction");
 			}
 			if (icbc.getDeclaredClasses().length > 0) {
 				a = icbc.getDeclaredClasses()[0].getMethod("a", String.class);
 			} else {
-				a = ReflectionUtils.getNMS("ChatSerializer").getMethod("a", String.class);
+				a = getNMS("ChatSerializer").getMethod("a", String.class);
 			}
 			enumTIMES = enumClass.getField("TIMES").get(null);
 			enumTITLE = enumClass.getField("TITLE").get(null);
