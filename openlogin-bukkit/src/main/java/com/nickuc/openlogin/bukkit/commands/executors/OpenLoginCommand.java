@@ -102,6 +102,11 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                     }.runTask(plugin);
 
                     plugin.setNewUser(false);
+
+                    File newUserfile = new File(plugin.getDataFolder(), "new-user");
+                    if (newUserfile.exists() && !newUserfile.delete()) {
+                        newUserfile.deleteOnExit();
+                    }
                     return;
 
                 case "nlogin":

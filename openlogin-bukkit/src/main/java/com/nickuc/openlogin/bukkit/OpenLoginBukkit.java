@@ -26,6 +26,7 @@ import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import com.nickuc.openlogin.common.utils.FileUtils;
 import lombok.Getter;
+import lombok.Setter;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -44,6 +45,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     private Database database;
     private String latestVersion;
     private boolean updateAvailable;
+    @Setter private boolean newUser;
 
     public void onEnable() {
 
@@ -67,7 +69,16 @@ public class OpenLoginBukkit extends JavaPlugin {
         sendMessage("");
 
         Server server = getServer();
-        boolean newUser = !new File(getDataFolder() + "/database", "accounts.db").exists() && !new File(getDataFolder(), "config.yml").exists();
+
+        File newUserfile = new File(getDataFolder(), "new-user");
+        newUser = !new File(getDataFolder() + "/database", "accounts.db").exists() && !new File(getDataFolder(), "config.yml").exists() || newUserfile.exists();
+        if (newUser && !newUserfile.exists()) {
+            try {
+                newUserfile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         // setup config
         if (!setupSettings()) {
