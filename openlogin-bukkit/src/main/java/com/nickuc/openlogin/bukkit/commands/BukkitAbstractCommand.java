@@ -8,6 +8,7 @@
 package com.nickuc.openlogin.bukkit.commands;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.commands.executors.OpenLoginCommand;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.settings.Messages;
 import lombok.NonNull;
@@ -40,7 +41,11 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
 
         if (loginManagement.isLocked(name)) return true;
 
-        if (!sender.hasPermission(permission)) {
+        if (plugin.isNewUser()) {
+            if (!(this instanceof OpenLoginCommand)) {
+                return true;
+            }
+        } else if (!sender.hasPermission(permission)) {
             sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString());
             return true;
         }
