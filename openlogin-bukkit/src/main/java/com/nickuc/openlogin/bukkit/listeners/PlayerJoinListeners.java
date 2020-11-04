@@ -48,6 +48,7 @@ public class PlayerJoinListeners implements Listener {
                 player.sendMessage(" §7To use OpeNLogin, type: §f'/openchat setup'");
             }
             player.sendMessage("");
+            e.setJoinMessage("");
             return;
         }
 
