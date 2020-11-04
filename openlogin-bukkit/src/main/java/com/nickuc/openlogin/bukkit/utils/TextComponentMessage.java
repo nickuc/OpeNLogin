@@ -20,7 +20,7 @@ public class TextComponentMessage {
 
         TextComponent nlogin = new TextComponent("nLogin");
         nlogin.setColor(ChatColor.YELLOW);
-        HoverEvent nloginHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§cnLogin §7is a §cproprietary §7authentication plugin,\n§7updated and maintained by §cnickuc.com§7. This means that you\n§7cannot view and modify the source code of the plugin.\n\n§eIf you still have questions, please contact us:\n§bnickuc.com/discord"));
+        HoverEvent nloginHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§cnLogin §7is a §cproprietary §7authentication plugin,\n§7updated and maintained by §bnickuc.com§7. This means that you\n§7cannot view and modify the source code of the plugin.\n\n§eIf you still have questions, please contact us:\n§bnickuc.com/discord"));
         ClickEvent nloginClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/openlogin nlogin skip");
         nlogin.setHoverEvent(nloginHover);
         nlogin.setClickEvent(nloginClick);
