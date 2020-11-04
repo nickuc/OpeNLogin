@@ -24,7 +24,7 @@ import java.net.URLDecoder;
 
 public class OpenLoginCommand extends BukkitAbstractCommand {
 
-    private boolean confirmNLogin;
+    private boolean downloadLock, confirmNLogin, confirmOpenlogin;
 
     public OpenLoginCommand(OpenLoginBukkit plugin) {
         super(plugin, "openlogin");
@@ -37,22 +37,71 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                 case "reload":
                 case "rl":
                 case "r":
+                    if (sender instanceof Player && !plugin.getLoginManagement().isAuthenticated(sender.getName())) {
+                        return;
+                    }
+
                     plugin.reloadConfig();
                     plugin.setupSettings();
                     sender.sendMessage(Messages.PLUGIN_RELOAD_MESSAGE.asString());
                     return;
 
                 case "update":
-                    if (!plugin.isUpdateAvailable()) {
-                        sender.sendMessage("§cYou are already using the latest version.");
-                        return;
-                    }
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
                         return;
                     }
+
                     Player player = (Player) sender;
-                    downloadActionbar(player, true);
+                    String name = player.getName();
+                    if (!plugin.getLoginManagement().isAuthenticated(name)) {
+                        return;
+                    }
+
+                    if (!plugin.isUpdateAvailable()) {
+                        sender.sendMessage("§cYou are already using the latest version.");
+                        return;
+                    }
+
+                    if (downloadLock) {
+                        sender.sendMessage("§cDownload in progress...");
+                        return;
+                    }
+
+                    downloadLock = true;
+                    update(player);
+                    return;
+
+                case "setup":
+                    if (!(sender instanceof Player)) {
+                        sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
+                        return;
+                    }
+
+                    if (!plugin.isNewUser()) {
+                        return;
+                    }
+
+                    if (!confirmOpenlogin) {
+                        sender.sendMessage("");
+                        sender.sendMessage(" §cnLogin is generally a better solution for most users.");
+                        sender.sendMessage(" §7If you want to install §fOpeNLogin §7anyway,");
+                        sender.sendMessage(" §7please click on the message again.");
+                        sender.sendMessage("");
+                        confirmOpenlogin = true;
+                        return;
+                    }
+
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            for (Player on : plugin.getServer().getOnlinePlayers()) {
+                                on.kickPlayer("§aPlease rejoin to complete the plugin installation.");
+                            }
+                        }
+                    }.runTask(plugin);
+
+                    plugin.setNewUser(false);
                     return;
 
                 case "nlogin":
@@ -60,8 +109,20 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
                         return;
                     }
+
                     player = (Player) sender;
-                    if (!confirmNLogin) {
+                    name = player.getName();
+                    if (!plugin.isNewUser() && !plugin.getLoginManagement().isAuthenticated(name)) {
+                        return;
+                    }
+
+                    if (downloadLock) {
+                        sender.sendMessage("§cDownload in progress...");
+                        return;
+                    }
+
+                    boolean skip = args.length == 2 && args[1].equalsIgnoreCase("skip");
+                    if (!skip && !confirmNLogin) {
                         sender.sendMessage("");
                         sender.sendMessage(" §cnLogin §7is a §cproprietary §7authentication plugin,");
                         sender.sendMessage(" §7updated and maintained by §cnickuc.com§7. This means that you");
@@ -74,7 +135,24 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         sender.sendMessage("");
                         confirmNLogin = true;
                     } else {
-                        downloadActionbar(player, false);
+                        downloadLock = true;
+
+                        Runnable callback = null;
+                        if (skip) {
+                            callback = () -> {
+                                new BukkitRunnable() {
+                                    @Override
+                                    public void run() {
+                                        for (Player on : plugin.getServer().getOnlinePlayers()) {
+                                            player.closeInventory();
+                                            player.kickPlayer("§anLogin was successfully installed. We are restarting the server to apply the changes.");
+                                        }
+                                        plugin.getServer().shutdown();
+                                    }
+                                }.runTask(plugin);
+                            };
+                        }
+                        downloadNLogin(player, callback);
                     }
                     return;
             }
@@ -88,11 +166,21 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
         sender.sendMessage("");
     }
 
-    private void downloadActionbar(Player player, boolean update) {
+    private void update(Player player) {
+        File output = new File(plugin.getDataFolder().getParentFile(), "OpenLogin-" + plugin.getLatestVersion() + ".jar");
+        downloadActionbar(player, "https://github.com/nickuc/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpenLogin.jar", output, true, null);
+    }
+
+    private void downloadNLogin(Player player, Runnable callback) {
+        File output = new File(plugin.getDataFolder().getParentFile(), "nLogin.jar");
+        downloadActionbar(player, "https://nickuc.com/repo/files/nLogin.jar", output, false, callback);
+    }
+
+    private void downloadActionbar(Player player, String url, File output, boolean update, Runnable callback) {
         player.sendMessage("§eDownloading...");
         ActionBarAPI.sendActionBar(player, "§eConnecting...");
 
-        Http http = new Http(update ? "https://github.com/nickuc/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpenLogin.jar" : "https://nickuc.com/repo/files/nLogin.jar");
+        Http http = new Http(url);
         final int barsCount = 40;
         new BukkitRunnable() {
             @Override
@@ -101,6 +189,9 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                     ActionBarAPI.sendActionBar(player, "§aDownload finished! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
                     player.sendMessage("§aDownload finished. Please restart your server.");
                     cancel();
+                    if (callback != null) {
+                        callback.run();
+                    }
                     return;
                 }
                 int bars = (int) (barsCount * (http.downloaded() / http.contentLength()));
@@ -108,13 +199,14 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                 ActionBarAPI.sendActionBar(player, "§eDownloading... §7(" + progressBar + "§7)");
             }
         }.runTaskTimer(plugin, 0, 4);
+
         try {
-            File output = update ? new File(plugin.getDataFolder().getParentFile(), "OpenLogin-" + plugin.getLatestVersion() + ".jar") : new File(plugin.getDataFolder().getParentFile(), "nLogin.jar");
             if (http.download(output)) {
                 File pluginFile = getJarFile();
                 pluginFile.deleteOnExit();
             }
         } catch (IOException e) {
+            downloadLock = false;
             e.printStackTrace();
             String msg = update ? "§cFailed to download new version. Update manually at: https://github.com/nickuc/OpeNLogin/releases" : "§cFailed to download nLogin :c. Download manually at: nickuc.com";
             plugin.sendMessage(msg);
