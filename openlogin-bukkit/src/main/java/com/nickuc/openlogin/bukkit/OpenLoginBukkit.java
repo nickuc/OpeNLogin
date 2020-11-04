@@ -74,7 +74,9 @@ public class OpenLoginBukkit extends JavaPlugin {
         newUser = !new File(getDataFolder() + "/database", "accounts.db").exists() && !new File(getDataFolder(), "config.yml").exists() || newUserfile.exists();
         if (newUser && !newUserfile.exists()) {
             try {
-                newUserfile.createNewFile();
+                if (newUserfile.getParentFile().mkdirs()) {
+                    newUserfile.createNewFile();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
