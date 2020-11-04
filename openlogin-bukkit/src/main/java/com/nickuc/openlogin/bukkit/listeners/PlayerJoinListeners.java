@@ -10,8 +10,10 @@ package com.nickuc.openlogin.bukkit.listeners;
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
+import com.nickuc.openlogin.bukkit.utils.TextComponentMessage;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.settings.Messages;
+import com.nickuc.openlogin.common.utils.ClassUtils;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,10 +30,31 @@ public class PlayerJoinListeners implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         String name = player.getName();
-        LoginManagement loginManagement = plugin.getLoginManagement();
 
+        if (plugin.isNewUser()) {
+            player.sendMessage("");
+            player.sendMessage(" §eHello, " + player.getName() + "!");
+            player.sendMessage("");
+            player.sendMessage("  §7Before we start, please select");
+            player.sendMessage("  §7your favorite login plugin.");
+            player.sendMessage("");
+            if (ClassUtils.exists("net.md_5.bungee.api.chat.TextComponent")) {
+                TextComponentMessage.sendPluginChoise(player);
+            } else {
+                player.sendMessage("      §enLogin              §eOpeNLogin");
+                player.sendMessage("  §c(proprietary)      §a(open source)");
+                player.sendMessage("");
+                player.sendMessage(" §7To use nLogin, type: §f'/openchat nlogin'");
+                player.sendMessage(" §7To use OpeNLogin, type: §f'/openchat setup'");
+            }
+            player.sendMessage("");
+            return;
+        }
+
+        LoginManagement loginManagement = plugin.getLoginManagement();
         boolean registered = loginManagement.retrieveOrLoad(name).isPresent();
         LoginQueue.addToQueue(name, registered);
+
         player.setWalkSpeed(0F);
         player.setFlySpeed(0F);
 
