@@ -15,6 +15,8 @@ public class ChatColor {
     private static final char COLOR_CODE = 167;
 
     /**
+     * This method was taken from Bukkit-API (class: org.bukkit.ChatColor)
+     *
      * Translates a string using an alternate color code character into a
      * string that uses the internal ChatColor.COLOR_CODE color code
      * character. The alternate color code character will only be replaced if
