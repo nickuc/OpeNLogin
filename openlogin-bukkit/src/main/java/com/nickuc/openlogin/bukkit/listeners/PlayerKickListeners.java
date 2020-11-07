@@ -21,9 +21,12 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 public class PlayerKickListeners implements Listener {
+
+    private static final Pattern VALID_NICK = Pattern.compile("([a-zA-Z0-9_]{3,16})|(\\*[a-zA-Z0-9_]{3,17})");
 
     private final OpenLoginBukkit plugin;
 
@@ -35,6 +38,12 @@ public class PlayerKickListeners implements Listener {
         // prevent double online nickname
         if (player != null) {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.ALREADY_ONLINE.asString());
+            return;
+        }
+
+        // prevent invalid nicknames
+        if (!VALID_NICK.matcher(name).matches()) {
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.INVALID_NICKNAME.asString("§cSorry, but you are using an invalid nickname."));
             return;
         }
 
