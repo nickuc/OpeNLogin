@@ -76,6 +76,9 @@ Messages:
     # Message sent when password entered is incorrect
     incorrect-password: "&cIncorrect password. Please, try again."
 
+    # Message sent when a player enters an invalid nickname.
+    invalid-nickname: "&cSorry, but you are using an invalid nickname."
+
   error-messages:
     # Message sent when you are already logged in.
     already-login: "&cYou are already logged in."

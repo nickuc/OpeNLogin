@@ -36,6 +36,7 @@ public enum Messages {
     NICK_ALREADY_REGISTERED("kick-messages.nick-already-registered"),
     FAILED_MANY_TIMES("kick-messages.failed-many-times"),
     INCORRECT_PASSWORD("kick-messages.incorrect-password"),
+    INVALID_NICKNAME("kick-messages.invalid-nickname"),
 
     // error messages
     ALREADY_LOGIN("error-messages.already-login"),
@@ -83,8 +84,12 @@ public enum Messages {
     }
 
     public String asString() {
+        return asString("§cMissing message: " + key);
+    }
+
+    public String asString(@NonNull String def) {
         Object obj = Settings.SETTINGS.get(key);
-        return (String) (!(obj instanceof String) ? "§cMissing message: " + key : obj);
+        return (String) (!(obj instanceof String) ? def : obj);
     }
 
     public Title asTitle() {
