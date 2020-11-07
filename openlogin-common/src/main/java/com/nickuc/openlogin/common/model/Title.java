@@ -7,6 +7,8 @@
 
 package com.nickuc.openlogin.common.model;
 
+import com.nickuc.openlogin.common.utils.ChatColor;
+
 public class Title {
 
     public static final Title EMPTY = new Title("", "", 0, 0, 0);
@@ -15,8 +17,8 @@ public class Title {
     public final int start, duration, end;
 
     public Title(String title, String subtitle, int start, int duration, int end) {
-        this.title = title.replace('&', '§');
-        this.subtitle = subtitle.replace('&', '§');
+        this.title = ChatColor.translateAlternateColorCodes('&', title);
+        this.subtitle = ChatColor.translateAlternateColorCodes('&', subtitle);
         this.start = start;
         this.duration = duration;
         this.end = end;

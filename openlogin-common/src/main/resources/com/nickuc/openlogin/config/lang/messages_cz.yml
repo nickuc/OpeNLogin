@@ -9,22 +9,22 @@
 # Discord: https://www.nickuc.com/discord
 
 # Do not change this setting
-file-version: 2
+file-version: 9
 
 Messages:
   Title:
     # Message sent before login
     before-login:
-      title: "&a&lWELCOME!"
-      subtitle: "&7Use: /login <your password>"
+      title: "&a&lVÍTEJ!"
+      subtitle: "&7Použij: /login <heslo>"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Message sent before registration
     before-register:
-      title: "&a&lWELCOME!"
-      subtitle: "&7Use: /register <your password> <your password>"
+      title: "&a&lVÍTEJ!"
+      subtitle: "&7Použij: /register <heslo> <heslo znovu>"
       delays:
         start: 0
         duration: 9999
@@ -32,7 +32,7 @@ Messages:
     # Message sent after login
     after-login:
       title: ""
-      subtitle: "&aYou have successfully logged in!"
+      subtitle: "&aPřihlášení bylo úspěšné!"
       delays:
         start: 0
         duration: 60
@@ -40,7 +40,7 @@ Messages:
     # Message sent after register
     after-register:
       title: ""
-      subtitle: "&aYou have successfully registered!"
+      subtitle: "&aRegistrace byla úspěšná!"
       delays:
         start: 0
         duration: 60
@@ -48,83 +48,80 @@ Messages:
 
   delay-kick:
     # Message sent when a user takes a long time to register
-    register-kick: "&cYou took too long to register."
+    register-kick: "&cČas na registraci vypršel."
 
     # Message sent when a user takes a long time to log in
-    login-kick: "&cYou took too long to login."
+    login-kick: "&cČas na přihlášení vypršel."
 
   successful-operations:
     # Message when a user exchanges their password
-    password-changed: "&aYour password has been successfully changed."
+    password-changed: "&aHeslo bylo úspěšně změněno."
 
     # Message sent when a user successfully logs
-    successful-login: "&aYou have successfully logged."
+    successful-login: "&aPřihlášení bylo úspěšné."
 
     # Message sent when a user successfully registers
-    successful-register: "&aYou have successfully registered."
+    successful-register: "&aRegistrace byla úspěšná."
 
     # Message sent when a player successfully disregisters
-    unregister-kick: "&cYou have successfully unregistered."
+    unregister-kick: "&cZrušení registrace bylo úspěšné."
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname
-    nick-already-registered: "&cYou can not enter with nickname {0}&r\n&r&cThis username has already been registered as {1}&r\n&r\n&r&cTo enter, you must use your nickname without uppercase/lowercase"
+    nick-already-registered: "&cNelze se přihlásit s přezdívkou {0}&r\n&r&cToto jméno je již zaregistrováno jako {1}&r\n&r\n&r&cPro registraci zvol jméno bez velkých/malých písmen."
 
     # Message sent when a user misses many times
-    failed-many-times: "&cYou entered the incorrect password."
+    failed-many-times: "&cZadáno špatné heslo.."
 
     # Message sent when password entered is incorrect
-    incorrect-password: "&cIncorrect password. Please, try again."
-
-    # Message sent when a player enters an invalid nickname.
-    invalid-nickname: "&cSorry, but you are using an invalid nickname."
+    incorrect-password: "&cŠpatné heslo. Zkus to prosím znovu."
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&cYou are already logged in."
+    already-login: "&cJiž jsi přihlášen/a."
 
     # Message sent when a nickname has already been registered.
-    already-registered: "&cThis nickname has already been registered."
+    already-registered: "&cHráč s tímto jménem je již registrován."
 
     # Message sent when a nickname has not yet been registered.
-    not-registered: "&cThis nickname has not yet been registered."
+    not-registered: "&cHráč s tímto jménem nebyl ještě registrován."
 
     # Message sent when the entered password is not equal to the second
-    passwords-dont-match: "&cPasswords are not the same."
+    passwords-dont-match: "&cHesla se neshodují."
 
     # Message sent when a player tries to change password by entering the same password as the current
-    password-same-as-old: "&cThe password entered is the same as the current."
+    password-same-as-old: "&cNové heslo je shodné se starým heslem."
 
     # Message sent when the password entered is too large
-    password-too-large: "&cThe password entered is too large."
+    password-too-large: "&cZadané heslo je příliš dlouhé."
 
     # Message sent when the password entered is too small
-    password-too-small: "&cThe password entered is too small."
+    password-too-small: "&cZadané heslo je příliš krátké."
 
     # Message when a player does not possess the required permission
-    insufficient-permissions: "&cYou do not have permission to run this command."
+    insufficient-permissions: "&cNa tuto akci nemáš práva."
 
     # Message to kick a player now online
-    already-online: "&cThis player is already online."
+    already-online: "&cTento hráč je již online."
 
     # Message to show that the command cannot be executed via console
-    player-command-usage: "&cThis command has been disabled via console."
+    player-command-usage: "&cPříkaz byl zablokován konzolí."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&eThe plugin has been successfully reloaded."
+    plugin-reload-message: "&ePlugin byl úspěšně načten."
 
     # Message sent when a database operation has not been successfully performed
-    database-error: "&cSorry, we were unable to complete this operation. Please try again. [SQL FAIL]"
+    database-error: "&cOmlouváme se, nepodařilo se vykonat operaci. Zkuste to znovu. [SQL FAIL]"
 
   other-messages:
     # Mensagem enviada para o uso do comando /logar
-    message-login: "&eUse the command /login <password>"
+    message-login: "&ePoužij příkaz /login <heslo>"
 
     # Mensagem enviada para o uso do comando /register
-    message-register: "&eUse the command /register <password> <password>"
+    message-register: "&ePoužij příkaz /register <heslo> <heslo znovu>"
 
     # Mensagem enviada para o uso do comando /mudarsenha
-    message-changepassword: "&eUse the command /changepassword <current password> <new password>"
+    message-changepassword: "&ePoužij příkaz /changepassword <aktuální heslo> <nové heslo>"
 
     # Message sent to use the /unregister command
-    message-unregister: "&eUse the command /unregister <current password>"
+    message-unregister: "&ePoužij příkaz /unregister <heslo>"
