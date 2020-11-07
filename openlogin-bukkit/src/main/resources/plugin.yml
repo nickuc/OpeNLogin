@@ -1,5 +1,5 @@
 name: OpeNLogin
-version: 1.2
+version: 1.3
 main: com.nickuc.openlogin.bukkit.OpenLoginBukkit
 description: 'A practical, secure and friendly authentication plugin'
 website: 'https://www.nickuc.com'
