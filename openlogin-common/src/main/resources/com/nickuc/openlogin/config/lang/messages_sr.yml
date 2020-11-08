@@ -1,0 +1,127 @@
+#    ___                __  __
+#   /___\_ __   ___  /\ \ \/ /  ___   __ _(_)_ __
+#  //  // '_ \ / _ \/  \/ / /  / _ \ / _` | | '_ \
+# / \_//| |_) |  __/ /\  / /__| (_) | (_| | | | | |
+# \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
+#       |_|                          |___/
+
+# Official Website: https://www.nickuc.com
+# Discord: https://www.nickuc.com/discord
+
+# Do not change this setting
+file-version: 10
+
+Messages:
+  Title:
+    # Message sent before login
+    before-login:
+      title: "&a&lDobrodošli!"
+      subtitle: "&7Koristite: /login <vaša lozinka>"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent before registration
+    before-register:
+      title: "&a&lDobrodošli!"
+      subtitle: "&7Koristite: /register <vaša lozinka> <vaša lozinka>"
+      delays:
+        start: 0
+        duration: 9999
+        end: 6
+    # Message sent after login
+    after-login:
+      title: ""
+      subtitle: "&aUspešno ste se prijavili!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+    # Message sent after register
+    after-register:
+      title: ""
+      subtitle: "&Uspešno ste se registrovali!"
+      delays:
+        start: 0
+        duration: 60
+        end: 6
+
+  delay-kick:
+    # Message sent when a user takes a long time to register
+    register-kick: "&cPredugo vam je trebalo da se registrujete."
+
+    # Message sent when a user takes a long time to log in
+    login-kick: "&cPredugo vam je trebalo da se prijavite."
+
+  successful-operations:
+    # Message when a user exchanges their password
+    password-changed: "&aVaša lozinka je uspešno promenjena."
+
+    # Message sent when a user successfully logs
+    successful-login: "&aUspešno ste se prijavili."
+
+    # Message sent when a user successfully registers
+    successful-register: "&aUspešno ste registrovani."
+
+    # Message sent when a player successfully disregisters
+    unregister-kick: "&cUspešno ste se odjavili."
+
+  kick-messages:
+    # Message when a player tries to log on to the server with a small difference in the nickname
+    nick-already-registered: "&cNe možete da uđete sa imenom {0}&r\n&r&cThis korisničko ime je već registrovano kao {1}&r\n&r\n&r&cDa biste ušli, morate koristiti svoje ime bez velikih / malih slova"
+
+    # Message sent when a user misses many times
+    failed-many-times: "&cUneli ste netačnu lozinku."
+
+    # Message sent when password entered is incorrect
+    incorrect-password: "&cPogrešna lozinka. Molim vas, pokušajte ponovo."
+
+  error-messages:
+    # Message sent when you are already logged in.
+    already-login: "&cVeć ste prijavljeni."
+
+    # Message sent when a nickname has already been registered.
+    already-registered: "&cOvo ime je već registrovano."
+
+    # Message sent when a nickname has not yet been registered.
+    not-registered: "&cOvo ime još uvek nije registrovano."
+
+    # Message sent when the entered password is not equal to the second
+    passwords-dont-match: "&cLozinke nisu iste."
+
+    # Message sent when a player tries to change password by entering the same password as the current
+    password-same-as-old: "&cUnesena lozinka je ista kao i trenutna."
+
+    # Message sent when the password entered is too large
+    password-too-large: "&cUnesena lozinka je preduga."
+
+    # Message sent when the password entered is too small
+    password-too-small: "&cUnesena lozinka je prekratka."
+
+    # Message when a player does not possess the required permission
+    insufficient-permissions: "&cNemate dozvolu za pokretanje ove komande."
+
+    # Message to kick a player now online
+    already-online: "&cOvaj igrač je već na mreži."
+
+    # Message to show that the command cannot be executed via console
+    player-command-usage: "&cOva naredba je onemogućena putem konzole."
+
+    # Message shown when the plugin is reloaded.
+    plugin-reload-message: "&eDodatna komponenta je uspešno ponovo učitana."
+
+    # Message sent when a database operation has not been successfully performed
+    database-error: "&cŽao nam je, nismo uspeli da dovršimo ovu operaciju. Molim vas, pokušajte ponovo. [SQL FAIL]"
+
+  other-messages:
+    # Mensagem enviada para o uso do comando /logar
+    message-login: "&eKoristite komandu /login <Lozinka>"
+
+    # Mensagem enviada para o uso do comando /register
+    message-register: "&Koristite komandu /register <Lozinka> <Lozinka>"
+
+    # Mensagem enviada para o uso do comando /mudarsenha
+    message-changepassword: "&eKoristite komdanu /changepassword <Trenutna Lozinka> <Nova Lozinka>"
+
+    # Message sent to use the /unregister command
+    message-unregister: "&eKoristite komandu /unregister <Trenutna Lozinka"
