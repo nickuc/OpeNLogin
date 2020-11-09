@@ -11,6 +11,7 @@
 [fr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_fr.yml) | French
 [pl](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pl.yml) | Polish
 [ru](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ru.yml) | Russian
+[sr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_sr.yml) | Serbian
 
 ### How to change the language file?
 1°- Install the plugin on plugins folder <br> 
