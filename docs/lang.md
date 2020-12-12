@@ -3,15 +3,18 @@
 | Code | Language |
 | ---- | -------- |
 [ar](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ar.yml) | Argentinian
-[br](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_br.yml) | Portuguese BR
+[br](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_br.yml) | Portuguese (Brazil)
 [cn](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_cn.yml) | Chinese (simplified)
 [cz](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_cz.yml) | Czech
+[de](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_de.yml) | German
 [en](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_en.yml) | English
 [es](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_es.yml) | Spanish
 [fr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_fr.yml) | French
+[lt](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_lt.yml) | Lithuanian
 [pl](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pl.yml) | Polish
 [ru](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ru.yml) | Russian
 [sr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_sr.yml) | Serbian
+[tr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_tr.yml) | Turkish
 
 ### How to change the language file?
 1°- Install the plugin on plugins folder <br> 
