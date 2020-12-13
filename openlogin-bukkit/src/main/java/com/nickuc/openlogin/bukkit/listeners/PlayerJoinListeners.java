@@ -44,8 +44,8 @@ public class PlayerJoinListeners implements Listener {
                 player.sendMessage("      §enLogin              §eOpeNLogin");
                 player.sendMessage("  §c(proprietary)      §a(open source)");
                 player.sendMessage("");
-                player.sendMessage(" §7To use nLogin, type: §f'/openchat nlogin'");
-                player.sendMessage(" §7To use OpeNLogin, type: §f'/openchat setup'");
+                player.sendMessage(" §7To use nLogin, type: §f'/openlogin nlogin'");
+                player.sendMessage(" §7To use OpeNLogin, type: §f'/openlogin setup'");
             }
             player.sendMessage("");
             e.setJoinMessage("");
