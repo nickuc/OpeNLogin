@@ -13,10 +13,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getField;
-import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getMethod;
-import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getNMS;
-import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getOBC;
+import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.*;
 
 public abstract class Packet {
 

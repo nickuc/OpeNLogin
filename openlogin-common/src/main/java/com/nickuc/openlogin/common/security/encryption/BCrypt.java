@@ -1,7 +1,7 @@
 package com.nickuc.openlogin.common.security.encryption;
 
-import java.nio.charset.*;
-import java.security.*;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 public final class BCrypt {
 
