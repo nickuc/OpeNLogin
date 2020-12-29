@@ -16,9 +16,18 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public enum Settings {
 
-    LANGUAGE_FILE("languageFile", "messages_en.yml"),
-    PASSWORD_SMALL("Security.password.small", 5),
-    PASSWORD_LARGE("Security.password.large", 15);
+    LANGUAGE_FILE(
+            "languageFile",
+            "messages_en.yml"
+    ),
+    PASSWORD_SMALL(
+            "Security.password.small",
+            5
+    ),
+    PASSWORD_LARGE(
+            "Security.password.large",
+            15
+    );
 
     static final HashMap<String, Object> SETTINGS = new HashMap<>();
 
