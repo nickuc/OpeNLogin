@@ -20,9 +20,8 @@ public class ClassUtils {
             Class.forName(clasz);
             return true;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
 }
