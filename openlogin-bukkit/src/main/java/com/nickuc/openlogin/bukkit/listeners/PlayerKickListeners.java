@@ -52,7 +52,10 @@ public class PlayerKickListeners implements Listener {
             Account account = accountOpt.get();
             String realname = account.getRealname();
             if (!name.equals(realname)) {
-                e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, String.format(Messages.NICK_ALREADY_REGISTERED.asString(), name, realname));
+                String kickMessage = Messages.NICK_ALREADY_REGISTERED.asString()
+                        .replace("{0}", name)
+                        .replace("{1}", realname);
+                e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, kickMessage);
             }
         }
     }
