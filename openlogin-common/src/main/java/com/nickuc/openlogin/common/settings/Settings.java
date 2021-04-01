@@ -20,6 +20,10 @@ public enum Settings {
             "languageFile",
             "messages_en.yml"
     ),
+    TIME_TO_LOGIN(
+            "Security.time-to-login",
+            45
+    ),
     PASSWORD_SMALL(
             "Security.password.small",
             5

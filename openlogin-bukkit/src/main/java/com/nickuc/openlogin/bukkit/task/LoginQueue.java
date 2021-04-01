@@ -9,6 +9,7 @@ package com.nickuc.openlogin.bukkit.task;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.common.settings.Messages;
+import com.nickuc.openlogin.common.settings.Settings;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Server;
@@ -41,7 +42,7 @@ public class LoginQueue {
 
                 PlayerLogin playerLogin = entry.getValue();
                 int seconds = playerLogin.seconds;
-                if (seconds >= 45) {
+                if (seconds >= Settings.TIME_TO_LOGIN.asInt()) {
                     server.getScheduler().runTask(plugin, () -> player.kickPlayer(playerLogin.registered ? Messages.DELAY_KICK_LOGIN.asString() : Messages.DELAY_KICK_REGISTER.asString()));
                     pendingLogin.remove(name);
                     return;

@@ -17,6 +17,9 @@ languageFile: 'messages_en.yml'
 
 # Security system related settings.
 Security:
+  # Amount of time for a player to log in/register (set in seconds).
+  time-to-login: 45
+
   password:
     # Small password size.
     small: 5
