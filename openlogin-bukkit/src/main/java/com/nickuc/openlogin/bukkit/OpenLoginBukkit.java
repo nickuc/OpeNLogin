@@ -28,6 +28,8 @@ import com.nickuc.openlogin.common.utils.FileUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
+import org.bstats.charts.SingleLineChart;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -35,7 +37,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.Callable;
 
 @Getter
 public class OpenLoginBukkit extends JavaPlugin {
@@ -46,6 +50,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     private String latestVersion;
     private boolean updateAvailable;
     @Setter private boolean newUser;
+    private int registeredUsers;
 
     public void onEnable() {
 
@@ -134,6 +139,14 @@ public class OpenLoginBukkit extends JavaPlugin {
         try {
             database.openConnection();
             database.update("CREATE TABLE IF NOT EXISTS `openlogin` (`name` TEXT, `realname` TEXT, `password` TEXT, `address` TEXT, `lastlogin` TEXT, `regdate` TEXT)");
+            try (Database.Query query = database.query("SELECT COUNT(*) FROM `openlogin`")) {
+                ResultSet rs = query.resultSet;
+                if (rs.next()) {
+                    registeredUsers = rs.getInt("COUNT(*)");
+                }
+            } catch (Exception e) {
+                sendMessage("§cFailed to update the register count.");
+            }
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,7 +165,8 @@ public class OpenLoginBukkit extends JavaPlugin {
 
     private void setupMetrics() {
         Metrics metrics = new Metrics(this, 8951);
-        metrics.addCustomChart(new Metrics.SimplePie("language_file", Settings.LANGUAGE_FILE::asString));
+        metrics.addCustomChart(new SimplePie("language_file", Settings.LANGUAGE_FILE::asString));
+        metrics.addCustomChart(new SingleLineChart("registered_users", () -> registeredUsers));
     }
 
     public void detectUpdates() {
