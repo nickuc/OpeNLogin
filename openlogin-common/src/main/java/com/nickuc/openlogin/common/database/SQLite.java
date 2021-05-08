@@ -19,7 +19,8 @@ import java.sql.Statement;
 @RequiredArgsConstructor
 public class SQLite implements Database {
 
-    @NonNull private final File file;
+    @NonNull
+    private final File file;
     private Connection connection;
 
     /**

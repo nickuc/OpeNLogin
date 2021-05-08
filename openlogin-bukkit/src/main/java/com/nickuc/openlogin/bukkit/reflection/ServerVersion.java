@@ -15,7 +15,8 @@ import org.bukkit.Bukkit;
  * @author rush
  */
 
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 public enum ServerVersion {
 
     v1_17("1.17"),
@@ -32,11 +33,12 @@ public enum ServerVersion {
     v1_6("1.6"),
     v1_5("1.5"),
     DESCONHECIDA("???");
-    
-	private final String check;
-	@Getter private static ServerVersion serverVersion = DESCONHECIDA;
 
-	static {
+    private final String check;
+    @Getter
+    private static ServerVersion serverVersion = DESCONHECIDA;
+
+    static {
         String ver = Bukkit.getVersion();
         for (ServerVersion serverVersion : ServerVersion.values()) {
             if (ver.contains(serverVersion.check)) {

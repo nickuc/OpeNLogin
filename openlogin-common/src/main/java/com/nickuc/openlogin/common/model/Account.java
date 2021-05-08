@@ -19,7 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE) @Getter
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public class Account {
 
     private final String realname, hashedPassword, address;
@@ -42,7 +43,7 @@ public class Account {
      * Searches for saved accounts
      *
      * @param database the database to use
-     * @param name the name of the player
+     * @param name     the name of the player
      * @return optional of {@link Account}
      */
     public static Optional<Account> search(@NonNull Database database, @NonNull String name) {
@@ -65,10 +66,10 @@ public class Account {
     /**
      * Update the player's database column
      *
-     * @param database the database to use
-     * @param name the name of the player (realname)
+     * @param database       the database to use
+     * @param name           the name of the player (realname)
      * @param hashedPassword the hashed password
-     * @param address the player address
+     * @param address        the player address
      * @return true on success
      */
     public static boolean update(@NonNull Database database, @NonNull String name, @Nullable String hashedPassword, @Nullable String address) {
@@ -78,11 +79,11 @@ public class Account {
     /**
      * Update the player's data
      *
-     * @param database the database to use
-     * @param name the name of the player (realname)
+     * @param database       the database to use
+     * @param name           the name of the player (realname)
      * @param hashedPassword the hashed password
-     * @param address the player address
-     * @param replace forces update if player data exists
+     * @param address        the player address
+     * @param replace        forces update if player data exists
      * @return true on success
      */
     public static boolean update(@NonNull Database database, @NonNull String name, @Nullable String hashedPassword, @Nullable String address, boolean replace) {
@@ -114,7 +115,7 @@ public class Account {
      * Delete all of the player's data
      *
      * @param database the database to use
-     * @param name the name of the player
+     * @param name     the name of the player
      * @return true on success
      */
     public static boolean delete(@NonNull Database database, @NonNull String name) {

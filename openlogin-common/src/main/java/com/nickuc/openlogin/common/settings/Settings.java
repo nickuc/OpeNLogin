@@ -35,14 +35,15 @@ public enum Settings {
 
     static final HashMap<String, Object> SETTINGS = new HashMap<>();
 
-    @Getter private final String key;
+    @Getter
+    private final String key;
     private final Object def;
 
     /**
      * Add a setting to map
      *
      * @param setting the setting to define
-     * @param value the setting value
+     * @param value   the setting value
      */
     public static void define(@NonNull Settings setting, Object value) {
         SETTINGS.put(setting.key, value);

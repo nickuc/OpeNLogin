@@ -15,7 +15,8 @@ import org.bukkit.event.HandlerList;
 
 public class OpenLoginEvent extends Event {
 
-    @Getter private static final HandlerList handlerList = new HandlerList();
+    @Getter
+    private static final HandlerList handlerList = new HandlerList();
 
     public OpenLoginEvent() {
     }

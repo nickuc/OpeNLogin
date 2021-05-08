@@ -3,6 +3,7 @@
 The nLogin plugin is **NOT** available on Spigot anymore. <br>
 
 ### Important information:
+
 **nLogin** is a proprietary authentication plugin, updated and maintained by www.nickuc.com. <br>
 This means that you cannot view and modify the source code of the plugin.
 <br>
@@ -27,4 +28,5 @@ or run the command **'/openlogin nlogin'** using OpenLogin. <br>
 <a href="https://nickuc.com/repo/find?name=nLogin">Click here to download nLogin</a>
 
 #### How remove the warning in-game?
+
 To remove this warning, rename the nLogin folder.

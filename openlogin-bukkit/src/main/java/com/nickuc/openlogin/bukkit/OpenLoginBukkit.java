@@ -39,7 +39,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.concurrent.Callable;
 
 @Getter
 public class OpenLoginBukkit extends JavaPlugin {
@@ -49,7 +48,8 @@ public class OpenLoginBukkit extends JavaPlugin {
     private Database database;
     private String latestVersion;
     private boolean updateAvailable;
-    @Setter private boolean newUser;
+    @Setter
+    private boolean newUser;
     private int registeredUsers;
 
     public void onEnable() {
@@ -179,7 +179,7 @@ public class OpenLoginBukkit extends JavaPlugin {
 
             // avoid use Google Gson to avoid problems with older versions.
             if (result.contains("\"tag_name\":\"")) {
-                tagName = result.split("\"tag_name\":\"")[1];;
+                tagName = result.split("\"tag_name\":\"")[1];
                 if (tagName.contains("\",")) {
                     tagName = latestVersion = tagName.split("\",")[0];
                 }

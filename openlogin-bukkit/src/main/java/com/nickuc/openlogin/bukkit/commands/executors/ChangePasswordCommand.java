@@ -79,5 +79,5 @@ public class ChangePasswordCommand extends BukkitAbstractCommand {
         }
 
         sender.sendMessage(Messages.PASSWORD_CHANGED.asString());
-     }
+    }
 }

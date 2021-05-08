@@ -14,7 +14,9 @@ public class ConsoleFilter implements Filter {
 
     @Override
     public boolean isLoggable(LogRecord logRecord) {
-        if (logRecord == null || logRecord.getMessage() == null || LoggerFilterManager.isOpenLoginCommand(logRecord.getMessage())) return true;
+        if (logRecord == null || logRecord.getMessage() == null || LoggerFilterManager.isOpenLoginCommand(logRecord.getMessage())) {
+            return true;
+        }
 
         logRecord.setMessage("[OpeNLogin] This content has been filtered.");
         return false;

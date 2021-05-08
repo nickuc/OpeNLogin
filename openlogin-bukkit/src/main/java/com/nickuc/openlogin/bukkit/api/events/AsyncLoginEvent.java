@@ -12,10 +12,12 @@ import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 
+@Getter
 public class AsyncLoginEvent extends OpenLoginEvent implements Cancellable {
 
-    @Getter private final Player player;
-    @Getter @Setter private boolean cancelled;
+    private final Player player;
+    @Setter
+    private boolean cancelled;
 
     public AsyncLoginEvent(Player player) {
         super(true);

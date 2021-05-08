@@ -319,10 +319,10 @@ public final class BCrypt {
      * encoding scheme. Note that this is *not* compatible with
      * the standard MIME-base64 encoding.
      *
-     * @param d	the byte array to encode
-     * @param len	the number of bytes to encode
-     * @return	base64-encoded string
-     * @exception IllegalArgumentException if the length is invalid
+     * @param d   the byte array to encode
+     * @param len the number of bytes to encode
+     * @throws IllegalArgumentException if the length is invalid
+     * @return base64-encoded string
      */
     private static String encode_base64(byte[] d, int len)
             throws IllegalArgumentException {
@@ -331,7 +331,7 @@ public final class BCrypt {
         int c1, c2;
 
         if (len <= 0 || len > d.length)
-            throw new IllegalArgumentException ("Invalid len");
+            throw new IllegalArgumentException("Invalid len");
 
         while (off < len) {
             c1 = d[off++] & 0xff;
@@ -360,8 +360,9 @@ public final class BCrypt {
     /**
      * Look up the 3 bits base64-encoded by the specified character,
      * range-checking againt conversion table
-     * @param x	the base64-encoded value
-     * @return	the decoded value of x
+     *
+     * @param x the base64-encoded value
+     * @return the decoded value of x
      */
     private static byte char64(char x) {
         if ((int) x > index_64.length)
@@ -373,9 +374,10 @@ public final class BCrypt {
      * Decode a string encoded using bcrypt's base64 scheme to a
      * byte array. Note that this is *not* compatible with
      * the standard MIME-base64 encoding.
-     * @param s    the string to decode
-     * @return	an array containing the decoded bytes
+     *
+     * @param s the string to decode
      * @throws IllegalArgumentException if maxolen is invalid
+     * @return an array containing the decoded bytes
      */
     private static byte[] decode_base64(String s)
             throws IllegalArgumentException {
@@ -385,50 +387,51 @@ public final class BCrypt {
         byte c1, c2, c3, c4, o;
 
         if (BCrypt.BCRYPT_SALT_LEN <= 0)
-            throw new IllegalArgumentException ("Invalid maxolen");
+            throw new IllegalArgumentException("Invalid maxolen");
 
         while (off < slen - 1 && olen < BCrypt.BCRYPT_SALT_LEN) {
             c1 = char64(s.charAt(off++));
             c2 = char64(s.charAt(off++));
             if (c1 == -1 || c2 == -1)
                 break;
-            o = (byte)(c1 << 2);
+            o = (byte) (c1 << 2);
             o |= (c2 & 0x30) >> 4;
-            rs.append((char)o);
+            rs.append((char) o);
             if (++olen >= BCrypt.BCRYPT_SALT_LEN || off >= slen)
                 break;
             c3 = char64(s.charAt(off++));
             if (c3 == -1)
                 break;
-            o = (byte)((c2 & 0x0f) << 4);
+            o = (byte) ((c2 & 0x0f) << 4);
             o |= (c3 & 0x3c) >> 2;
-            rs.append((char)o);
+            rs.append((char) o);
             if (++olen >= BCrypt.BCRYPT_SALT_LEN || off >= slen)
                 break;
             c4 = char64(s.charAt(off++));
-            o = (byte)((c3 & 0x03) << 6);
+            o = (byte) ((c3 & 0x03) << 6);
             o |= c4;
-            rs.append((char)o);
+            rs.append((char) o);
             ++olen;
         }
 
         ret = new byte[olen];
         for (off = 0; off < olen; off++)
-            ret[off] = (byte)rs.charAt(off);
+            ret[off] = (byte) rs.charAt(off);
         return ret;
     }
 
     /**
      * Blowfish encipher a single 64-bit block encoded as
      * two 32-bit halves
-     * @param lr	an array containing the two 32-bit half blocks
-     * @param off	the position in the array of the blocks
+     *
+     * @param lr  an array containing the two 32-bit half blocks
+     * @param off the position in the array of the blocks
      */
     private void encipher(int[] lr, int off) {
         int i, n, l = lr[off], r = lr[off + 1];
 
         l ^= P[0];
-        for (i = 0; i <= BLOWFISH_NUM_ROUNDS - 2;) {
+        for (i = 0; i <= BLOWFISH_NUM_ROUNDS - 2; ) {
             // Feistel substitution on left word
             n = S[(l >> 24) & 0xff];
             n += S[0x100 | ((l >> 16) & 0xff)];
@@ -449,10 +452,11 @@ public final class BCrypt {
 
     /**
      * Cycically extract a word of key material
-     * @param data	the string to extract the data from
-     * @param offp	a "pointer" (as a one-entry array) to the
-     * current offset into data
-     * @return	the next word of material from data
+     *
+     * @param data the string to extract the data from
+     * @param offp a "pointer" (as a one-entry array) to the
+     *             current offset into data
+     * @return the next word of material from data
      */
     private static int streamtoword(byte[] data, int[] offp) {
         int i;
@@ -478,12 +482,13 @@ public final class BCrypt {
 
     /**
      * Key the Blowfish cipher
-     * @param key	an array containing the key
+     *
+     * @param key an array containing the key
      */
     private void key(byte[] key) {
         int i;
-        int[] koffp = { 0 };
-        int[] lr = { 0, 0 };
+        int[] koffp = {0};
+        int[] lr = {0, 0};
         int plen = P.length, slen = S.length;
 
         for (i = 0; i < plen; i++)
@@ -506,14 +511,15 @@ public final class BCrypt {
      * Perform the "enhanced key schedule" step described by
      * Provos and Mazieres in "A Future-Adaptable Password Scheme"
      * http://www.openbsd.org/papers/bcrypt-paper.ps
-     * @param data	salt information
-     * @param key	password information
+     *
+     * @param data salt information
+     * @param key  password information
      */
     private void ekskey(byte[] data, byte[] key) {
         int i;
-        int[] koffp = { 0 };
-        int[] doffp = { 0 };
-        int[] lr = { 0, 0 };
+        int[] koffp = {0};
+        int[] doffp = {0};
+        int[] lr = {0, 0};
         int plen = P.length, slen = S.length;
 
         for (i = 0; i < plen; i++)
@@ -539,12 +545,13 @@ public final class BCrypt {
     /**
      * Perform the central password hashing step in the
      * bcrypt scheme
-     * @param password	the password to hash
-     * @param salt	the binary salt to hash with the password
-     * @param log_rounds	the binary logarithm of the number
-     * of rounds of hashing to apply
-     * @param cdata         the plaintext to encrypt
-     * @return	an array containing the binary hashed password
+     *
+     * @param password   the password to hash
+     * @param salt       the binary salt to hash with the password
+     * @param log_rounds the binary logarithm of the number
+     *                   of rounds of hashing to apply
+     * @param cdata      the plaintext to encrypt
+     * @return an array containing the binary hashed password
      */
     public byte[] crypt_raw(byte[] password, byte[] salt, int log_rounds,
                             int[] cdata) {
@@ -553,10 +560,10 @@ public final class BCrypt {
         byte[] ret;
 
         if (log_rounds < 4 || log_rounds > 30)
-            throw new IllegalArgumentException ("Bad number of rounds");
+            throw new IllegalArgumentException("Bad number of rounds");
         rounds = 1 << log_rounds;
         if (salt.length != BCRYPT_SALT_LEN)
-            throw new IllegalArgumentException ("Bad salt length");
+            throw new IllegalArgumentException("Bad salt length");
 
         init_key();
         ekskey(salt, password);
@@ -572,20 +579,21 @@ public final class BCrypt {
 
         ret = new byte[clen * 4];
         for (i = 0, j = 0; i < clen; i++) {
-            ret[j++] = (byte)((cdata[i] >> 24) & 0xff);
-            ret[j++] = (byte)((cdata[i] >> 16) & 0xff);
-            ret[j++] = (byte)((cdata[i] >> 8) & 0xff);
-            ret[j++] = (byte)(cdata[i] & 0xff);
+            ret[j++] = (byte) ((cdata[i] >> 24) & 0xff);
+            ret[j++] = (byte) ((cdata[i] >> 16) & 0xff);
+            ret[j++] = (byte) ((cdata[i] >> 8) & 0xff);
+            ret[j++] = (byte) (cdata[i] & 0xff);
         }
         return ret;
     }
 
     /**
      * Hash a password using the OpenBSD bcrypt scheme
-     * @param password	the password to hash
-     * @param salt	the salt to hash with (perhaps generated
-     * using BCrypt.gensalt)
-     * @return	the hashed password
+     *
+     * @param password the password to hash
+     * @param salt     the salt to hash with (perhaps generated
+     *                 using BCrypt.gensalt)
+     * @return the hashed password
      */
     public static String hashpw(String password, String salt) {
         BCrypt B;
@@ -593,24 +601,24 @@ public final class BCrypt {
         byte[] passwordb;
         byte[] saltb;
         byte[] hashed;
-        char minor = (char)0;
+        char minor = (char) 0;
         int rounds, off;
         StringBuilder rs = new StringBuilder();
 
         if (salt.charAt(0) != '$' || salt.charAt(1) != '2')
-            throw new IllegalArgumentException ("Invalid salt version");
+            throw new IllegalArgumentException("Invalid salt version");
         if (salt.charAt(2) == '$')
             off = 3;
         else {
             minor = salt.charAt(2);
             if (minor != 'a' || salt.charAt(3) != '$')
-                throw new IllegalArgumentException ("Invalid salt revision");
+                throw new IllegalArgumentException("Invalid salt revision");
             off = 4;
         }
 
         // Extract number of rounds
         if (salt.charAt(off + 2) > '$')
-            throw new IllegalArgumentException ("Missing salt rounds");
+            throw new IllegalArgumentException("Missing salt rounds");
         rounds = Integer.parseInt(salt.substring(off, off + 2));
 
         real_salt = salt.substring(off + 3, off + 25);
@@ -642,11 +650,12 @@ public final class BCrypt {
 
     /**
      * Generate a salt for use with the BCrypt.hashpw() method
-     * @param log_rounds	the log2 of the number of rounds of
-     * hashing to apply - the work factor therefore increases as
-     * 2**log_rounds.
-     * @param random		an instance of SecureRandom to use
-     * @return	an encoded salt value
+     *
+     * @param log_rounds the log2 of the number of rounds of
+     *                   hashing to apply - the work factor therefore increases as
+     *                   2**log_rounds.
+     * @param random     an instance of SecureRandom to use
+     * @return an encoded salt value
      */
     public static String gensalt(int log_rounds, SecureRandom random) {
         StringBuilder rs = new StringBuilder();
@@ -669,10 +678,11 @@ public final class BCrypt {
 
     /**
      * Generate a salt for use with the BCrypt.hashpw() method
-     * @param log_rounds	the log2 of the number of rounds of
-     * hashing to apply - the work factor therefore increases as
-     * 2**log_rounds.
-     * @return	an encoded salt value
+     *
+     * @param log_rounds the log2 of the number of rounds of
+     *                   hashing to apply - the work factor therefore increases as
+     *                   2**log_rounds.
+     * @return an encoded salt value
      */
     public static String gensalt(int log_rounds) {
         return gensalt(log_rounds, new SecureRandom());
@@ -682,7 +692,8 @@ public final class BCrypt {
      * Generate a salt for use with the BCrypt.hashpw() method,
      * selecting a reasonable default for the number of hashing
      * rounds to apply
-     * @return	an encoded salt value
+     *
+     * @return an encoded salt value
      */
     public static String gensalt() {
         return gensalt(GENSALT_DEFAULT_LOG2_ROUNDS);
@@ -691,9 +702,10 @@ public final class BCrypt {
     /**
      * Check that a plaintext password matches a previously hashed
      * one
-     * @param plaintext	the plaintext password to verify
-     * @param hashed	the previously-hashed password
-     * @return	true if the passwords match, false otherwise
+     *
+     * @param plaintext the plaintext password to verify
+     * @param hashed    the previously-hashed password
+     * @return true if the passwords match, false otherwise
      */
     public static boolean checkpw(String plaintext, String hashed) {
         try {
@@ -708,7 +720,8 @@ public final class BCrypt {
             for (int i = 0; i < try_bytes.length; i++)
                 ret |= hashed_bytes[i] ^ try_bytes[i];
             return ret == 0;
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         return false;
     }
 }

@@ -22,12 +22,12 @@ import java.util.concurrent.TimeUnit;
 public class LoginManagement {
 
     private final Cache<String, Account> accountCache = CacheBuilder.newBuilder()
-                .expireAfterWrite(30, TimeUnit.SECONDS)
-                .build();
+            .expireAfterWrite(30, TimeUnit.SECONDS)
+            .build();
 
     private final Cache<String, Long> lock = CacheBuilder.newBuilder()
-                .expireAfterWrite(5, TimeUnit.SECONDS)
-                .build();
+            .expireAfterWrite(5, TimeUnit.SECONDS)
+            .build();
 
     private final HashSet<String> logged = new HashSet<>();
     private final Database database;

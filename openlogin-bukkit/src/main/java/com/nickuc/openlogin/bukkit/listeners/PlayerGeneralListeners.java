@@ -80,7 +80,9 @@ public class PlayerGeneralListeners implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamageEvent(EntityDamageEvent e) {
         if (e.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
-        if (!e.isCancelled() && e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(e.getEntity().getName())) e.setCancelled(true);
+        if (!e.isCancelled() && e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(e.getEntity().getName())) {
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGH)

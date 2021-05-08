@@ -59,7 +59,8 @@ public enum Messages {
     MESSAGE_UNREGISTER("other-messages.message-unregister"),
     ;
 
-    @Getter private final String key;
+    @Getter
+    private final String key;
 
     Messages(String key) {
         this.key = "Messages." + key;
@@ -69,7 +70,7 @@ public enum Messages {
      * Add a message to settings map
      *
      * @param message the message to define
-     * @param value the message value
+     * @param value   the message value
      */
     public static void define(@NonNull Messages message, Object value) {
         if (value instanceof String) {

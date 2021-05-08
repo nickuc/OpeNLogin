@@ -12,7 +12,8 @@ import org.bukkit.entity.Player;
 
 public class AsyncAuthenticateEvent extends OpenLoginEvent {
 
-    @Getter private final Player player;
+    @Getter
+    private final Player player;
 
     public AsyncAuthenticateEvent(Player player) {
         super(true);

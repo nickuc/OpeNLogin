@@ -44,7 +44,7 @@ public interface Database {
      * @return an instance of {@link Query}
      * @throws SQLException on failure
      */
-    Query query(String command)  throws SQLException;
+    Query query(String command) throws SQLException;
 
     // Query class
     class Query implements Closeable {
@@ -68,12 +68,14 @@ public interface Database {
                 if (resultSet != null) {
                     resultSet.close();
                 }
-            } catch (SQLException e) {}
+            } catch (SQLException e) {
+            }
             try {
                 if (statement != null) {
                     statement.close();
                 }
-            } catch (SQLException e) {}
+            } catch (SQLException e) {
+            }
         }
 
     }

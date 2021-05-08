@@ -55,7 +55,7 @@ public class LoginQueue {
     /**
      * Add a player to timeout timer
      *
-     * @param name the name of the player
+     * @param name       the name of the player
      * @param registered should be true if the player is registered
      */
     public static void addToQueue(@NonNull String name, boolean registered) {

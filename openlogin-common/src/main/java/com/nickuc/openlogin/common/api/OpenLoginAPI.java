@@ -26,7 +26,7 @@ public interface OpenLoginAPI {
     /**
      * Checks if the password provided is valid
      *
-     * @param player the name of the player
+     * @param player   the name of the player
      * @param password the password to compare
      * @return true if the passwords match
      */
@@ -43,10 +43,10 @@ public interface OpenLoginAPI {
     /**
      * Update the player's data
      *
-     * @param player the name of the player
+     * @param player   the name of the player
      * @param password the password to use
-     * @param address the player address
-     * @param replace forces update if player data exists
+     * @param address  the player address
+     * @param replace  forces update if player data exists
      * @return true on success
      */
     boolean update(@NonNull String player, @NonNull String password, @Nullable String address, boolean replace);
@@ -54,9 +54,9 @@ public interface OpenLoginAPI {
     /**
      * Update the player's data
      *
-     * @param player the name of the player
+     * @param player   the name of the player
      * @param password the password to use
-     * @param replace forces update if player data exists
+     * @param replace  forces update if player data exists
      * @return true on success
      */
     default boolean update(@NonNull String player, @NonNull String password, boolean replace) {
@@ -66,7 +66,7 @@ public interface OpenLoginAPI {
     /**
      * Update the player's data
      *
-     * @param player the name of the player
+     * @param player   the name of the player
      * @param password the password to use
      * @return true on success
      */
@@ -77,7 +77,7 @@ public interface OpenLoginAPI {
     /**
      * Update the player's data
      *
-     * @param player the name of the player
+     * @param player   the name of the player
      * @param password the password to use
      * @return true on success
      */
