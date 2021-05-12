@@ -1,5 +1,5 @@
 name: OpeNLogin
-version: ${project.version}
+version: ${pluginVersion}
 main: com.nickuc.openlogin.bukkit.OpenLoginBukkit
 description: 'A practical, secure and friendly authentication plugin'
 website: 'https://www.nickuc.com'

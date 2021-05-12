@@ -29,11 +29,10 @@ subprojects {
     targetCompatibility = '1.8'
     compileJava.options.encoding = 'UTF-8'
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                from(components.java)
-            }
+    processResources {
+        from(sourceSets.main.resources.srcDirs) {
+            expand 'pluginVersion': version
+            include 'plugin.yml'
         }
     }
 
