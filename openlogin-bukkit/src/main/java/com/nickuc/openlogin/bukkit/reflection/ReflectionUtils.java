@@ -22,6 +22,14 @@ public class ReflectionUtils {
         return Class.forName(NMS_PREFIX + "." + clasz);
     }
 
+    public static Class<?> getNSNMS(@NonNull String newClass, @NonNull String clasz) throws ClassNotFoundException {
+        try {
+            return Class.forName("net.minecraft." + newClass);
+        } catch (ClassNotFoundException e) {
+            return Class.forName(NMS_PREFIX + "." + clasz);
+        }
+    }
+
     public static Class<?> getOBC(@NonNull String clasz) throws ClassNotFoundException {
         return Class.forName(OBC_PREFIX + "." + clasz);
     }

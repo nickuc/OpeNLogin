@@ -24,8 +24,8 @@ public abstract class Packet {
     static {
         try {
             craftPlayerClass = getOBC("entity.CraftPlayer");
-            entityPlayerClass = getNMS("EntityPlayer");
-            playerConnectionClass = getNMS("PlayerConnection");
+            entityPlayerClass = getNSNMS("level.EntityPlayer", "EntityPlayer");
+            playerConnectionClass = getNSNMS("network.PlayerConnection", "PlayerConnection");
             getHandleMethod = getMethod(craftPlayerClass, "getHandle");
             sendPacketMethod = getMethod(playerConnectionClass, "sendPacket", getNMS("Packet"));
             playerConnectionField = getField(entityPlayerClass, "playerConnection");

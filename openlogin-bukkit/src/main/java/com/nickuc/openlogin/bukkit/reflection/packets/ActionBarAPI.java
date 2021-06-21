@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getNMS;
+import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getNSNMS;
 
 public class ActionBarAPI extends Packet {
 
@@ -48,8 +49,8 @@ public class ActionBarAPI extends Packet {
 
     static {
         try {
-            Class<?> icbc = getNMS("IChatBaseComponent");
-            Class<?> ppoc = getNMS("PacketPlayOutChat");
+            Class<?> icbc = getNSNMS("network.chat.IChatBaseComponent", "IChatBaseComponent");
+            Class<?> ppoc = getNSNMS("network.protocol.game.PacketPlayOutChat", "PacketPlayOutChat");
 
             if (icbc.getDeclaredClasses().length > 0) {
                 a = icbc.getDeclaredClasses()[0].getMethod("a", String.class);
