@@ -33,7 +33,7 @@ public class PlayerKickListeners implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerLogin(AsyncPlayerPreLoginEvent e) {
         String name = e.getName();
-        Player player = Bukkit.getPlayer(name);
+        Player player = Bukkit.getPlayerExact(name);
 
         // prevent double online nickname
         if (player != null) {
