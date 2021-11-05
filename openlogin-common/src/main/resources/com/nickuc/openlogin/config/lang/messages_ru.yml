@@ -80,10 +80,10 @@ Messages:
 
   error-messages:
     # Сообщение отправлено, когда вы уже вошли в систему.
-    already-login: "&cYou are already logged in."
+    already-login: "&cВы уже авторизованы."
 
     # Сообщение отправляется, когда ник уже зарегистрирован.
-    already-registered: "&cThis nickname has already been registered."
+    already-registered: "&cДанное имя пользователя уже зарегистрировано."
 
     # Сообщение отправляется, когда ник еще не зарегистрирован.
     not-registered: "&cЭтот ник еще не зарегистрирован."
