@@ -39,7 +39,12 @@ public abstract class Packet {
                         break;
                     }
                 }
-                sendPacketMethod = getMethod(networkManager, "a", packetClass);
+
+                try {
+                    sendPacketMethod = getMethod(networkManager, "sendPacket", packetClass);
+                } catch (NoSuchMethodException e) {
+                    sendPacketMethod = getMethod(networkManager, "a", packetClass);
+                }
             } else  {
                 sendPacketMethod = getMethod(playerConnectionClass, "sendPacket", packetClass);
             }
