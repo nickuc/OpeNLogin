@@ -7,6 +7,7 @@
 
 package com.nickuc.openlogin.bukkit.reflection.packets;
 
+import com.nickuc.openlogin.bukkit.reflection.ServerVersion;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
@@ -30,7 +31,7 @@ public abstract class Packet {
             getHandleMethod = getMethod(craftPlayerClass, "getHandle");
 
             Class<?> packetClass = getNSNMS("network.protocol.Packet", "Packet");
-            try {
+            if (ServerVersion.getServerVersion().isGreaterThanOrEqualTo(ServerVersion.v1_18)) {
                 Class<?> networkManager = Class.forName("net.minecraft.network.NetworkManager");
                 for (Field field : playerConnectionClass.getDeclaredFields()) {
                     if (networkManager.isAssignableFrom(field.getType())) {
@@ -39,7 +40,7 @@ public abstract class Packet {
                     }
                 }
                 sendPacketMethod = getMethod(networkManager, "a", packetClass);
-            } catch (ClassNotFoundException e) {
+            } else  {
                 sendPacketMethod = getMethod(playerConnectionClass, "sendPacket", packetClass);
             }
         } catch (ClassNotFoundException | NoSuchMethodException | NoSuchFieldException e) {

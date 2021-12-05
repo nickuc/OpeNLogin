@@ -7,60 +7,75 @@
 
 package com.nickuc.openlogin.bukkit.reflection.packets;
 
-import com.nickuc.openlogin.bukkit.reflection.ReflectionUtils;
 import com.nickuc.openlogin.common.model.Title;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getMethod;
 import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getNMS;
 
 public class TitleAPI extends Packet {
 
-    private static boolean available = true;
     private static Method a;
-    private static Object enumTIMES, enumTITLE, enumSUBTITLE;
-    private static Constructor<?> timeTitleConstructor, textTitleConstructor;
+    private static Object enumTIMES;
+    private static Object enumTITLE;
+    private static Object enumSUBTITLE;
+    private static Constructor<?> timeTitleConstructor;
+    private static Constructor<?> textTitleConstructor;
+    private static byte type;
     private static Method sendTitleMethod;
+    private static Method resetTitleMethod;
 
-    public static void sendTitle(@NonNull Player player, int fadeIn, int stay, int fadeOut, @NonNull String title, @NonNull String subtitle) {
-        if (!available) {
+    public static void sendTitle(Player player, int fadeIn, int stay, int fadeOut, String title, String subtitle) {
+        if (type == 0) {
             return;
         }
+        try {
+            if (resetTitleMethod != null && title.isEmpty() && subtitle.isEmpty()) {
+                resetTitleMethod.invoke(player);
+                return;
+            }
 
-        if (sendTitleMethod == null) {
-            try {
-                Object chatTitle = a.invoke(null, "{\"text\":\"" + title + "\"}");
-                Object chatSubtitle = a.invoke(null, "{\"text\":\"" + subtitle + "\"}");
+            switch (type) {
+                case 1:
+                    Object chatTitle = a.invoke(null, "{\"text\":\"" + title + "\"}");
+                    Object chatSubtitle = a.invoke(null, "{\"text\":\"" + subtitle + "\"}");
+                    Object timeTitlePacket = timeTitleConstructor.newInstance(enumTIMES, null, fadeIn, stay, fadeOut);
+                    Object titlePacket = textTitleConstructor.newInstance(enumTITLE, chatTitle);
+                    Object subtitlePacket = textTitleConstructor.newInstance(enumSUBTITLE, chatSubtitle);
 
-                Object timeTitlePacket = timeTitleConstructor.newInstance(enumTIMES, null, fadeIn, stay, fadeOut);
-                Object titlePacket = textTitleConstructor.newInstance(enumTITLE, chatTitle);
-                Object subtitlePacket = textTitleConstructor.newInstance(enumSUBTITLE, chatSubtitle);
+                    sendPacket(player, timeTitlePacket);
+                    sendPacket(player, titlePacket);
+                    sendPacket(player, subtitlePacket);
+                    break;
 
-                sendPacket(player, timeTitlePacket);
-                sendPacket(player, titlePacket);
-                sendPacket(player, subtitlePacket);
-            } catch (Exception e) {
-                try {
-                    try {
-                        Player.class.getMethod("sendTitle", String.class, String.class).invoke(player, title, subtitle);
-                    } catch (NoSuchMethodError | NoSuchMethodException ex) {
-                        Player.class.getMethod("sendTitle", String.class, String.class, int.class, int.class, int.class).invoke(player, title, subtitle, fadeIn, stay, fadeOut);
+                case 2:
+                case 3:
+                    if (title.isEmpty()) {
+                        title = "§r";
                     }
-                } catch (Exception ex) {
-                    available = false;
-                    ex.printStackTrace();
-                }
+                    if (subtitle.isEmpty()) {
+                        subtitle = "§r";
+                    }
+                    sendTitleMethod.invoke(player, title, subtitle, fadeIn, stay, fadeOut);
+                    break;
+
+                case 4:
+                    if (title.isEmpty()) {
+                        title = "§r";
+                    }
+                    if (subtitle.isEmpty()) {
+                        subtitle = "§r";
+                    }
+                    sendTitleMethod.invoke(player, title, subtitle);
+                    break;
             }
-        } else {
-            try {
-                sendTitleMethod.invoke(player, title, subtitle, fadeIn, stay, fadeOut);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            type = 0;
         }
     }
 
@@ -69,15 +84,34 @@ public class TitleAPI extends Packet {
     }
 
     static {
+        load();
+    }
+
+    private static void load() {
+        try {
+            resetTitleMethod = getMethod(craftPlayerClass, "resetTitle");
+        } catch (Throwable ignored) {}
+
         try {
             load116();
-        } catch (Throwable e) {
-            try {
-                load117();
-            } catch (Throwable e2) {
-                available = false;
-            }
-        }
+            type = 1;
+            return;
+        } catch (Throwable ignored) {}
+        try {
+            sendTitleMethod = getMethod(Player.class, "sendTitle", String.class, String.class, int.class, int.class, int.class);
+            type = 2;
+            return;
+        } catch (Throwable ignored) {}
+
+        try {
+            sendTitleMethod = getMethod(craftPlayerClass, "sendTitle", String.class, String.class, int.class, int.class, int.class);
+            type = 3;
+            return;
+        } catch (Throwable ignored) {}
+        try {
+            sendTitleMethod = getMethod(Player.class, "sendTitle", String.class, String.class);
+            type = 4;
+        } catch (Throwable ignored) {}
     }
 
     private static void load116() throws Throwable {
@@ -102,7 +136,4 @@ public class TitleAPI extends Packet {
         textTitleConstructor = ppot.getConstructor(enumClass, icbc);
     }
 
-    private static void load117() throws Throwable {
-        sendTitleMethod = ReflectionUtils.getMethod(craftPlayerClass, "sendTitle", String.class, String.class, int.class, int.class, int.class);
-    }
 }

@@ -25,20 +25,18 @@ public class ActionBarAPI extends Packet {
     private static Constructor<?> chatConstructor;
 
     public static void sendActionBar(Player player, String message) {
-        if (!available || !player.isOnline()) return;
+        if (!available || !player.isOnline()) {
+            return;
+        }
+
         try {
             Object chatMessage = a.invoke(null, "{\"text\":\"" + message + "\"}");
             ServerVersion serverVersion = ServerVersion.getServerVersion();
             Object packet;
-            switch (serverVersion) {
-                case v1_16:
-                case v1_17:
-                    packet = chatConstructor.newInstance(chatMessage, typeMessage, UUID.randomUUID());
-                    break;
-
-                default:
-                    packet = chatConstructor.newInstance(chatMessage, typeMessage);
-                    break;
+            if (serverVersion.isGreaterThanOrEqualTo(ServerVersion.v1_16)) {
+                packet = chatConstructor.newInstance(chatMessage, typeMessage, UUID.randomUUID());
+            } else {
+                packet = chatConstructor.newInstance(chatMessage, typeMessage);
             }
             sendPacket(player, packet);
         } catch (Exception e) {
@@ -60,26 +58,18 @@ public class ActionBarAPI extends Packet {
 
             Class<?> typeMessageClass;
             ServerVersion serverVersion = ServerVersion.getServerVersion();
-            boolean newConstructor = false;
-            switch (serverVersion) {
-                case v1_16:
-                case v1_17:
-                    newConstructor = true;
-
-                case v1_12:
-                case v1_13:
-                case v1_14:
-                case v1_15:
-                    typeMessageClass = getNMS("ChatMessageType");
-                    typeMessage = typeMessageClass.getEnumConstants()[2];
-                    break;
-
-                default:
-                    typeMessageClass = byte.class;
-                    typeMessage = (byte) 2;
-                    break;
+            boolean newConstructor = serverVersion.isGreaterThanOrEqualTo(ServerVersion.v1_16);
+            if (serverVersion.isGreaterThanOrEqualTo(ServerVersion.v1_12)) {
+                typeMessageClass = getNMS("ChatMessageType");
+                typeMessage = typeMessageClass.getEnumConstants()[2];
+            } else {
+                typeMessageClass = byte.class;
+                typeMessage = (byte) 2;
             }
-            chatConstructor = newConstructor ? ppoc.getConstructor(icbc, typeMessageClass, UUID.class) : ppoc.getConstructor(icbc, typeMessageClass);
+
+            chatConstructor = newConstructor ?
+                    ppoc.getConstructor(icbc, typeMessageClass, UUID.class) :
+                    ppoc.getConstructor(icbc, typeMessageClass);
         } catch (Throwable e) {
             available = false;
             e.printStackTrace();
