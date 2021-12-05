@@ -19,16 +19,29 @@ public abstract class Packet {
 
     public static Class<?> craftPlayerClass, entityPlayerClass, playerConnectionClass;
     private static Method getHandleMethod, sendPacketMethod;
-    private static Field playerConnectionField;
+    private static Field playerConnectionField, playerNetworkManagerField;
 
     static {
         try {
             craftPlayerClass = getOBC("entity.CraftPlayer");
             entityPlayerClass = getNSNMS("level.EntityPlayer", "EntityPlayer");
             playerConnectionClass = getNSNMS("network.PlayerConnection", "PlayerConnection");
-            getHandleMethod = getMethod(craftPlayerClass, "getHandle");
-            sendPacketMethod = getMethod(playerConnectionClass, "sendPacket", getNMS("Packet"));
             playerConnectionField = getField(entityPlayerClass, "playerConnection");
+            getHandleMethod = getMethod(craftPlayerClass, "getHandle");
+
+            Class<?> packetClass = getNSNMS("network.protocol.Packet", "Packet");
+            try {
+                Class<?> networkManager = Class.forName("net.minecraft.network.NetworkManager");
+                for (Field field : playerConnectionClass.getDeclaredFields()) {
+                    if (networkManager.isAssignableFrom(field.getType())) {
+                        playerNetworkManagerField = field;
+                        break;
+                    }
+                }
+                sendPacketMethod = getMethod(networkManager, "a", packetClass);
+            } catch (ClassNotFoundException e) {
+                sendPacketMethod = getMethod(playerConnectionClass, "sendPacket", packetClass);
+            }
         } catch (ClassNotFoundException | NoSuchMethodException | NoSuchFieldException e) {
             e.printStackTrace();
         }
@@ -37,7 +50,12 @@ public abstract class Packet {
     public static void sendPacket(Player player, Object packet, Object... packets) throws InvocationTargetException, IllegalAccessException {
         Object entityPlayer = getHandleMethod.invoke(player);
         Object playerConnection = playerConnectionField.get(entityPlayer);
-        sendPacketMethod.invoke(playerConnection, packet);
+        if (playerNetworkManagerField != null) {
+            Object networkManager = playerNetworkManagerField.get(playerConnection);
+            sendPacketMethod.invoke(networkManager, packet);
+        } else {
+            sendPacketMethod.invoke(playerConnection, packet);
+        }
     }
 
 }
