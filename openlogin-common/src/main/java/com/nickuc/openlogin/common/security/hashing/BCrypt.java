@@ -1,4 +1,4 @@
-package com.nickuc.openlogin.common.security.encryption;
+package com.nickuc.openlogin.common.security.hashing;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;

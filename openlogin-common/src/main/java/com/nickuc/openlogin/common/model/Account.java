@@ -8,7 +8,7 @@
 package com.nickuc.openlogin.common.model;
 
 import com.nickuc.openlogin.common.database.Database;
-import com.nickuc.openlogin.common.security.encryption.BCrypt;
+import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;

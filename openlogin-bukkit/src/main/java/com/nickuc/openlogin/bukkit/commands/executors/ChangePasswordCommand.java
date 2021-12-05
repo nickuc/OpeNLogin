@@ -11,7 +11,7 @@ import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.commands.BukkitAbstractCommand;
 import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.model.Account;
-import com.nickuc.openlogin.common.security.encryption.BCrypt;
+import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.command.CommandSender;
