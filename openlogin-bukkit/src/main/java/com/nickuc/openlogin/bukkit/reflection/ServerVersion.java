@@ -37,7 +37,7 @@ public enum ServerVersion {
 
     private final String check;
     @Getter
-    private static ServerVersion serverVersion = detectVersion();
+    private static final ServerVersion serverVersion = detectVersion();
 
     public boolean isGreaterThanOrEqualTo(ServerVersion other) {
         return ordinal() >= other.ordinal();
@@ -50,9 +50,8 @@ public enum ServerVersion {
     private static ServerVersion detectVersion() {
         String ver = Bukkit.getVersion();
         for (ServerVersion serverVersion : ServerVersion.values()) {
-            if (serverVersion.check != null && ver.contains(serverVersion.check)) {
-                ServerVersion.serverVersion = serverVersion;
-                break;
+            if (serverVersion.check != null && ver.contains("MC: " + serverVersion.check)) {
+                return serverVersion;
             }
         }
         return UNKNOWN;
