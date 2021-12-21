@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 
 public class TextComponentMessage {
 
-    public static void sendPluginChoise(Player player) {
+    public static void sendPluginChoice(Player player) {
         TextComponent first = new TextComponent("      ");
 
         TextComponent nlogin = new TextComponent("nLogin");
