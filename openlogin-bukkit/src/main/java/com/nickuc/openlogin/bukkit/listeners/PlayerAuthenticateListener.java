@@ -9,6 +9,8 @@ package com.nickuc.openlogin.bukkit.listeners;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
+import com.nickuc.openlogin.bukkit.utils.TextComponentMessage;
+import com.nickuc.openlogin.common.utils.ClassUtils;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,6 +42,18 @@ public class PlayerAuthenticateListener implements Listener {
                 player.sendMessage(" §7A new version of §aOpeNLogin §7is available §a(v" + plugin.getDescription().getVersion() + " -> " + plugin.getLatestVersion() + ")§7.");
                 player.sendMessage(" §7Use the command §f'/openlogin update' §7to download new version.");
                 player.sendMessage("");
+            } else if (!plugin.isNewUser() &&
+                    ClassUtils.exists("net.md_5.bungee.api.chat.TextComponent") &&
+                    System.currentTimeMillis() - Long.parseLong(plugin.getPluginSettings().read("setup_date", "0")) > 7 * 86400 * 1000L) { // 7 days
+                String value = plugin.getPluginSettings().read("nlogin_ad");
+                if (value != null) {
+                    long timestamp = Long.parseLong(value);
+                    if (timestamp != -1 && System.currentTimeMillis() - timestamp > 30 * 86400 * 1000L) { // 30 days
+                        TextComponentMessage.sendPluginAd(player);
+                    }
+                } else {
+                    TextComponentMessage.sendPluginAd(player);
+                }
             }
         }
     }

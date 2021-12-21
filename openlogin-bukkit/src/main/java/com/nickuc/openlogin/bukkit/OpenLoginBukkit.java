@@ -17,6 +17,7 @@ import com.nickuc.openlogin.bukkit.task.LoginQueue;
 import com.nickuc.openlogin.common.OpenLogin;
 import com.nickuc.openlogin.common.api.OpenLoginAPI;
 import com.nickuc.openlogin.common.database.Database;
+import com.nickuc.openlogin.common.database.PluginSettings;
 import com.nickuc.openlogin.common.database.SQLite;
 import com.nickuc.openlogin.common.http.Http;
 import com.nickuc.openlogin.common.manager.AccountManagement;
@@ -47,7 +48,10 @@ public class OpenLoginBukkit extends JavaPlugin {
     private LoginManagement loginManagement;
     private AccountManagement accountManagement;
     private CommandManagement commandManagement;
+
     private Database database;
+    private PluginSettings pluginSettings;
+
     private String latestVersion;
     private boolean updateAvailable;
     @Setter
@@ -153,6 +157,7 @@ public class OpenLoginBukkit extends JavaPlugin {
             } catch (Exception e) {
                 sendMessage("§cFailed to update the register count.");
             }
+            pluginSettings = new PluginSettings(database);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

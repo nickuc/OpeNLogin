@@ -24,7 +24,7 @@ import java.net.URLDecoder;
 
 public class OpenLoginCommand extends BukkitAbstractCommand {
 
-    private boolean downloadLock, confirmNLogin, confirmOpenlogin;
+    private boolean downloadLock, confirmNLogin, confirmOpenlogin, confirmAd;
 
     public OpenLoginCommand(OpenLoginBukkit plugin) {
         super(plugin, "openlogin");
@@ -36,7 +36,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
             switch (subcommand) {
                 case "reload":
                 case "rl":
-                case "r":
+                case "r": {
                     if (sender instanceof Player && !plugin.getLoginManagement().isAuthenticated(sender.getName())) {
                         return;
                     }
@@ -45,8 +45,9 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                     plugin.setupSettings();
                     sender.sendMessage(Messages.PLUGIN_RELOAD_MESSAGE.asString());
                     return;
+                }
 
-                case "update":
+                case "update": {
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
                         return;
@@ -71,8 +72,33 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                     downloadLock = true;
                     update(player);
                     return;
+                }
 
-                case "setup":
+                case "nlogin_ad": {
+                    if (!(sender instanceof Player)) {
+                        sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
+                        return;
+                    }
+
+                    if (!confirmAd) {
+                        sender.sendMessage("");
+                        sender.sendMessage(" §cnLogin is generally a better solution for most users.");
+                        sender.sendMessage(" §7If you want to keep §fOpeNLogin §7anyway,");
+                        sender.sendMessage(" §7please click on the message again.");
+                        sender.sendMessage("");
+                        confirmAd = true;
+                        return;
+                    }
+
+                    if (plugin.getPluginSettings().set("nlogin_ad", Long.toString(System.currentTimeMillis()))) {
+                        sender.sendMessage("§eYou will not be notified again of the migration for a long time.");
+                    } else {
+                        sender.sendMessage("§cDatabase error :C, please try again.");
+                    }
+                    return;
+                }
+
+                case "setup": {
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
                         return;
@@ -102,21 +128,23 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                     }.runTask(plugin);
 
                     plugin.setNewUser(false);
+                    plugin.getPluginSettings().set("setup_date", Long.toString(System.currentTimeMillis()));
 
                     File newUserfile = new File(plugin.getDataFolder(), "new-user");
                     if (newUserfile.exists() && !newUserfile.delete()) {
                         newUserfile.deleteOnExit();
                     }
                     return;
+                }
 
-                case "nlogin":
+                case "nlogin": {
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
                         return;
                     }
 
-                    player = (Player) sender;
-                    name = player.getName();
+                    Player player = (Player) sender;
+                    String name = player.getName();
                     if (!plugin.isNewUser() && !plugin.getLoginManagement().isAuthenticated(name)) {
                         return;
                     }
@@ -143,23 +171,22 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         downloadLock = true;
 
                         Runnable callback = null;
-                        if (skip) {
-                            callback = () -> {
-                                new BukkitRunnable() {
-                                    @Override
-                                    public void run() {
-                                        for (Player on : plugin.getServer().getOnlinePlayers()) {
-                                            player.closeInventory();
-                                            player.kickPlayer("§anLogin was successfully installed. We are restarting the server to apply the changes.");
-                                        }
-                                        plugin.getServer().shutdown();
+                        if (skip && plugin.isNewUser()) {
+                            callback = () -> new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    for (Player on : plugin.getServer().getOnlinePlayers()) {
+                                        on.closeInventory();
+                                        on.kickPlayer("§anLogin was successfully installed. We are restarting the server to apply the changes.");
                                     }
-                                }.runTask(plugin);
-                            };
+                                    plugin.getServer().shutdown();
+                                }
+                            }.runTask(plugin);
                         }
                         downloadNLogin(player, callback);
                     }
                     return;
+                }
             }
         }
 

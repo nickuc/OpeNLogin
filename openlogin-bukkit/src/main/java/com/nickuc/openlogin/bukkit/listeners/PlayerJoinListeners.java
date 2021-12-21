@@ -38,7 +38,7 @@ public class PlayerJoinListeners implements Listener {
             player.sendMessage("  §7your favorite login plugin.");
             player.sendMessage("");
             if (ClassUtils.exists("net.md_5.bungee.api.chat.TextComponent")) {
-                TextComponentMessage.sendPluginChoise(player);
+                TextComponentMessage.sendPluginChoice(player);
             } else {
                 player.sendMessage("      §enLogin              §eOpeNLogin");
                 player.sendMessage("  §c(proprietary)      §a(open source)");

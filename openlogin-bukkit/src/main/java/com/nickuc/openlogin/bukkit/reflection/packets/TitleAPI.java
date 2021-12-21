@@ -114,7 +114,7 @@ public class TitleAPI extends Packet {
         }
 
         // <= 1.16
-        if (ServerVersion.getServerVersion().isGreaterThanOrEqualTo(ServerVersion.v1_16)) {
+        if (ServerVersion.getServerVersion().isLessThanOrEqualTo(ServerVersion.v1_16)) {
             try {
                 load116();
                 type = 3;

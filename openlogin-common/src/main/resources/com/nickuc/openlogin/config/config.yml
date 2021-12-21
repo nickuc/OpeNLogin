@@ -15,6 +15,10 @@ file-version: 1
 # For more information: https://github.com/nickuc/OpeNLogin/blob/master/docs/lang.md
 languageFile: 'messages_en.yml'
 
+# The plugin will be able to send advertisements to the administrators.
+# For example: nLogin recommendation.
+allow-advertising: true
+
 # Security system related settings.
 Security:
   # Amount of time for a player to log in/register (set in seconds).
