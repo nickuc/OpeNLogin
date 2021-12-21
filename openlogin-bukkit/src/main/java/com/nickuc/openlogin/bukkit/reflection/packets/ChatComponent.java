@@ -21,6 +21,7 @@ public class ChatComponent extends Packet {
     static {
         try {
             icbc = ReflectionUtils.getClass("net.minecraft.network.chat.IChatBaseComponent", "{nms}.IChatBaseComponent");
+            load();
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }

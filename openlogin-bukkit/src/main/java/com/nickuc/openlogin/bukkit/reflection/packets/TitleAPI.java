@@ -29,6 +29,14 @@ public class TitleAPI extends Packet {
     private static Constructor<?> timeTitleConstructor;
     private static Constructor<?> textTitleConstructor;
 
+    static {
+        try {
+            load();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void sendTitle(Player player, Title title) {
         sendTitle(player, title.start, title.duration, title.end, title.title, title.subtitle);
     }

@@ -25,6 +25,14 @@ public class ActionBarAPI extends Packet {
     private static Object typeMessage;
     private static Constructor<?> chatConstructor;
 
+    static {
+        try {
+            load();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void sendActionBar(Player player, String message) {
         if (type == 0 || !player.isOnline()) {
             return;
