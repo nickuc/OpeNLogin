@@ -13,8 +13,8 @@ import com.nickuc.openlogin.bukkit.api.events.AsyncRegisterEvent;
 import com.nickuc.openlogin.bukkit.commands.BukkitAbstractCommand;
 import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
 import com.nickuc.openlogin.common.database.Database;
+import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
-import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
@@ -63,7 +63,8 @@ public class RegisterCommand extends BukkitAbstractCommand {
             return;
         }
 
-        boolean exists = loginManagement.retrieveOrLoad(name).isPresent();
+        AccountManagement accountManagement = plugin.getAccountManagement();
+        boolean exists = accountManagement.retrieveOrLoad(name).isPresent();
         if (exists) {
             sender.sendMessage(Messages.ALREADY_REGISTERED.asString());
             return;
@@ -74,7 +75,7 @@ public class RegisterCommand extends BukkitAbstractCommand {
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(password, salt);
         String address = player.getAddress().getAddress().getHostAddress();
-        if (!Account.update(database, name, hashedPassword, address, false)) {
+        if (!accountManagement.update(name, hashedPassword, address, false)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }

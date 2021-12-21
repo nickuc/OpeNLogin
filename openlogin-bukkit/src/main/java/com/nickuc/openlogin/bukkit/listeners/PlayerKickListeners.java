@@ -47,7 +47,7 @@ public class PlayerKickListeners implements Listener {
             return;
         }
 
-        Optional<Account> accountOpt = plugin.getLoginManagement().retrieveOrLoad(name);
+        Optional<Account> accountOpt = plugin.getAccountManagement().retrieveOrLoad(name);
         if (accountOpt.isPresent()) {
             Account account = accountOpt.get();
             String realname = account.getRealname();

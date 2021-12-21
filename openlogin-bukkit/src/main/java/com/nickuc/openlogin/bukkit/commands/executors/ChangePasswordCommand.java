@@ -9,7 +9,7 @@ package com.nickuc.openlogin.bukkit.commands.executors;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.commands.BukkitAbstractCommand;
-import com.nickuc.openlogin.common.database.Database;
+import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
@@ -55,25 +55,25 @@ public class ChangePasswordCommand extends BukkitAbstractCommand {
             return;
         }
 
+        AccountManagement accountManagement = plugin.getAccountManagement();
         String name = sender.getName();
-        Optional<Account> accountOpt = plugin.getLoginManagement().retrieveOrLoad(name);
+        Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
             sender.sendMessage(Messages.NOT_REGISTERED.asString());
             return;
         }
 
         Account account = accountOpt.get();
-        if (!account.comparePassword(currentPassword)) {
+        if (!accountManagement.comparePassword(account, currentPassword)) {
             sender.sendMessage(Messages.PASSWORDS_DONT_MATCH.asString());
             return;
         }
 
         Player player = (Player) sender;
-        Database database = plugin.getDatabase();
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(newPassword, salt);
         String address = player.getAddress().getAddress().getHostAddress();
-        if (!Account.update(database, name, hashedPassword, address)) {
+        if (!accountManagement.update(name, hashedPassword, address)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }

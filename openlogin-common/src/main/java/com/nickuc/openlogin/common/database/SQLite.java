@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 @RequiredArgsConstructor
 public class SQLite implements Database {
@@ -56,12 +56,16 @@ public class SQLite implements Database {
      * Execute a update
      *
      * @param command the command to be executed
+     * @param args    the command arguments
      * @throws SQLException on failure
      */
-    public void update(String command) throws SQLException {
+    public void update(String command, Object... args) throws SQLException {
         openConnection();
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(command);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(command)) {
+            for (int i = 0; i < args.length; i++) {
+                preparedStatement.setObject(i + 1, args[i]);
+            }
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Failed to execute update statement: '" + command + "'", e);
         }
@@ -71,11 +75,12 @@ public class SQLite implements Database {
      * Executes a query
      *
      * @param command the command to be executed
+     * @param args    the command arguments
      * @return returns an instance of {@link com.nickuc.openlogin.common.database.Database.Query}
      * @throws SQLException on failure
      */
-    public Query query(String command) throws SQLException {
+    public Query query(String command, Object... args) throws SQLException {
         openConnection();
-        return new Query(connection, command);
+        return new Query(connection, command, args);
     }
 }

@@ -19,6 +19,7 @@ import com.nickuc.openlogin.common.api.OpenLoginAPI;
 import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.database.SQLite;
 import com.nickuc.openlogin.common.http.Http;
+import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Title;
 import com.nickuc.openlogin.common.security.filter.LoggerFilterManager;
@@ -44,6 +45,7 @@ import java.sql.SQLException;
 public class OpenLoginBukkit extends JavaPlugin {
 
     private LoginManagement loginManagement;
+    private AccountManagement accountManagement;
     private CommandManagement commandManagement;
     private Database database;
     private String latestVersion;
@@ -99,8 +101,11 @@ public class OpenLoginBukkit extends JavaPlugin {
             return;
         }
 
+        // setup account management
+        accountManagement = new AccountManagement(database);
+
         // setup login management
-        loginManagement = new LoginManagement(database);
+        loginManagement = new LoginManagement(accountManagement);
 
         // setup commands
         commandManagement = new CommandManagement(this);
@@ -139,6 +144,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         try {
             database.openConnection();
             database.update("CREATE TABLE IF NOT EXISTS `openlogin` (`name` TEXT, `realname` TEXT, `password` TEXT, `address` TEXT, `lastlogin` TEXT, `regdate` TEXT)");
+            database.update("CREATE TABLE IF NOT EXISTS `settings` (`key` TEXT, `value` TEXT)");
             try (Database.Query query = database.query("SELECT COUNT(*) FROM `openlogin`")) {
                 ResultSet rs = query.resultSet;
                 if (rs.next()) {

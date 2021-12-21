@@ -11,7 +11,6 @@ import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
 import com.nickuc.openlogin.bukkit.utils.TextComponentMessage;
-import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.utils.ClassUtils;
 import lombok.AllArgsConstructor;
@@ -52,8 +51,7 @@ public class PlayerJoinListeners implements Listener {
             return;
         }
 
-        LoginManagement loginManagement = plugin.getLoginManagement();
-        boolean registered = loginManagement.retrieveOrLoad(name).isPresent();
+        boolean registered = plugin.getAccountManagement().retrieveOrLoad(name).isPresent();
         LoginQueue.addToQueue(name, registered);
 
         player.setWalkSpeed(0F);

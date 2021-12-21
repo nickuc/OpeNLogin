@@ -12,6 +12,7 @@ import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncLoginEvent;
 import com.nickuc.openlogin.bukkit.commands.BukkitAbstractCommand;
 import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
+import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.settings.Messages;
@@ -44,7 +45,8 @@ public class LoginCommand extends BukkitAbstractCommand {
             return;
         }
 
-        Optional<Account> accountOpt = loginManagement.retrieveOrLoad(name);
+        AccountManagement accountManagement = plugin.getAccountManagement();
+        Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
             sender.sendMessage(Messages.NOT_REGISTERED.asString());
             return;
@@ -54,7 +56,7 @@ public class LoginCommand extends BukkitAbstractCommand {
         String password = args[0];
 
         Player player = (Player) sender;
-        if (!account.comparePassword(password)) {
+        if (!accountManagement.comparePassword(account, password)) {
             plugin.getServer().getScheduler().runTask(plugin, () -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
             return;
         }

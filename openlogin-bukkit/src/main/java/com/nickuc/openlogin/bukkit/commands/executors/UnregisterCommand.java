@@ -9,7 +9,7 @@ package com.nickuc.openlogin.bukkit.commands.executors;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.commands.BukkitAbstractCommand;
-import com.nickuc.openlogin.common.database.Database;
+import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.settings.Messages;
 import org.bukkit.command.CommandSender;
@@ -29,15 +29,15 @@ public class UnregisterCommand extends BukkitAbstractCommand {
                 sender.sendMessage("§cUsage: /" + lb + " <player>");
                 return;
             }
+            AccountManagement accountManagement = plugin.getAccountManagement();
             String name = args[0];
-            Optional<Account> accountOpt = plugin.getLoginManagement().retrieveOrLoad(name);
+            Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
             if (!accountOpt.isPresent()) {
                 sender.sendMessage(Messages.NOT_REGISTERED.asString());
                 return;
             }
 
-            Database database = plugin.getDatabase();
-            if (!Account.delete(database, name)) {
+            if (!accountManagement.delete(name)) {
                 sender.sendMessage(Messages.DATABASE_ERROR.asString());
                 return;
             }
@@ -55,8 +55,9 @@ public class UnregisterCommand extends BukkitAbstractCommand {
             return;
         }
 
+        AccountManagement accountManagement = plugin.getAccountManagement();
         String name = sender.getName();
-        Optional<Account> accountOpt = plugin.getLoginManagement().retrieveOrLoad(name);
+        Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
             sender.sendMessage(Messages.NOT_REGISTERED.asString());
             return;
@@ -64,13 +65,12 @@ public class UnregisterCommand extends BukkitAbstractCommand {
 
         Account account = accountOpt.get();
         String currentPassword = args[0];
-        if (!account.comparePassword(currentPassword)) {
+        if (!accountManagement.comparePassword(account, currentPassword)) {
             sender.sendMessage(Messages.INCORRECT_PASSWORD.asString());
             return;
         }
 
-        Database database = plugin.getDatabase();
-        if (!Account.delete(database, name)) {
+        if (!accountManagement.delete(name)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }

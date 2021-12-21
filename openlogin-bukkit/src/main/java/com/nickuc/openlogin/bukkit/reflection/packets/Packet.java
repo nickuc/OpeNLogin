@@ -46,7 +46,7 @@ public abstract class Packet {
                 } catch (NoSuchMethodException e) {
                     sendPacketMethod = ReflectionUtils.getMethod(networkManager, "a", packetClass);
                 }
-            } else  {
+            } else {
                 sendPacketMethod = ReflectionUtils.getMethod(playerConnectionClass, "sendPacket", packetClass);
             }
         } catch (ClassNotFoundException | NoSuchMethodException | NoSuchFieldException e) {
