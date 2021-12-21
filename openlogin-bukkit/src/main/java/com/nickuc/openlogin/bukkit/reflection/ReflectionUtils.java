@@ -86,11 +86,7 @@ public class ReflectionUtils {
             }
         }
         String canonicalName = names[names.length - 1];
-        try {
-            return Class.forName(canonicalName);
-        } catch (ClassNotFoundException | NoClassDefFoundError e) {
-            throw new IllegalArgumentException("Cannot find " + canonicalName, e);
-        }
+        return Class.forName(canonicalName);
     }
 
     private static String expandVariables(String name) {
