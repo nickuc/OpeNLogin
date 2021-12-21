@@ -7,30 +7,34 @@
 
 package com.nickuc.openlogin.bukkit.reflection.packets;
 
+import com.nickuc.openlogin.bukkit.reflection.ReflectionUtils;
+import com.nickuc.openlogin.bukkit.reflection.ServerVersion;
 import com.nickuc.openlogin.common.model.Title;
-import lombok.NonNull;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getMethod;
-import static com.nickuc.openlogin.bukkit.reflection.ReflectionUtils.getNMS;
-
 public class TitleAPI extends Packet {
 
-    private static Method a;
+    private static byte type;
+
+    private static Method sendTitleMethod;
+    private static Method resetTitleMethod;
+
+    // <= 1.16
     private static Object enumTIMES;
     private static Object enumTITLE;
     private static Object enumSUBTITLE;
     private static Constructor<?> timeTitleConstructor;
     private static Constructor<?> textTitleConstructor;
-    private static byte type;
-    private static Method sendTitleMethod;
-    private static Method resetTitleMethod;
+
+    public static void sendTitle(Player player, Title title) {
+        sendTitle(player, title.start, title.duration, title.end, title.title, title.subtitle);
+    }
 
     public static void sendTitle(Player player, int fadeIn, int stay, int fadeOut, String title, String subtitle) {
-        if (type == 0) {
+        if (type == 0 || !player.isOnline()) {
             return;
         }
         try {
@@ -40,9 +44,9 @@ public class TitleAPI extends Packet {
             }
 
             switch (type) {
-                case 1:
-                    Object chatTitle = a.invoke(null, "{\"text\":\"" + title + "\"}");
-                    Object chatSubtitle = a.invoke(null, "{\"text\":\"" + subtitle + "\"}");
+                case 3:
+                    Object chatTitle = ChatComponent.chatComponentFromText(title);
+                    Object chatSubtitle = ChatComponent.chatComponentFromText(subtitle);
                     Object timeTitlePacket = timeTitleConstructor.newInstance(enumTIMES, null, fadeIn, stay, fadeOut);
                     Object titlePacket = textTitleConstructor.newInstance(enumTITLE, chatTitle);
                     Object subtitlePacket = textTitleConstructor.newInstance(enumSUBTITLE, chatSubtitle);
@@ -52,8 +56,8 @@ public class TitleAPI extends Packet {
                     sendPacket(player, subtitlePacket);
                     break;
 
+                case 1:
                 case 2:
-                case 3:
                     if (title.isEmpty()) {
                         title = "§r";
                     }
@@ -79,61 +83,64 @@ public class TitleAPI extends Packet {
         }
     }
 
-    public static void sendTitle(@NonNull Player player, @NonNull Title title) {
-        sendTitle(player, title.start, title.duration, title.end, title.title, title.subtitle);
-    }
-
-    static {
-        load();
-    }
-
-    private static void load() {
+    public static void load() throws Throwable {
         try {
-            resetTitleMethod = getMethod(craftPlayerClass, "resetTitle");
-        } catch (Throwable ignored) {}
+            resetTitleMethod = ReflectionUtils.getMethod(craftPlayerClass, "resetTitle");
+        } catch (Throwable ignored) {
+        }
 
+        // Player#sendTitle(String, String, int, int, int)
         try {
-            load116();
+            sendTitleMethod = ReflectionUtils.getMethod(Player.class, "sendTitle", String.class, String.class, int.class, int.class, int.class);
             type = 1;
             return;
-        } catch (Throwable ignored) {}
+        } catch (Throwable ignored) {
+        }
+
+        // CraftPlayer#sendTitle(String, String, int, int, int)
         try {
-            sendTitleMethod = getMethod(Player.class, "sendTitle", String.class, String.class, int.class, int.class, int.class);
+            sendTitleMethod = ReflectionUtils.getMethod(craftPlayerClass, "sendTitle", String.class, String.class, int.class, int.class, int.class);
             type = 2;
             return;
-        } catch (Throwable ignored) {}
+        } catch (Throwable ignored) {
+        }
+
+        // <= 1.16
+        if (ServerVersion.getServerVersion().isGreaterThanOrEqualTo(ServerVersion.v1_16)) {
+            try {
+                load116();
+                type = 3;
+            } catch (Throwable ignored) {
+            }
+        }
 
         try {
-            sendTitleMethod = getMethod(craftPlayerClass, "sendTitle", String.class, String.class, int.class, int.class, int.class);
-            type = 3;
-            return;
-        } catch (Throwable ignored) {}
-        try {
-            sendTitleMethod = getMethod(Player.class, "sendTitle", String.class, String.class);
+            // Player#sendTitle(String, String)
+            sendTitleMethod = ReflectionUtils.getMethod(Player.class, "sendTitle", String.class, String.class);
             type = 4;
-        } catch (Throwable ignored) {}
+        } catch (Throwable e) {
+            if (ServerVersion.getServerVersion().isGreaterThanOrEqualTo(ServerVersion.v1_18)) {
+                throw e;
+            }
+        }
     }
 
     private static void load116() throws Throwable {
-        Class<?> icbc = getNMS("IChatBaseComponent");
-        Class<?> ppot = getNMS("PacketPlayOutTitle");
+        Class<?> ppot = ReflectionUtils.getClass("{nms}.PacketPlayOutTitle");
         Class<?> enumClass;
 
-        if (ppot.getDeclaredClasses().length > 0) {
-            enumClass = ppot.getDeclaredClasses()[0];
+        Class<?>[] ppotDeclaredClasses = ppot.getDeclaredClasses();
+        if (ppotDeclaredClasses.length > 0) {
+            enumClass = ppotDeclaredClasses[0];
         } else {
-            enumClass = getNMS("EnumTitleAction");
+            enumClass = ReflectionUtils.getClass("{nms}.EnumTitleAction");
         }
-        if (icbc.getDeclaredClasses().length > 0) {
-            a = icbc.getDeclaredClasses()[0].getMethod("a", String.class);
-        } else {
-            a = getNMS("ChatSerializer").getMethod("a", String.class);
-        }
+
         enumTIMES = enumClass.getField("TIMES").get(null);
         enumTITLE = enumClass.getField("TITLE").get(null);
         enumSUBTITLE = enumClass.getField("SUBTITLE").get(null);
-        timeTitleConstructor = ppot.getConstructor(enumClass, icbc, int.class, int.class, int.class);
-        textTitleConstructor = ppot.getConstructor(enumClass, icbc);
+        timeTitleConstructor = ppot.getConstructor(enumClass, ChatComponent.icbc, int.class, int.class, int.class);
+        textTitleConstructor = ppot.getConstructor(enumClass, ChatComponent.icbc);
     }
 
 }
