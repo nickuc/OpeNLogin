@@ -89,7 +89,7 @@ public class RegisterCommand extends BukkitAbstractCommand {
 
             plugin.getServer().getScheduler().runTask(plugin, () -> {
                 player.setWalkSpeed(0.2F);
-                player.setFlySpeed(0.2F);
+                player.setFlySpeed(0.1F);
             });
 
             new AsyncAuthenticateEvent(player).callEvt();
