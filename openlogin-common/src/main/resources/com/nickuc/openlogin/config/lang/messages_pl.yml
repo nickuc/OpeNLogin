@@ -9,6 +9,7 @@
 # Discord: https://www.nickuc.com/discord
 
 # Polish translation made by Gh77ost#8539 <3
+# Fixed by sus town#1347 :}
 
 # Do not change this setting
 file-version: 4
@@ -70,7 +71,7 @@ Messages:
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname
-    nick-already-registered: "&cNie możesz wejść pod tym nickiem {0}\n&cTen użytkownik został zarejestrowany jako {1}\n\n&cBy wejść na serwer musisz użyć starego nicku zwróć uwagę na wielkie litery"
+    nick-already-registered: "&cNie możesz wejść pod tym nickiem {0}\n&cTen użytkownik został zarejestrowany jako {1}\n\n&cBy wejść na serwer musisz użyć starego nicku. Zwróć uwagę na wielkie litery!"
 
     # Message sent when a user misses many times
     failed-many-times: "&cZbyt wiele razy wpisałeś złe hasło."
@@ -107,7 +108,7 @@ Messages:
     already-online: "&cTen gracz jest aktualnie online."
 
     # Message to show that the command cannot be executed via console
-    player-command-usage: "&cTo polecenie zostało wyłączone za pomocą konsoli."
+    player-command-usage: "&cTo polecenie nie może zostać wykonane za pomocą konsoli."
 
     # Message shown when the plugin is reloaded
     plugin-reload-message: "&ePomyślnie przeładowano plugin."
@@ -117,13 +118,13 @@ Messages:
 
   other-messages:
     # Mensagem enviada para o uso do comando /logar
-    message-login: "&eUżyj komendy &7/login <hasło>&e."
+    message-login: "&eUżyj polecenia &7/login <hasło>&e."
 
     # Mensagem enviada para o uso do comando /register
-    message-register: "&eUżyj komendy &7/register <hasło> <hasło>&e."
+    message-register: "&eUżyj polecenia &7/register <hasło> <hasło>&e."
 
     # Mensagem enviada para o uso do comando /mudarsenha
-    message-changepassword: "&eUżyj komendy &7/changepassword <stare Hasło> <nowe Hasło>&e."
+    message-changepassword: "&eUżyj polecenia &7/changepassword <stare Hasło> <nowe Hasło>&e."
 
     # Wiadomość wysłana w celu użycia polecenia /unregister
     message-unregister: "&eUżyj polecenia &7/unregister <bieżące hasło>&e."
