@@ -144,7 +144,7 @@ public class AccountManagement {
         try {
             if (exists) {
                 database.update(
-                        "UPDATE `openlogin` SET `password` = ?, `address` ?, `lastlogin` = ? WHERE `name` = ?",
+                        "UPDATE `openlogin` SET `password` = ?, `address` = ?, `lastlogin` = ? WHERE `name` = ?",
                         hashedPassword,
                         address == null ? "127.0.0.1" : address,
                         current,
