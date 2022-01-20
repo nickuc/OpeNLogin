@@ -147,7 +147,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         database = new SQLite(databaseFile);
         try {
             database.openConnection();
-            database.update("CREATE TABLE IF NOT EXISTS `openlogin` (`name` TEXT, `realname` TEXT, `password` TEXT, `address` TEXT, `lastlogin` TEXT, `regdate` TEXT)");
+            database.update("CREATE TABLE IF NOT EXISTS `openlogin` (`name` TEXT, `realname` TEXT, `password` TEXT, `address` TEXT, `lastlogin` INTEGER, `regdate` INTEGER)");
             database.update("CREATE TABLE IF NOT EXISTS `settings` (`key` TEXT, `value` TEXT)");
             try (Database.Query query = database.query("SELECT COUNT(*) FROM `openlogin`")) {
                 ResultSet rs = query.resultSet;

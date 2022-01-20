@@ -93,12 +93,12 @@ public class AccountManagement {
         try (Database.Query query = database.query("SELECT * FROM `openlogin` WHERE `name` = ?", name.toLowerCase())) {
             ResultSet resultSet = query.resultSet;
             if (resultSet.next()) {
-                String realname = resultSet.getString("realname");
+                String realName = resultSet.getString("realname");
                 String hashedPassword = resultSet.getString("password");
                 String address = resultSet.getString("address");
-                long lastlogin = Long.parseLong(resultSet.getString("lastlogin"));
-                long regdate = Long.parseLong(resultSet.getString("regdate"));
-                return Optional.of(new Account(realname, hashedPassword, address, lastlogin, regdate));
+                long lastLogin = resultSet.getLong("lastlogin");
+                long regdate = resultSet.getLong("regdate");
+                return Optional.of(new Account(realName, hashedPassword, address, lastLogin, regdate));
             }
         } catch (SQLException e) {
             e.printStackTrace();
