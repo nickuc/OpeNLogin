@@ -17,4 +17,6 @@ shadowJar {
     relocate 'org.bstats.bukkit', 'com.nickuc.openlogin.bukkit.metrics'
     relocate 'org.bstats.bungee', 'com.nickuc.openlogin.bungee.metrics'
     relocate 'org.bstats', 'com.nickuc.openlogin.common.metrics'
+
+    archiveName('OpenLogin.jar')
 }
