@@ -23,7 +23,7 @@ public class LoginQueue {
     private static final ConcurrentHashMap<String, PlayerLogin> pendingLogin = new ConcurrentHashMap<>();
 
     /**
-     * Starts the global timeout task
+     * Starts the global timeout task.
      *
      * @param plugin the plugin instance
      */
@@ -53,7 +53,7 @@ public class LoginQueue {
     }
 
     /**
-     * Add a player to timeout timer
+     * Add a player to timeout timer.
      *
      * @param name       the name of the player
      * @param registered should be true if the player is registered
@@ -63,7 +63,7 @@ public class LoginQueue {
     }
 
     /**
-     * Removes a player from timeout timer
+     * Removes a player from timeout timer.
      *
      * @param name the name of the player
      */

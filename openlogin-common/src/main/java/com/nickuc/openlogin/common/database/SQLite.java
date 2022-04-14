@@ -24,7 +24,7 @@ public class SQLite implements Database {
     private Connection connection;
 
     /**
-     * Open the connection
+     * Open the connection.
      *
      * @throws SQLException on failure
      */
@@ -44,7 +44,7 @@ public class SQLite implements Database {
     }
 
     /**
-     * Close the connection
+     * Close the connection.
      *
      * @throws SQLException on failure
      */
@@ -53,7 +53,7 @@ public class SQLite implements Database {
     }
 
     /**
-     * Execute a update
+     * Executes an update.
      *
      * @param command the command to be executed
      * @param args    the command arguments
@@ -72,7 +72,7 @@ public class SQLite implements Database {
     }
 
     /**
-     * Executes a query
+     * Executes a query.
      *
      * @param command the command to be executed
      * @param args    the command arguments

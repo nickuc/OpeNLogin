@@ -44,7 +44,7 @@ public enum Settings {
     private final Object def;
 
     /**
-     * Add a setting to map
+     * Add a setting to map.
      *
      * @param setting the setting to define
      * @param value   the setting value
@@ -54,7 +54,7 @@ public enum Settings {
     }
 
     /**
-     * Clears the settings map
+     * Clears the settings map.
      */
     public static void clear() {
         SETTINGS.clear();

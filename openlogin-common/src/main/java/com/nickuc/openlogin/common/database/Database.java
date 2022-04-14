@@ -16,21 +16,21 @@ import java.sql.SQLException;
 public interface Database {
 
     /**
-     * Open the connection
+     * Open the connection.
      *
      * @throws SQLException on failure
      */
     void openConnection() throws SQLException;
 
     /**
-     * Close the connection
+     * Close the connection.
      *
      * @throws SQLException on failure
      */
     void closeConnection() throws SQLException;
 
     /**
-     * Execute a update
+     * Executes an update.
      *
      * @param command the command to be executed
      * @param args    the command arguments
@@ -39,7 +39,7 @@ public interface Database {
     void update(String command, Object... args) throws SQLException;
 
     /**
-     * Executes a query
+     * Executes a query.
      *
      * @param command the command to be executed
      * @param args    the command arguments

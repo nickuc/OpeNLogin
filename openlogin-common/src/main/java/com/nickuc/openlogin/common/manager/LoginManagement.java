@@ -39,7 +39,7 @@ public class LoginManagement {
     }
 
     /**
-     * Set the player authenticated
+     * Set the player authenticated.
      *
      * @param name the name of the player
      */
@@ -48,7 +48,7 @@ public class LoginManagement {
     }
 
     /**
-     * Check if the player is authenticated
+     * Check if the player is authenticated.
      *
      * @param name the name of the player
      * @return true if authenticated
@@ -58,7 +58,7 @@ public class LoginManagement {
     }
 
     /**
-     * Lock the commands
+     * Lock the commands.
      *
      * @param name the name of the player
      */
@@ -67,7 +67,7 @@ public class LoginManagement {
     }
 
     /**
-     * Check if the player is locked
+     * Check if the player is locked.
      *
      * @param name the name of the player
      * @return true if locked

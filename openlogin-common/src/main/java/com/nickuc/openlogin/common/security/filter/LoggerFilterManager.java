@@ -20,7 +20,7 @@ public class LoggerFilterManager {
     private static final String ISSUED_COMMAND = "issued server command";
 
     /**
-     * Adds an OpenLogin command to filter
+     * Adds an OpenLogin command to filter.
      *
      * @param command the command to add
      */
@@ -32,7 +32,7 @@ public class LoggerFilterManager {
     }
 
     /**
-     * Checks if the provided message is an OpeNLogin command
+     * Checks if the provided message is an OpeNLogin command.
      *
      * @param fullMessage the message to analyze
      * @return true if the message contains an OpeNLogin command

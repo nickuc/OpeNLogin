@@ -14,7 +14,6 @@ import org.bukkit.Bukkit;
 /**
  * @author rush
  */
-
 @AllArgsConstructor
 @Getter
 public enum ServerVersion {

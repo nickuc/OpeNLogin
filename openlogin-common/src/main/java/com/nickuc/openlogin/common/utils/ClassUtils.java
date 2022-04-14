@@ -10,7 +10,7 @@ package com.nickuc.openlogin.common.utils;
 public class ClassUtils {
 
     /**
-     * Checks if a class exists
+     * Checks if a class exists.
      *
      * @param clasz the class to check
      * @return true if exists

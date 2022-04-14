@@ -31,7 +31,7 @@ public class AccountManagement {
     private final Database database;
 
     /**
-     * Checks if the password provided is valid
+     * Checks if the password provided is valid.
      *
      * @param password the password to compare
      * @return true if the passwords match
@@ -48,7 +48,7 @@ public class AccountManagement {
     }
 
     /**
-     * Retrieve or load an account
+     * Retrieve or load an account.
      *
      * @param name the name of the player
      * @return the player's {@link Account}. Failing, will return empty Optional.
@@ -66,7 +66,7 @@ public class AccountManagement {
     }
 
     /**
-     * Add an account to cache
+     * Add an account to cache.
      *
      * @param account the account to add
      */
@@ -75,7 +75,7 @@ public class AccountManagement {
     }
 
     /**
-     * Invalidate an account from cache
+     * Invalidate an account from cache.
      *
      * @param key the key to invalidate
      */
@@ -84,7 +84,7 @@ public class AccountManagement {
     }
 
     /**
-     * Searches for saved accounts
+     * Searches for saved accounts.
      *
      * @param name the name of the player
      * @return optional of {@link Account}
@@ -107,7 +107,7 @@ public class AccountManagement {
     }
 
     /**
-     * Update the player's database column
+     * Update the player's database column.
      *
      * @param name           the name of the player (realname)
      * @param hashedPassword the hashed password
@@ -119,7 +119,7 @@ public class AccountManagement {
     }
 
     /**
-     * Update the player's data
+     * Update the player's data.
      *
      * @param name           the name of the player (realname)
      * @param hashedPassword the hashed password
@@ -169,7 +169,7 @@ public class AccountManagement {
     }
 
     /**
-     * Delete all of the player's data
+     * Delete all of the player's data.
      *
      * @param name the name of the player
      * @return true on success

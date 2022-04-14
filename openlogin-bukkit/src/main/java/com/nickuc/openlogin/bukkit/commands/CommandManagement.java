@@ -27,7 +27,7 @@ public class CommandManagement {
     private final OpenLoginBukkit plugin;
 
     /**
-     * Checks if the provided command is allowed
+     * Checks if the provided command is allowed.
      *
      * @param command the command to check
      * @return true if is allowed

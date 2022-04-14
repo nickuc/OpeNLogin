@@ -24,7 +24,7 @@ public interface OpenLoginAPI {
     Optional<Account> getAccount(@NonNull String player);
 
     /**
-     * Checks if the password provided is valid
+     * Checks if the password provided is valid.
      *
      * @param player   the name of the player
      * @param password the password to compare
@@ -33,7 +33,7 @@ public interface OpenLoginAPI {
     boolean comparePassword(@NonNull String player, @NonNull String password);
 
     /**
-     * Checks if the player is registered
+     * Checks if the player is registered.
      *
      * @param player the name of the player
      * @return true if registered
@@ -41,7 +41,7 @@ public interface OpenLoginAPI {
     boolean isRegistered(@NonNull String player);
 
     /**
-     * Update the player's data
+     * Update the player's data.
      *
      * @param player   the name of the player
      * @param password the password to use
@@ -52,7 +52,7 @@ public interface OpenLoginAPI {
     boolean update(@NonNull String player, @NonNull String password, @Nullable String address, boolean replace);
 
     /**
-     * Update the player's data
+     * Update the player's data.
      *
      * @param player   the name of the player
      * @param password the password to use
@@ -64,7 +64,7 @@ public interface OpenLoginAPI {
     }
 
     /**
-     * Update the player's data
+     * Update the player's data.
      *
      * @param player   the name of the player
      * @param password the password to use
@@ -75,7 +75,7 @@ public interface OpenLoginAPI {
     }
 
     /**
-     * Update the player's data
+     * Update the player's data.
      *
      * @param player   the name of the player
      * @param password the password to use
