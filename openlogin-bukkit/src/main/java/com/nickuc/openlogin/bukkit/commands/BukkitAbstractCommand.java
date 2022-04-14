@@ -37,9 +37,9 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
         final String name = sender.getName();
         final LoginManagement loginManagement = plugin.getLoginManagement();
 
-        if (requireAuth && sender instanceof Player && !loginManagement.isAuthenticated(name)) return true;
-
-        if (loginManagement.isLocked(name)) return true;
+        if (requireAuth && sender instanceof Player && !loginManagement.isAuthenticated(name)) {
+            return true;
+        }
 
         if (plugin.isNewUser()) {
             if (!(this instanceof OpenLoginCommand)) {
@@ -50,15 +50,16 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
             return true;
         }
 
-        loginManagement.setLock(name);
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
-            try {
-                perform(sender, lb, args);
-            } catch (Exception e) {
-                e.printStackTrace();
-                plugin.sendMessage("§cFailed to perform the command '" + lb + "', sender: " + sender.getName());
-            }
-        });
+        if (loginManagement.isUnlocked(name)) {
+            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
+                try {
+                    perform(sender, lb, args);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    plugin.sendMessage("§cFailed to perform the command '" + lb + "', sender: " + sender.getName());
+                }
+            });
+        }
         return true;
     }
 

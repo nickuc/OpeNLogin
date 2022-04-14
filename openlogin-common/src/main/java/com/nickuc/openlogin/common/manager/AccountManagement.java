@@ -7,8 +7,6 @@
 
 package com.nickuc.openlogin.common.manager;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.security.hashing.BCrypt;
@@ -18,15 +16,14 @@ import lombok.RequiredArgsConstructor;
 import javax.annotation.Nullable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 public class AccountManagement {
 
-    private final Cache<String, Account> accountCache = CacheBuilder.newBuilder()
-            .expireAfterWrite(30, TimeUnit.SECONDS)
-            .build();
+    private final Map<String, Account> accountCache = new HashMap<>();
 
     private final Database database;
 
@@ -54,15 +51,17 @@ public class AccountManagement {
      * @return the player's {@link Account}. Failing, will return empty Optional.
      */
     public Optional<Account> retrieveOrLoad(@NonNull String name) {
-        Account account = accountCache.getIfPresent(name.toLowerCase());
-        if (account == null) {
-            Optional<Account> accountOpt = search(name);
-            if (accountOpt.isPresent()) {
-                account = accountOpt.get();
-                accountCache.put(name.toLowerCase(), account);
+        synchronized (accountCache) {
+            Account account = accountCache.get(name.toLowerCase());
+            if (account == null) {
+                Optional<Account> accountOpt = search(name);
+                if (accountOpt.isPresent()) {
+                    account = accountOpt.get();
+                    accountCache.put(name.toLowerCase(), account);
+                }
             }
+            return Optional.ofNullable(account);
         }
-        return Optional.ofNullable(account);
     }
 
     /**
@@ -71,7 +70,9 @@ public class AccountManagement {
      * @param account the account to add
      */
     public void addToCache(@NonNull Account account) {
-        accountCache.put(account.getRealname().toLowerCase(), account);
+        synchronized (accountCache) {
+            accountCache.put(account.getRealname().toLowerCase(), account);
+        }
     }
 
     /**
@@ -80,7 +81,9 @@ public class AccountManagement {
      * @param key the key to invalidate
      */
     public void invalidateCache(@NonNull String key) {
-        accountCache.invalidate(key);
+        synchronized (accountCache) {
+            accountCache.remove(key);
+        }
     }
 
     /**

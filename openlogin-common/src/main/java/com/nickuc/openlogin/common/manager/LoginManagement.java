@@ -7,21 +7,17 @@
 
 package com.nickuc.openlogin.common.manager;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class LoginManagement {
 
-    private final Cache<String, Long> lock = CacheBuilder.newBuilder()
-            .expireAfterWrite(5, TimeUnit.SECONDS)
-            .build();
-
+    private final Map<String, Long> lock = new HashMap<>();
     private final HashSet<String> logged = new HashSet<>();
 
     private final AccountManagement accountManagement;
@@ -32,10 +28,14 @@ public class LoginManagement {
      * @param name the name of the player
      */
     public void cleanup(@NonNull String name) {
-        String toLower = name.toLowerCase();
-        lock.invalidate(toLower);
-        logged.remove(toLower);
-        accountManagement.invalidateCache(toLower);
+        String nameLower = name.toLowerCase();
+        synchronized (lock) {
+            lock.remove(nameLower);
+        }
+        synchronized (logged) {
+            logged.remove(nameLower);
+        }
+        accountManagement.invalidateCache(nameLower);
     }
 
     /**
@@ -44,7 +44,9 @@ public class LoginManagement {
      * @param name the name of the player
      */
     public void setAuthenticated(@NonNull String name) {
-        logged.add(name.toLowerCase());
+        synchronized (logged) {
+            logged.add(name.toLowerCase());
+        }
     }
 
     /**
@@ -54,27 +56,25 @@ public class LoginManagement {
      * @return true if authenticated
      */
     public boolean isAuthenticated(@NonNull String name) {
-        return logged.contains(name.toLowerCase());
+        synchronized (logged) {
+            return logged.contains(name.toLowerCase());
+        }
     }
 
     /**
-     * Lock the commands.
+     * Checks if the player is unlocked and lock it.
      *
      * @param name the name of the player
      */
-    public void setLock(@NonNull String name) {
-        lock.put(name.toLowerCase(), System.currentTimeMillis() + 750L);
-    }
-
-    /**
-     * Check if the player is locked.
-     *
-     * @param name the name of the player
-     * @return true if locked
-     */
-    public boolean isLocked(@NonNull String name) {
+    public boolean isUnlocked(@NonNull String name) {
         String toLower = name.toLowerCase();
-        Long millis = lock.getIfPresent(toLower);
-        return millis != null && millis - System.currentTimeMillis() >= 0;
+        synchronized (lock) {
+            Long millis = lock.get(toLower);
+            if (millis == null || millis - System.currentTimeMillis() < 0) {
+                lock.put(name.toLowerCase(), System.currentTimeMillis() + 750L);
+                return true;
+            }
+            return false;
+        }
     }
 }
