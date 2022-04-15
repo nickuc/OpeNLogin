@@ -5,10 +5,10 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.bukkit.commands;
+package com.nickuc.openlogin.bukkit.command;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
-import com.nickuc.openlogin.bukkit.commands.executors.*;
+import com.nickuc.openlogin.bukkit.command.executors.*;
 import com.nickuc.openlogin.common.security.filter.LoggerFilterManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

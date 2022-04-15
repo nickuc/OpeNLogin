@@ -39,7 +39,7 @@ public class AccountManagement {
             return false;
         }
         if (!hashedPassword.startsWith("$2")) {
-            throw new IllegalArgumentException("Invalid hashed password for " + account.getRealname() + "! " + hashedPassword);
+            throw new IllegalArgumentException("Invalid hashed password for " + account.getRealName() + "! " + hashedPassword);
         }
         return BCrypt.checkpw(password, hashedPassword);
     }
@@ -71,7 +71,7 @@ public class AccountManagement {
      */
     public void addToCache(@NonNull Account account) {
         synchronized (accountCache) {
-            accountCache.put(account.getRealname().toLowerCase(), account);
+            accountCache.put(account.getRealName().toLowerCase(), account);
         }
     }
 

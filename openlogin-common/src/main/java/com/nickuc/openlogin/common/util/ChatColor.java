@@ -5,7 +5,7 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.common.utils;
+package com.nickuc.openlogin.common.util;
 
 import lombok.NonNull;
 

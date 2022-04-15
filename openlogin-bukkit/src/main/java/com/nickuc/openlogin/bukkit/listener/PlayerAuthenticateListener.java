@@ -5,12 +5,12 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.bukkit.listeners;
+package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
-import com.nickuc.openlogin.bukkit.utils.TextComponentMessage;
-import com.nickuc.openlogin.common.utils.ClassUtils;
+import com.nickuc.openlogin.bukkit.util.TextComponentMessage;
+import com.nickuc.openlogin.common.util.ClassUtils;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

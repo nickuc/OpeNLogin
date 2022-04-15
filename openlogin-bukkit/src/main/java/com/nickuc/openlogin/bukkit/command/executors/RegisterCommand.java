@@ -5,12 +5,12 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.bukkit.commands.executors;
+package com.nickuc.openlogin.bukkit.command.executors;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncRegisterEvent;
-import com.nickuc.openlogin.bukkit.commands.BukkitAbstractCommand;
+import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
 import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
 import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.manager.AccountManagement;

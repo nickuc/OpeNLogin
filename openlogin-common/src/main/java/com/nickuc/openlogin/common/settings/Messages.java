@@ -8,7 +8,7 @@
 package com.nickuc.openlogin.common.settings;
 
 import com.nickuc.openlogin.common.model.Title;
-import com.nickuc.openlogin.common.utils.ChatColor;
+import com.nickuc.openlogin.common.util.ChatColor;
 import lombok.Getter;
 import lombok.NonNull;
 

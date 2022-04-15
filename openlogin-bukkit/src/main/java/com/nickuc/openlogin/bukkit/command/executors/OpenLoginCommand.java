@@ -5,13 +5,14 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.bukkit.commands.executors;
+package com.nickuc.openlogin.bukkit.command.executors;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
-import com.nickuc.openlogin.bukkit.commands.BukkitAbstractCommand;
+import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
 import com.nickuc.openlogin.bukkit.reflection.packets.ActionBarAPI;
-import com.nickuc.openlogin.common.http.Http;
+import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.settings.Messages;
+import com.nickuc.openlogin.common.util.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,12 +20,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class OpenLoginCommand extends BukkitAbstractCommand {
 
-    private boolean downloadLock, confirmNLogin, confirmOpenlogin, confirmAd;
+    private final AtomicBoolean
+            downloadLock = new AtomicBoolean(),
+            confirmNLogin = new AtomicBoolean(),
+            confirmOpenLogin = new AtomicBoolean(),
+            confirmAd = new AtomicBoolean();
 
     public OpenLoginCommand(OpenLoginBukkit plugin) {
         super(plugin, "openlogin");
@@ -64,13 +68,11 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         return;
                     }
 
-                    if (downloadLock) {
+                    if (downloadLock.getAndSet(true)) {
                         sender.sendMessage("§cDownload in progress...");
-                        return;
+                    } else if (!update(player)) {
+                        downloadLock.set(false);
                     }
-
-                    downloadLock = true;
-                    update(player);
                     return;
                 }
 
@@ -80,13 +82,12 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         return;
                     }
 
-                    if (!confirmAd) {
+                    if (!confirmAd.getAndSet(true)) {
                         sender.sendMessage("");
                         sender.sendMessage(" §cnLogin is generally a better solution for most users.");
                         sender.sendMessage(" §7If you want to keep §fOpeNLogin §7anyway,");
                         sender.sendMessage(" §7please click on the message again.");
                         sender.sendMessage("");
-                        confirmAd = true;
                         return;
                     }
 
@@ -108,13 +109,12 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         return;
                     }
 
-                    if (!confirmOpenlogin) {
+                    if (!confirmOpenLogin.getAndSet(true)) {
                         sender.sendMessage("");
                         sender.sendMessage(" §cnLogin is generally a better solution for most users.");
                         sender.sendMessage(" §7If you want to install §fOpeNLogin §7anyway,");
                         sender.sendMessage(" §7please click on the message again.");
                         sender.sendMessage("");
-                        confirmOpenlogin = true;
                         return;
                     }
 
@@ -149,13 +149,13 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         return;
                     }
 
-                    if (downloadLock) {
+                    if (downloadLock.get()) {
                         sender.sendMessage("§cDownload in progress...");
                         return;
                     }
 
                     boolean skip = args.length == 2 && args[1].equalsIgnoreCase("skip");
-                    if (!skip && !confirmNLogin) {
+                    if (!skip && !confirmNLogin.getAndSet(true)) {
                         sender.sendMessage("");
                         sender.sendMessage(" §cnLogin §7is a §cproprietary §7authentication plugin,");
                         sender.sendMessage(" §7updated and maintained by §cnickuc.com§7. This means that you");
@@ -166,9 +166,11 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         sender.sendMessage("");
                         sender.sendMessage(" §7To proceed with the download, type §b/openlogin nlogin §7again.");
                         sender.sendMessage("");
-                        confirmNLogin = true;
                     } else {
-                        downloadLock = true;
+                        if (downloadLock.getAndSet(true)) {
+                            sender.sendMessage("§cDownload already in progress!");
+                            return;
+                        }
 
                         Runnable callback = null;
                         if (skip && plugin.isNewUser()) {
@@ -183,7 +185,9 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                                 }
                             }.runTask(plugin);
                         }
-                        downloadNLogin(player, callback);
+                        if (!downloadNLogin(player, callback)) {
+                            downloadLock.set(false);
+                        }
                     }
                     return;
                 }
@@ -198,59 +202,76 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
         sender.sendMessage("");
     }
 
-    private void update(Player player) {
+    private boolean update(Player player) {
         File output = new File(plugin.getDataFolder().getParentFile(), "OpenLogin-" + plugin.getLatestVersion() + ".jar");
-        downloadActionbar(player, "https://github.com/nickuc/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpenLogin.jar", output, true, null);
+        return downloadActionbar(player, "https://github.com/nickuc/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpenLogin.jar", output, true, null);
     }
 
-    private void downloadNLogin(Player player, Runnable callback) {
+    private boolean downloadNLogin(Player player, Runnable callback) {
         File output = new File(plugin.getDataFolder().getParentFile(), "nLogin.jar");
-        downloadActionbar(player, "https://nickuc.com/repo/files/nLogin.jar", output, false, callback);
+        return downloadActionbar(player, "https://nickuc.com/repo/files/nLogin.jar", output, false, callback);
     }
 
-    private void downloadActionbar(Player player, String url, File output, boolean update, Runnable callback) {
+    private boolean downloadActionbar(Player player, String url, File output, boolean update, Runnable callback) {
         player.sendMessage("§eDownloading...");
         ActionBarAPI.sendActionBar(player, "§eConnecting...");
 
-        Http http = new Http(url);
         final int barsCount = 40;
+        final HttpClient.AsyncDownloadResult downloadResult;
+        try {
+            if ((downloadResult = HttpClient.DEFAULT.download(url, output)) == null) {
+                ActionBarAPI.sendActionBar(player, "§cDownload failed!");
+                player.sendMessage("§cDownload failed, could not delete old file.");
+                return false;
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            return false;
+        }
+
+        AtomicBoolean downloadFinished = new AtomicBoolean();
+        AtomicBoolean downloadSuccessful = new AtomicBoolean();
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (http.finished()) {
-                    ActionBarAPI.sendActionBar(player, "§aDownload finished! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
-                    player.sendMessage("§aDownload finished. Please restart your server.");
-                    cancel();
-                    if (callback != null) {
-                        callback.run();
+                if (downloadFinished.get()) {
+                    if (downloadSuccessful.get()) {
+                        ActionBarAPI.sendActionBar(player, "§aDownload finished! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
+                        player.sendMessage("§aDownload finished. Please restart your server.");
+                        if (callback != null) {
+                            callback.run();
+                        }
+                    } else {
+                        ActionBarAPI.sendActionBar(player, "§cDownload failed! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
+                        player.sendMessage("§cDownload failed, please try again.");
                     }
+                    cancel();
                     return;
                 }
-                int bars = (int) (barsCount * (http.downloaded() / http.contentLength()));
+                int bars = (int) (barsCount * (downloadResult.downloaded() / downloadResult.contentLength()));
                 String progressBar = "§a" + StringUtils.repeat("|", bars) + "§c" + StringUtils.repeat("|", barsCount - bars);
                 ActionBarAPI.sendActionBar(player, "§eDownloading... §7(" + progressBar + "§7)");
             }
         }.runTaskTimer(plugin, 0, 4);
 
         try {
-            if (http.download(output)) {
-                File pluginFile = getJarFile();
+            downloadSuccessful.set(downloadResult.startDownload());
+            if (downloadSuccessful.get()) {
+                File pluginFile = FileUtils.getSelfJarFile();
                 pluginFile.deleteOnExit();
             }
         } catch (IOException e) {
-            downloadLock = false;
+            downloadLock.set(false);
             e.printStackTrace();
-            String msg = update ? "§cFailed to download new version. Update manually at: https://github.com/nickuc/OpeNLogin/releases" : "§cFailed to download nLogin :c. Download manually at: nickuc.com";
+            String msg = update ?
+                    "§cFailed to download new version. Update manually at: https://github.com/nickuc/OpeNLogin/releases" :
+                    "§cFailed to download nLogin :c. Download manually at: nickuc.com";
             plugin.sendMessage(msg);
             player.sendMessage(msg);
+        } finally {
+            downloadFinished.set(true);
         }
-    }
-
-    public static File getJarFile() throws UnsupportedEncodingException {
-        return new File(URLDecoder.decode(OpenLoginBukkit.class.getProtectionDomain()
-                .getCodeSource()
-                .getLocation()
-                .getPath(), "UTF-8"));
+        return downloadSuccessful.get();
     }
 
 }

@@ -7,6 +7,7 @@
 
 package com.nickuc.openlogin.common.api;
 
+import com.nickuc.openlogin.common.OpenLogin;
 import com.nickuc.openlogin.common.model.Account;
 import lombok.NonNull;
 
@@ -14,6 +15,10 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 public interface OpenLoginAPI {
+
+    static OpenLoginAPI getApi() {
+        return OpenLogin.getApi();
+    }
 
     /**
      * Get the player account.

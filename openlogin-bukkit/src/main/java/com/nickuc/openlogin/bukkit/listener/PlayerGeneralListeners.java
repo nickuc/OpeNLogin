@@ -5,7 +5,7 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.bukkit.listeners;
+package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;

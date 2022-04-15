@@ -7,7 +7,7 @@
 
 package com.nickuc.openlogin.common.model;
 
-import com.nickuc.openlogin.common.utils.ChatColor;
+import com.nickuc.openlogin.common.util.ChatColor;
 
 public class Title {
 

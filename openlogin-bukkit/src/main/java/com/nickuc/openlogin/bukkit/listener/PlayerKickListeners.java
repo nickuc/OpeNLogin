@@ -5,7 +5,7 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.bukkit.listeners;
+package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.common.model.Account;
@@ -50,7 +50,7 @@ public class PlayerKickListeners implements Listener {
         Optional<Account> accountOpt = plugin.getAccountManagement().retrieveOrLoad(name);
         if (accountOpt.isPresent()) {
             Account account = accountOpt.get();
-            String realname = account.getRealname();
+            String realname = account.getRealName();
             if (!name.equals(realname)) {
                 String kickMessage = Messages.NICK_ALREADY_REGISTERED.asString()
                         .replace("{0}", name)

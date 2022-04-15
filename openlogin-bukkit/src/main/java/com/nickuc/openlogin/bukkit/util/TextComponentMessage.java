@@ -5,7 +5,7 @@
  * https://github.com/nickuc
  */
 
-package com.nickuc.openlogin.bukkit.utils;
+package com.nickuc.openlogin.bukkit.util;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;

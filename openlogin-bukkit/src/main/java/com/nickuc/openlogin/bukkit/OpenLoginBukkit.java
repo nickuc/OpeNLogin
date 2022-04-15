@@ -8,25 +8,25 @@
 package com.nickuc.openlogin.bukkit;
 
 import com.nickuc.openlogin.bukkit.api.OLBukkitAPI;
-import com.nickuc.openlogin.bukkit.commands.CommandManagement;
-import com.nickuc.openlogin.bukkit.listeners.PlayerAuthenticateListener;
-import com.nickuc.openlogin.bukkit.listeners.PlayerGeneralListeners;
-import com.nickuc.openlogin.bukkit.listeners.PlayerJoinListeners;
-import com.nickuc.openlogin.bukkit.listeners.PlayerKickListeners;
+import com.nickuc.openlogin.bukkit.command.CommandManagement;
+import com.nickuc.openlogin.bukkit.listener.PlayerAuthenticateListener;
+import com.nickuc.openlogin.bukkit.listener.PlayerGeneralListeners;
+import com.nickuc.openlogin.bukkit.listener.PlayerJoinListeners;
+import com.nickuc.openlogin.bukkit.listener.PlayerKickListeners;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
 import com.nickuc.openlogin.common.OpenLogin;
 import com.nickuc.openlogin.common.api.OpenLoginAPI;
 import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.database.PluginSettings;
 import com.nickuc.openlogin.common.database.SQLite;
-import com.nickuc.openlogin.common.http.Http;
+import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Title;
 import com.nickuc.openlogin.common.security.filter.LoggerFilterManager;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
-import com.nickuc.openlogin.common.utils.FileUtils;
+import com.nickuc.openlogin.common.util.FileUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.bstats.bukkit.Metrics;
@@ -182,11 +182,8 @@ public class OpenLoginBukkit extends JavaPlugin {
 
     public void detectUpdates() {
         String tagName = null;
-        Http http = new Http("https://api.github.com/repos/nickuc/OpeNLogin/releases/latest");
         try {
-            http.get();
-
-            String result = http.result();
+            String result = HttpClient.DEFAULT.get("https://api.github.com/repos/nickuc/OpeNLogin/releases/latest");
 
             // avoid use Google Gson to avoid problems with older versions.
             if (result.contains("\"tag_name\":\"")) {
