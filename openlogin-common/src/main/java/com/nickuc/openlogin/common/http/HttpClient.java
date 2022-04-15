@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 @Accessors(chain = true, fluent = true)
 public final class HttpClient {
 
-    public static HttpClient DEFAULT = new HttpClient(
+    public static final HttpClient DEFAULT = new HttpClient(
             "OpeNLogin (+https://github.com/nickuc/OpeNLogin)",
             10000,
             16000
