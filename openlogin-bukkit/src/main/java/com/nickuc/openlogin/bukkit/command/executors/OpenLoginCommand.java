@@ -9,7 +9,7 @@ package com.nickuc.openlogin.bukkit.command.executors;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
-import com.nickuc.openlogin.bukkit.reflection.packets.ActionBarAPI;
+import com.nickuc.openlogin.bukkit.ui.chat.ActionbarAPI;
 import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.FileUtils;
@@ -214,13 +214,13 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
 
     private boolean downloadActionbar(Player player, String url, File output, boolean update, Runnable callback) {
         player.sendMessage("§eDownloading...");
-        ActionBarAPI.sendActionBar(player, "§eConnecting...");
+        ActionbarAPI.getApi().send(player, "§eConnecting...");
 
         final int barsCount = 40;
         final HttpClient.AsyncDownloadResult downloadResult;
         try {
             if ((downloadResult = HttpClient.DEFAULT.download(url, output)) == null) {
-                ActionBarAPI.sendActionBar(player, "§cDownload failed!");
+                ActionbarAPI.getApi().send(player, "§cDownload failed!");
                 player.sendMessage("§cDownload failed, could not delete old file.");
                 return false;
             }
@@ -236,13 +236,13 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
             public void run() {
                 if (downloadFinished.get()) {
                     if (downloadSuccessful.get()) {
-                        ActionBarAPI.sendActionBar(player, "§aDownload finished! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
+                        ActionbarAPI.getApi().send(player, "§aDownload finished! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
                         player.sendMessage("§aDownload finished. Please restart your server.");
                         if (callback != null) {
                             callback.run();
                         }
                     } else {
-                        ActionBarAPI.sendActionBar(player, "§cDownload failed! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
+                        ActionbarAPI.getApi().send(player, "§cDownload failed! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
                         player.sendMessage("§cDownload failed, please try again.");
                     }
                     cancel();
@@ -250,7 +250,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                 }
                 int bars = (int) (barsCount * (downloadResult.downloaded() / downloadResult.contentLength()));
                 String progressBar = "§a" + StringUtils.repeat("|", bars) + "§c" + StringUtils.repeat("|", barsCount - bars);
-                ActionBarAPI.sendActionBar(player, "§eDownloading... §7(" + progressBar + "§7)");
+                ActionbarAPI.getApi().send(player, "§eDownloading... §7(" + progressBar + "§7)");
             }
         }.runTaskTimer(plugin, 0, 4);
 

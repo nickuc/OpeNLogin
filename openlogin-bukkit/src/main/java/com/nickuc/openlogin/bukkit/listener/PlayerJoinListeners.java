@@ -8,8 +8,8 @@
 package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
-import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
+import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.bukkit.util.TextComponentMessage;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.ClassUtils;
@@ -59,10 +59,10 @@ public class PlayerJoinListeners implements Listener {
 
         if (registered) {
             player.sendMessage(Messages.MESSAGE_LOGIN.asString());
-            TitleAPI.sendTitle(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
+            TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
         } else {
             player.sendMessage(Messages.MESSAGE_REGISTER.asString());
-            TitleAPI.sendTitle(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
+            TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
         }
     }
 

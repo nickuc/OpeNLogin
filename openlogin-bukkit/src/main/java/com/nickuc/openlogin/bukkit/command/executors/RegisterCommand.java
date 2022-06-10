@@ -11,7 +11,7 @@ import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncRegisterEvent;
 import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
-import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
+import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
@@ -84,7 +84,7 @@ public class RegisterCommand extends BukkitAbstractCommand {
         if (registerEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
 
-            TitleAPI.sendTitle(player, Messages.TITLE_AFTER_REGISTER.asTitle());
+            TitleAPI.getApi().send(player, Messages.TITLE_AFTER_REGISTER.asTitle());
             sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
             plugin.getServer().getScheduler().runTask(plugin, () -> {

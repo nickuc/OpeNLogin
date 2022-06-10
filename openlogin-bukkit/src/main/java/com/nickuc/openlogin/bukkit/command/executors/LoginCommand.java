@@ -11,7 +11,7 @@ import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncLoginEvent;
 import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
-import com.nickuc.openlogin.bukkit.reflection.packets.TitleAPI;
+import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Account;
@@ -66,7 +66,7 @@ public class LoginCommand extends BukkitAbstractCommand {
             plugin.getLoginManagement().setAuthenticated(name);
 
             player.sendMessage(Messages.SUCCESSFUL_LOGIN.asString());
-            TitleAPI.sendTitle(player, Messages.TITLE_AFTER_LOGIN.asTitle());
+            TitleAPI.getApi().send(player, Messages.TITLE_AFTER_LOGIN.asTitle());
 
             plugin.getServer().getScheduler().runTask(plugin, () -> {
                 player.setWalkSpeed(0.2F);
