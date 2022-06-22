@@ -8,7 +8,7 @@ A practical, secure and friendly authentication plugin
 ```
 repositories {
     maven { 
-        url = uri('https://repo.nickuc.com/maven2/') 
+        url = uri('https://repo.nickuc.com/maven-releases/') 
     }
 }
 
@@ -22,7 +22,7 @@ dependencies {
 <repositories>
   <repository>
     <id>nickuc-repo</id>
-    <url>https://repo.nickuc.com/maven2/</url>
+    <url>https://repo.nickuc.com/maven-releases/</url>
   </repository>
 </repositories>
 
