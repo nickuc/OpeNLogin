@@ -10,6 +10,7 @@ package com.nickuc.openlogin.bukkit.command.executors;
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
 import com.nickuc.openlogin.bukkit.ui.chat.ActionbarAPI;
+import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.FileUtils;
@@ -157,7 +158,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                     boolean skip = args.length == 2 && args[1].equalsIgnoreCase("skip");
                     if (!skip && !confirmNLogin.getAndSet(true)) {
                         sender.sendMessage("");
-                        sender.sendMessage(" §cnLogin §7is a §cproprietary §7authentication plugin,");
+                        sender.sendMessage(" §6nLogin §7is a §6proprietary §7authentication plugin,");
                         sender.sendMessage(" §7updated and maintained by §cnickuc.com§7. This means that you");
                         sender.sendMessage(" §7cannot view and modify the source code of the plugin.");
                         sender.sendMessage("");
@@ -184,6 +185,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                                     plugin.getServer().shutdown();
                                 }
                             }.runTask(plugin);
+                            TitleAPI.getApi().reset(player);
                         }
                         if (!downloadNLogin(player, callback)) {
                             downloadLock.set(false);
@@ -209,7 +211,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
 
     private boolean downloadNLogin(Player player, Runnable callback) {
         File output = new File(plugin.getDataFolder().getParentFile(), "nLogin.jar");
-        return downloadActionbar(player, "https://nickuc.com/repo/files/nLogin.jar", output, false, callback);
+        return downloadActionbar(player, "https://repo.nickuc.com/files/nLogin.jar", output, false, callback);
     }
 
     private boolean downloadActionbar(Player player, String url, File output, boolean update, Runnable callback) {

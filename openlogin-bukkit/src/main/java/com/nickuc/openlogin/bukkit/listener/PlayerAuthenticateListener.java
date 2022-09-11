@@ -28,13 +28,13 @@ public class PlayerAuthenticateListener implements Listener {
         if (player.hasPermission("openlogin.admin")) {
             if (welcomeMessage) {
                 player.sendMessage("");
-                player.sendMessage(" §eHello, " + player.getName() + "! Welcome to OpeNLogin!");
+                player.sendMessage(" §eWelcome to OpeNLogin!");
                 player.sendMessage("");
                 player.sendMessage(" §7Documentation:");
                 player.sendMessage(" §bhttps://github.com/nickuc/OpeNLogin/tree/master/docs");
                 player.sendMessage("");
                 player.sendMessage(" §7If you need help, fell free to contact our support:");
-                player.sendMessage(" §bhttps://nickuc.com/discord");
+                player.sendMessage(" §bhttps://www.nickuc.com/discord");
                 player.sendMessage("");
                 welcomeMessage = false;
             } else if (plugin.isUpdateAvailable()) {
