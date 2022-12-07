@@ -61,7 +61,7 @@ Messages:
     password-changed: "&a你的密码已成功更换."
 
     # Message sent when a user successfully logs
-    successful-login: "&a你已成功登陆."
+    successful-login: "&a你已成功登录."
 
     # Message sent when a user successfully registers
     successful-register: "&a你已成功注册."
@@ -81,7 +81,7 @@ Messages:
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&c你已经登陆过了."
+    already-login: "&c你已经登录过了."
 
     # Message sent when a nickname has already been registered.
     already-registered: "&c此名称已被注册."
