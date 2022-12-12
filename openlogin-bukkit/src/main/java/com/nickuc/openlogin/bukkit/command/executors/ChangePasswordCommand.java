@@ -17,6 +17,7 @@ import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class ChangePasswordCommand extends BukkitAbstractCommand {
@@ -72,7 +73,7 @@ public class ChangePasswordCommand extends BukkitAbstractCommand {
         Player player = (Player) sender;
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(newPassword, salt);
-        String address = player.getAddress().getAddress().getHostAddress();
+        String address = Objects.requireNonNull(player.getAddress()).getAddress().getHostAddress();
         if (!accountManagement.update(name, hashedPassword, address)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;

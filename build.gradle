@@ -4,7 +4,7 @@
 
 allprojects {
     group = 'com.nickuc.login'
-    version = '1.6.1'
+    version = '1.6.2'
 }
 
 subprojects {
@@ -18,7 +18,7 @@ subprojects {
     }
 
     dependencies {
-        def lombok = 'org.projectlombok:lombok:1.18.16'
+        def lombok = 'org.projectlombok:lombok:1.18.24'
         compileOnly lombok
         annotationProcessor lombok
         testCompileOnly lombok
