@@ -111,7 +111,7 @@ Messages:
     player-command-usage: "&c此命令只能在控制台执行."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&7插件已被&a成功重载!&7中文汉化By &b雪萌SnowCutieOwO"
+    plugin-reload-message: "&7插件已被&a成功重载!"
 
     # Message sent when a database operation has not been successfully performed
     database-error: "&c出错了! &7插件运行过程中出现问题,请更改配置文件后重试. &c(错误原因: 数据库连接不成功)"
