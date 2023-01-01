@@ -34,7 +34,7 @@ Messages:
     # Сообщение отправляется после успешного входа в систему
     after-login:
       title: ""
-      subtitle: "&aВы успешно зашли!"
+      subtitle: "&aВы успешно вошли!"
       delays:
         start: 0
         duration: 60
