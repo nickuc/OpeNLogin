@@ -201,7 +201,8 @@ public class OpenLoginBukkit extends JavaPlugin {
             sendMessage("§cDownload the latest version at: https://github.com/nickuc/OpeNLogin/releases");
         } else {
             String currentVersion = "v" + getDescription().getVersion();
-            if (updateAvailable = !currentVersion.equals(tagName)) {
+            updateAvailable == !currentVersion.equals(tagName);
+            if (updateAvailable) {
                 sendMessage("A new version of OpeNLogin is available (" + currentVersion + " -> " + latestVersion + ").", "§e");
             }
         }
