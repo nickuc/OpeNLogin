@@ -10,9 +10,6 @@
 
 # French translation by shuxx (https://github.com/shuxx)
 
-# Do not change this setting
-file-version: 8
-
 Messages:
   Title:
     # Message sent before login

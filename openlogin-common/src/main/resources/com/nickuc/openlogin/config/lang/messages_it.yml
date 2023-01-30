@@ -11,9 +11,6 @@
 # Tradotto in Italiano da Peppe73
 # Spigot: https://www.spigotmc.org/members/peppe73.693388/
 
-# Do not change this setting
-file-version: 14
-
 Messages:
   Title:
     # Messaggio inviato prima del login

@@ -11,9 +11,6 @@
 # Chinese version (with some small detail change!) translated by SnowCutieOwO
 # Contact in SpigotMC: https://www.spigotmc.org/members/snowcutieowo.849243/
 
-# Do not change this setting
-file-version: 6
-
 Messages:
   Title:
     # Message sent before login

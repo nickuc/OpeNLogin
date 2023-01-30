@@ -8,9 +8,6 @@
 # Site oficial: https://www.nickuc.com
 # Discord: https://www.nickuc.com/discord
 
-# Não altere essa configuração
-file-version: 1
-
 Messages:
   Title:
     # Mensagem enviada antes de logar.
