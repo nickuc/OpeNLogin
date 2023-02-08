@@ -82,7 +82,7 @@ public class PlayerGeneralListeners implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamageEvent(EntityDamageEvent e) {
         if (e.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
-        if (!e.isCancelled() && e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(e.getEntity().getName())) {
+        if (!e.isCancelled() && e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(((Player) e.getEntity()).getName())) {
             e.setCancelled(true);
         }
     }
@@ -126,7 +126,7 @@ public class PlayerGeneralListeners implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         if (e.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
-        if (!e.isCancelled() && (e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(e.getEntity().getName()) || e.getDamager() instanceof Player && !plugin.getLoginManagement().isAuthenticated(e.getDamager().getName())))
+        if (!e.isCancelled() && (e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(((Player) e.getEntity()).getName()) || e.getDamager() instanceof Player && !plugin.getLoginManagement().isAuthenticated(e.getDamager().getName())))
             e.setCancelled(true);
     }
 
