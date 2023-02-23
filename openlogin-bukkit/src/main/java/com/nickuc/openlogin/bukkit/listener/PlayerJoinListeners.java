@@ -77,7 +77,7 @@ public class PlayerJoinListeners implements Listener {
             Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
                  player.sendMessage(Messages.MESSAGE_LOGIN.asString());
                  TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
-            }, 10); // run after 10 ticks = 0.5s
+            }, 20); // run after 20 ticks = 2s
         } else {
             player.sendMessage(Messages.MESSAGE_REGISTER.asString());
             TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
