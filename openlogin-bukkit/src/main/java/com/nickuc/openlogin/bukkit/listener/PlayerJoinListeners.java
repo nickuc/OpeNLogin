@@ -15,6 +15,7 @@ import com.nickuc.openlogin.common.model.Title;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.ClassUtils;
 import lombok.AllArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -73,8 +74,10 @@ public class PlayerJoinListeners implements Listener {
         player.setFlySpeed(0F);
 
         if (registered) {
-            player.sendMessage(Messages.MESSAGE_LOGIN.asString());
-            TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
+            Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
+                 player.sendMessage(Messages.MESSAGE_LOGIN.asString());
+                 TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
+            }, 10); // run after 10 ticks = 0.5s
         } else {
             player.sendMessage(Messages.MESSAGE_REGISTER.asString());
             TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
