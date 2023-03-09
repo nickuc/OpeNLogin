@@ -114,13 +114,13 @@ Messages:
     database-error: "&cSorry, we were unable to complete this operation. Please try again. [SQL FAIL]"
 
   other-messages:
-    # Mensagem enviada para o uso do comando /logar
+    # Message sent to use the /login command
     message-login: "&eUse the command /login <password>"
 
-    # Mensagem enviada para o uso do comando /register
+    # Message sent to use the /register command
     message-register: "&eUse the command /register <password> <password>"
 
-    # Mensagem enviada para o uso do comando /mudarsenha
+    # Message sent to use the /changepassword command
     message-changepassword: "&eUse the command /changepassword <current password> <new password>"
 
     # Message sent to use the /unregister command
