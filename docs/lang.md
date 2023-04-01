@@ -15,6 +15,7 @@
 [it](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_it.yml) | Italian
 [lt](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_lt.yml) | Lithuanian
 [pl](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pl.yml) | Polish
+[pt](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pt.yml) | Portuguese
 [ru](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ru.yml) | Russian
 [sr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_sr.yml) | Serbian
 [tr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_tr.yml) | Turkish
