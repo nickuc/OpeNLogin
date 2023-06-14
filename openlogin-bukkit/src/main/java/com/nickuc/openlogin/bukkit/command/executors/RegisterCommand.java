@@ -144,13 +144,15 @@ public class RegisterCommand extends BukkitAbstractCommand {
             return;
         }
 
+        sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+
         if (playerIfOnline != null) {
             AsyncRegisterEvent registerEvent = new AsyncRegisterEvent(playerIfOnline);
             if (registerEvent.callEvt()) {
                 plugin.getLoginManagement().setAuthenticated(playerName);
 
                 TitleAPI.getApi().send(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
-                sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+                playerIfOnline.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
                 plugin.getServer().getScheduler().runTask(plugin, () -> {
                     playerIfOnline.setWalkSpeed(0.2F);
