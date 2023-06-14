@@ -27,11 +27,14 @@ public class ChangePasswordCommand extends BukkitAbstractCommand {
     }
 
     protected void perform(CommandSender sender, String lb, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
-            return;
+        if (sender instanceof Player) {
+            performPlayer((Player) sender, lb, args);
+        } else {
+            performConsole(sender, lb, args);
         }
+    }
 
+    private void performPlayer(Player sender, String lb, String[] args) {
         if (args.length != 2) {
             sender.sendMessage(Messages.MESSAGE_CHANGEPASSWORD.asString());
             return;
@@ -39,14 +42,14 @@ public class ChangePasswordCommand extends BukkitAbstractCommand {
 
         String currentPassword = args[0];
         String newPassword = args[1];
-        int length = newPassword.length();
+        int passwordLength = newPassword.length();
 
-        if (length <= Settings.PASSWORD_SMALL.asInt()) {
+        if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
             sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
             return;
         }
 
-        if (length >= Settings.PASSWORD_LARGE.asInt()) {
+        if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
             sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
             return;
         }
@@ -70,15 +73,73 @@ public class ChangePasswordCommand extends BukkitAbstractCommand {
             return;
         }
 
-        Player player = (Player) sender;
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(newPassword, salt);
-        String address = Objects.requireNonNull(player.getAddress()).getAddress().getHostAddress();
+        String address = Objects.requireNonNull(sender.getAddress()).getAddress().getHostAddress();
         if (!accountManagement.update(name, hashedPassword, address)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }
 
         sender.sendMessage(Messages.PASSWORD_CHANGED.asString());
+    }
+
+    private void performConsole(CommandSender sender, String lb, String[] args) {
+        if (!sender.hasPermission("openlogin.admin"))  {
+            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString());
+            return;
+        }
+
+        if (args.length != 2) {
+            sender.sendMessage("§cUsage: /" + lb + " <player> <new password>");
+            return;
+        }
+
+        String playerName = args[0];
+        String newPassword = args[1];
+        int passwordLength = newPassword.length();
+
+        if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            return;
+        }
+
+        if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            return;
+        }
+
+        Player playerIfOnline = plugin.getServer().getPlayerExact(playerName);
+        if (playerIfOnline != null) {
+            playerName = playerIfOnline.getName();
+        }
+
+        AccountManagement accountManagement = plugin.getAccountManagement();
+        Optional<Account> accountOpt = accountManagement.retrieveOrLoad(playerName);
+        if (!accountOpt.isPresent()) {
+            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            return;
+        }
+
+        Account account = accountOpt.get();
+        if (accountManagement.comparePassword(account, newPassword)) {
+            sender.sendMessage(Messages.PASSWORD_SAME_AS_OLD.asString());
+            return;
+        }
+
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(newPassword, salt);
+        String address = playerIfOnline != null ?
+                Objects.requireNonNull(playerIfOnline.getAddress()).getAddress().getHostAddress() : null;
+        if (!accountManagement.update(playerName, hashedPassword, address)) {
+            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            return;
+        }
+
+        sender.sendMessage(Messages.PASSWORD_CHANGED.asString());
+
+        if (playerIfOnline != null) {
+            playerIfOnline.sendMessage(Messages.PASSWORD_CHANGED.asString());
+        }
     }
 }

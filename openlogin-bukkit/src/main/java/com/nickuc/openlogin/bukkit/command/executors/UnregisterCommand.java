@@ -24,32 +24,14 @@ public class UnregisterCommand extends BukkitAbstractCommand {
     }
 
     protected void perform(CommandSender sender, String lb, String[] args) {
-        if (!(sender instanceof Player)) {
-            if (args.length != 1) {
-                sender.sendMessage("§cUsage: /" + lb + " <player>");
-                return;
-            }
-            AccountManagement accountManagement = plugin.getAccountManagement();
-            String name = args[0];
-            Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
-            if (!accountOpt.isPresent()) {
-                sender.sendMessage(Messages.NOT_REGISTERED.asString());
-                return;
-            }
-
-            if (!accountManagement.delete(name)) {
-                sender.sendMessage(Messages.DATABASE_ERROR.asString());
-                return;
-            }
-
-            Player player = plugin.getServer().getPlayer(name);
-            if (player != null) {
-                plugin.getServer().getScheduler().runTask(plugin, () -> player.kickPlayer(Messages.UNREGISTER_KICK.asString()));
-            }
-            sender.sendMessage("§aSuccess!");
-            return;
+        if (sender instanceof Player) {
+            performPlayer((Player) sender, lb, args);
+        } else {
+            performConsole(sender, lb, args);
         }
+    }
 
+    private void performPlayer(Player sender, String lb, String[] args) {
         if (args.length != 1) {
             sender.sendMessage(Messages.MESSAGE_UNREGISTER.asString());
             return;
@@ -75,7 +57,34 @@ public class UnregisterCommand extends BukkitAbstractCommand {
             return;
         }
 
-        Player player = (Player) sender;
-        plugin.getServer().getScheduler().runTask(plugin, () -> player.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+        plugin.getServer().getScheduler().runTask(plugin, () -> sender.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+    }
+
+    private void performConsole(CommandSender sender, String lb, String[] args) {
+        if (args.length != 1) {
+            sender.sendMessage("§cUsage: /" + lb + " <player>");
+            return;
+        }
+
+        AccountManagement accountManagement = plugin.getAccountManagement();
+        String playerName = args[0];
+
+        Optional<Account> accountOpt = accountManagement.retrieveOrLoad(playerName);
+        if (!accountOpt.isPresent()) {
+            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            return;
+        }
+
+        if (!accountManagement.delete(playerName)) {
+            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            return;
+        }
+
+        Player playerIfOnline = plugin.getServer().getPlayer(playerName);
+        if (playerIfOnline != null) {
+            plugin.getServer().getScheduler().runTask(plugin, () -> playerIfOnline.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+        }
+
+        sender.sendMessage("§aSuccess!");
     }
 }

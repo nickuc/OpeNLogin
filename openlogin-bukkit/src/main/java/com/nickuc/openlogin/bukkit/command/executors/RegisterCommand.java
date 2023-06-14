@@ -12,7 +12,6 @@ import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncRegisterEvent;
 import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
 import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
-import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.security.hashing.BCrypt;
@@ -21,6 +20,8 @@ import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
+
 public class RegisterCommand extends BukkitAbstractCommand {
 
     public RegisterCommand(OpenLoginBukkit plugin) {
@@ -28,11 +29,14 @@ public class RegisterCommand extends BukkitAbstractCommand {
     }
 
     protected void perform(CommandSender sender, String lb, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
-            return;
+        if (sender instanceof Player) {
+            performPlayer((Player) sender, lb, args);
+        } else {
+            performConsole(sender, lb, args);
         }
+    }
 
+    private void performPlayer(Player sender, String lb, String[] args) {
         String name = sender.getName();
         LoginManagement loginManagement = plugin.getLoginManagement();
         if (loginManagement.isAuthenticated(name)) {
@@ -46,14 +50,14 @@ public class RegisterCommand extends BukkitAbstractCommand {
         }
 
         String password = args[0];
-        int length = password.length();
+        int passwordLength = password.length();
 
-        if (length <= Settings.PASSWORD_SMALL.asInt()) {
+        if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
             sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
             return;
         }
 
-        if (length >= Settings.PASSWORD_LARGE.asInt()) {
+        if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
             sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
             return;
         }
@@ -70,29 +74,91 @@ public class RegisterCommand extends BukkitAbstractCommand {
             return;
         }
 
-        Player player = (Player) sender;
-        Database database = plugin.getDatabase();
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(password, salt);
-        String address = player.getAddress().getAddress().getHostAddress();
+        String address = sender.getAddress().getAddress().getHostAddress();
         if (!accountManagement.update(name, hashedPassword, address, false)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }
 
-        AsyncRegisterEvent registerEvent = new AsyncRegisterEvent(player);
+        AsyncRegisterEvent registerEvent = new AsyncRegisterEvent(sender);
         if (registerEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
 
-            TitleAPI.getApi().send(player, Messages.TITLE_AFTER_REGISTER.asTitle());
+            TitleAPI.getApi().send(sender, Messages.TITLE_AFTER_REGISTER.asTitle());
             sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
             plugin.getServer().getScheduler().runTask(plugin, () -> {
-                player.setWalkSpeed(0.2F);
-                player.setFlySpeed(0.1F);
+                sender.setWalkSpeed(0.2F);
+                sender.setFlySpeed(0.1F);
             });
 
-            new AsyncAuthenticateEvent(player).callEvt();
+            new AsyncAuthenticateEvent(sender).callEvt();
+        }
+    }
+
+    private void performConsole(CommandSender sender, String lb, String[] args) {
+        if (!sender.hasPermission("openlogin.admin"))  {
+            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString());
+            return;
+        }
+
+        if (args.length != 2) {
+            sender.sendMessage("§cUsage: /" + lb + " <player> <password>");
+            return;
+        }
+
+        String playerName = args[0];
+        String password = args[1];
+        int passwordLength = password.length();
+
+        if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            return;
+        }
+
+        if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
+            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            return;
+        }
+
+        Player playerIfOnline = plugin.getServer().getPlayerExact(playerName);
+        if (playerIfOnline != null) {
+            playerName = playerIfOnline.getName();
+        }
+
+        AccountManagement accountManagement = plugin.getAccountManagement();
+        boolean exists = accountManagement.retrieveOrLoad(playerName).isPresent();
+        if (exists) {
+            sender.sendMessage(Messages.ALREADY_REGISTERED.asString());
+            return;
+        }
+
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(password, salt);
+        String address = playerIfOnline != null ?
+                Objects.requireNonNull(playerIfOnline.getAddress()).getAddress().getHostAddress() : null;
+        if (!accountManagement.update(playerName, hashedPassword, address, false)) {
+            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            return;
+        }
+
+        if (playerIfOnline != null) {
+            AsyncRegisterEvent registerEvent = new AsyncRegisterEvent(playerIfOnline);
+            if (registerEvent.callEvt()) {
+                plugin.getLoginManagement().setAuthenticated(playerName);
+
+                TitleAPI.getApi().send(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
+                sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+
+                plugin.getServer().getScheduler().runTask(plugin, () -> {
+                    playerIfOnline.setWalkSpeed(0.2F);
+                    playerIfOnline.setFlySpeed(0.1F);
+                });
+
+                new AsyncAuthenticateEvent(playerIfOnline).callEvt();
+            }
         }
     }
 }
