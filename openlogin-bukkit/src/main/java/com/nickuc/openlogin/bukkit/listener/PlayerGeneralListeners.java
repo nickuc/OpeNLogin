@@ -138,6 +138,7 @@ public class PlayerGeneralListeners implements Listener {
             Player player = (Player) e.getEntity();
             if (!plugin.getLoginManagement().isAuthenticated(player.getName())) {
                 e.setCancelled(true);
+                return;
             }
         }
 
