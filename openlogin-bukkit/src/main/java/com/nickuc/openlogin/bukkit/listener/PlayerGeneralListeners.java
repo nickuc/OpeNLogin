@@ -82,7 +82,11 @@ public class PlayerGeneralListeners implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamageEvent(EntityDamageEvent e) {
         if (e.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
-        if (!e.isCancelled() && e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(((Player) e.getEntity()).getName())) {
+        if (e.isCancelled()) return;
+        if (!(e.getEntity() instanceof Player)) return;
+
+        Player player = ((Player) e.getEntity());
+        if (!plugin.getLoginManagement().isAuthenticated(player.getName())) {
             e.setCancelled(true);
         }
     }
@@ -107,8 +111,10 @@ public class PlayerGeneralListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerDropItem(PlayerDropItemEvent e) {
+        if (e.isCancelled()) return;
+
         String name = e.getPlayer().getName();
-        if (!e.isCancelled() && !plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -126,8 +132,21 @@ public class PlayerGeneralListeners implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         if (e.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
-        if (!e.isCancelled() && (e.getEntity() instanceof Player && !plugin.getLoginManagement().isAuthenticated(((Player) e.getEntity()).getName()) || e.getDamager() instanceof Player && !plugin.getLoginManagement().isAuthenticated(e.getDamager().getName())))
-            e.setCancelled(true);
+        if (e.isCancelled()) return;
+
+        if (e.getEntity() instanceof Player) {
+            Player player = (Player) e.getEntity();
+            if (!plugin.getLoginManagement().isAuthenticated(player.getName())) {
+                e.setCancelled(true);
+            }
+        }
+
+        if (e.getDamager() instanceof Player) {
+            Player player = (Player) e.getDamager();
+            if (!plugin.getLoginManagement().isAuthenticated(player.getName())) {
+                e.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
