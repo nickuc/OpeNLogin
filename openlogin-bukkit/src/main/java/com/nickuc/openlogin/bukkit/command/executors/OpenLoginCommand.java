@@ -211,7 +211,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
 
     private boolean downloadNLogin(Player player, Runnable callback) {
         File output = new File(plugin.getDataFolder().getParentFile(), "nLogin.jar");
-        return downloadActionbar(player, "https://repo.nickuc.com/files/nLogin.jar", output, false, callback);
+        return downloadActionbar(player, "https://repo.nickuc.com/files/latest/nLogin.jar", output, false, callback);
     }
 
     private boolean downloadActionbar(Player player, String url, File output, boolean update, Runnable callback) {
