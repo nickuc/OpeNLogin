@@ -14,7 +14,6 @@ import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -238,20 +237,20 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
             public void run() {
                 if (downloadFinished.get()) {
                     if (downloadSuccessful.get()) {
-                        ActionbarAPI.getApi().send(player, "§aDownload finished! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
+                        ActionbarAPI.getApi().send(player, "§aDownload finished! §7(§a" + repeatString("|", barsCount) + "§7)");
                         player.sendMessage("§aDownload finished. Please restart your server.");
                         if (callback != null) {
                             callback.run();
                         }
                     } else {
-                        ActionbarAPI.getApi().send(player, "§cDownload failed! §7(§a" + StringUtils.repeat("|", barsCount) + "§7)");
+                        ActionbarAPI.getApi().send(player, "§cDownload failed! §7(§a" + repeatString("|", barsCount) + "§7)");
                         player.sendMessage("§cDownload failed, please try again.");
                     }
                     cancel();
                     return;
                 }
                 int bars = (int) (barsCount * (downloadResult.downloaded() / downloadResult.contentLength()));
-                String progressBar = "§a" + StringUtils.repeat("|", bars) + "§c" + StringUtils.repeat("|", barsCount - bars);
+                String progressBar = "§a" + repeatString("|", bars) + "§c" + repeatString("|", barsCount - bars);
                 ActionbarAPI.getApi().send(player, "§eDownloading... §7(" + progressBar + "§7)");
             }
         }.runTaskTimer(plugin, 0, 4);
@@ -276,4 +275,11 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
         return downloadSuccessful.get();
     }
 
+    private String repeatString(String str, int count) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            builder.append(str);
+        }
+        return builder.toString();
+    }
 }
