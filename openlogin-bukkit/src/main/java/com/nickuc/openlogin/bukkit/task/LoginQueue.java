@@ -10,6 +10,7 @@ package com.nickuc.openlogin.bukkit.task;
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
+import com.tcoded.folialib.FoliaLib;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Server;
@@ -21,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LoginQueue {
 
     private static final ConcurrentHashMap<String, PlayerLogin> pendingLogin = new ConcurrentHashMap<>();
+    final static FoliaLib foliaLib = OpenLoginBukkit.getFoliaLib();
 
     /**
      * Starts the global timeout task.
@@ -29,7 +31,7 @@ public class LoginQueue {
      */
     public static void startTask(OpenLoginBukkit plugin) {
         final Server server = plugin.getServer();
-        server.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
+        foliaLib.getImpl().runTimerAsync(() -> {
             if (pendingLogin.isEmpty()) return;
 
             for (Map.Entry<String, PlayerLogin> entry : pendingLogin.entrySet()) {
@@ -43,7 +45,7 @@ public class LoginQueue {
                 PlayerLogin playerLogin = entry.getValue();
                 int seconds = playerLogin.seconds;
                 if (seconds >= Settings.TIME_TO_LOGIN.asInt()) {
-                    server.getScheduler().runTask(plugin, () -> player.kickPlayer(playerLogin.registered ? Messages.DELAY_KICK_LOGIN.asString() : Messages.DELAY_KICK_REGISTER.asString()));
+                    foliaLib.getImpl().runAtEntity(player, wrappedTask -> player.kickPlayer(playerLogin.registered ? Messages.DELAY_KICK_LOGIN.asString() : Messages.DELAY_KICK_REGISTER.asString()));
                     pendingLogin.remove(name);
                     return;
                 }
@@ -83,5 +85,4 @@ public class LoginQueue {
         }
 
     }
-
 }

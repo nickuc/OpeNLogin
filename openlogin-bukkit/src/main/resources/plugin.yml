@@ -5,6 +5,7 @@ description: 'A practical, secure and friendly authentication plugin'
 website: 'https://www.nickuc.com'
 api-version: 1.13
 author: NickUC
+folia-supported: true
 commands:
   changepassword:
     description: 'Changes your password'

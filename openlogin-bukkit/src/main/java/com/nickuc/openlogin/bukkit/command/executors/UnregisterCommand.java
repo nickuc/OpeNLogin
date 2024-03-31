@@ -12,12 +12,14 @@ import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.settings.Messages;
+import com.tcoded.folialib.FoliaLib;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
 public class UnregisterCommand extends BukkitAbstractCommand {
+    final FoliaLib foliaLib = OpenLoginBukkit.getFoliaLib();
 
     public UnregisterCommand(OpenLoginBukkit plugin) {
         super(plugin, true, "unregister");
@@ -57,7 +59,7 @@ public class UnregisterCommand extends BukkitAbstractCommand {
             return;
         }
 
-        plugin.getServer().getScheduler().runTask(plugin, () -> sender.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+        foliaLib.getImpl().runAtEntity(sender, wrappedTask -> sender.kickPlayer(Messages.UNREGISTER_KICK.asString()));
     }
 
     private void performConsole(CommandSender sender, String lb, String[] args) {
@@ -82,7 +84,7 @@ public class UnregisterCommand extends BukkitAbstractCommand {
 
         Player playerIfOnline = plugin.getServer().getPlayer(playerName);
         if (playerIfOnline != null) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> playerIfOnline.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+            foliaLib.getImpl().runAtEntity(playerIfOnline, wrappedTask -> playerIfOnline.kickPlayer(Messages.UNREGISTER_KICK.asString()));
         }
 
         sender.sendMessage("§aSuccess!");

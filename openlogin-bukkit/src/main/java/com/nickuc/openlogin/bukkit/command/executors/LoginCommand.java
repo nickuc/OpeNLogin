@@ -16,6 +16,7 @@ import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.settings.Messages;
+import com.tcoded.folialib.FoliaLib;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -26,6 +27,7 @@ public class LoginCommand extends BukkitAbstractCommand {
     public LoginCommand(OpenLoginBukkit plugin) {
         super(plugin, "login");
     }
+    final FoliaLib foliaLib = OpenLoginBukkit.getFoliaLib();
 
     protected void perform(CommandSender sender, String lb, String[] args) {
         if (!(sender instanceof Player)) {
@@ -57,7 +59,7 @@ public class LoginCommand extends BukkitAbstractCommand {
 
         Player player = (Player) sender;
         if (!accountManagement.comparePassword(account, password)) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
+            foliaLib.getImpl().runAtEntity(player, wrappedTask -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
             return;
         }
 
@@ -68,7 +70,7 @@ public class LoginCommand extends BukkitAbstractCommand {
             player.sendMessage(Messages.SUCCESSFUL_LOGIN.asString());
             TitleAPI.getApi().send(player, Messages.TITLE_AFTER_LOGIN.asTitle());
 
-            plugin.getServer().getScheduler().runTask(plugin, () -> {
+            foliaLib.getImpl().runAtEntity(player, wrappedTask -> {
                 player.setWalkSpeed(0.2F);
                 player.setFlySpeed(0.1F);
             });

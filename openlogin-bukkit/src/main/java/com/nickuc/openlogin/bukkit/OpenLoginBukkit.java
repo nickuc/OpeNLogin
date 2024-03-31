@@ -27,6 +27,7 @@ import com.nickuc.openlogin.common.security.filter.LoggerFilterManager;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import com.nickuc.openlogin.common.util.FileUtils;
+import com.tcoded.folialib.FoliaLib;
 import lombok.Getter;
 import lombok.Setter;
 import org.bstats.bukkit.Metrics;
@@ -57,6 +58,8 @@ public class OpenLoginBukkit extends JavaPlugin {
     @Setter
     private boolean newUser;
     private int registeredUsers;
+
+    private static FoliaLib foliaLib;
 
     public void onEnable() {
 
@@ -131,7 +134,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         setupMetrics();
 
         // updates
-        getServer().getScheduler().runTaskAsynchronously(this, this::detectUpdates);
+        foliaLib.getImpl().runAsync(wrappedTask -> this.detectUpdates());
     }
 
     public void sendMessage(String message) {
@@ -255,4 +258,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         return OpenLogin.getApi();
     }
 
+    public static FoliaLib getFoliaLib() {
+        return foliaLib;
+    }
 }
