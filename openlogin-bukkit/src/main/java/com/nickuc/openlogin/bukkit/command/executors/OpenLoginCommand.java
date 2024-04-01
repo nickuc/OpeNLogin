@@ -33,10 +33,10 @@ import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.FileUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class OpenLoginCommand extends BukkitAbstractCommand {
@@ -135,14 +135,9 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         return;
                     }
 
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            for (Player on : plugin.getServer().getOnlinePlayers()) {
-                                on.kickPlayer("§aPlease rejoin to complete the plugin installation.");
-                            }
-                        }
-                    }.runTask(plugin);
+                    for (Player on : plugin.getServer().getOnlinePlayers()) {
+                        plugin.getFoliaLib().runAtEntity(on, task -> on.kickPlayer("§aPlease rejoin to complete the plugin installation."));
+                    }
 
                     plugin.setNewUser(false);
                     plugin.getPluginSettings().set("setup_date", Long.toString(System.currentTimeMillis()));
@@ -191,16 +186,15 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
 
                         Runnable callback = null;
                         if (skip && plugin.isNewUser()) {
-                            callback = () -> new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    for (Player on : plugin.getServer().getOnlinePlayers()) {
+                            callback = () -> {
+                                for (Player on : plugin.getServer().getOnlinePlayers()) {
+                                    plugin.getFoliaLib().runAtEntity(on, task -> {
                                         on.closeInventory();
                                         on.kickPlayer("§anLogin was successfully installed. We are restarting the server to apply the changes.");
-                                    }
-                                    plugin.getServer().shutdown();
+                                    });
                                 }
-                            }.runTask(plugin);
+                                plugin.getServer().shutdown();
+                            };
                             TitleAPI.getApi().reset(player);
                         }
                         if (!downloadNLogin(player, callback)) {
@@ -249,28 +243,25 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
 
         AtomicBoolean downloadFinished = new AtomicBoolean();
         AtomicBoolean downloadSuccessful = new AtomicBoolean();
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (downloadFinished.get()) {
-                    if (downloadSuccessful.get()) {
-                        ActionbarAPI.getApi().send(player, "§aDownload finished! §7(§a" + repeatString("|", barsCount) + "§7)");
-                        player.sendMessage("§aDownload finished. Please restart your server.");
-                        if (callback != null) {
-                            callback.run();
-                        }
-                    } else {
-                        ActionbarAPI.getApi().send(player, "§cDownload failed! §7(§a" + repeatString("|", barsCount) + "§7)");
-                        player.sendMessage("§cDownload failed, please try again.");
+        plugin.getFoliaLib().runAtEntityTimer(player, task -> {
+            if (downloadFinished.get()) {
+                if (downloadSuccessful.get()) {
+                    ActionbarAPI.getApi().send(player, "§aDownload finished! §7(§a" + repeatString("|", barsCount) + "§7)");
+                    player.sendMessage("§aDownload finished. Please restart your server.");
+                    if (callback != null) {
+                        callback.run();
                     }
-                    cancel();
-                    return;
+                } else {
+                    ActionbarAPI.getApi().send(player, "§cDownload failed! §7(§a" + repeatString("|", barsCount) + "§7)");
+                    player.sendMessage("§cDownload failed, please try again.");
                 }
-                int bars = (int) (barsCount * (downloadResult.downloaded() / downloadResult.contentLength()));
-                String progressBar = "§a" + repeatString("|", bars) + "§c" + repeatString("|", barsCount - bars);
-                ActionbarAPI.getApi().send(player, "§eDownloading... §7(" + progressBar + "§7)");
+                task.cancel();
+                return;
             }
-        }.runTaskTimer(plugin, 0, 4);
+            int bars = (int) (barsCount * (downloadResult.downloaded() / downloadResult.contentLength()));
+            String progressBar = "§a" + repeatString("|", bars) + "§c" + repeatString("|", barsCount - bars);
+            ActionbarAPI.getApi().send(player, "§eDownloading... §7(" + progressBar + "§7)");
+        }, 0, 200, TimeUnit.MILLISECONDS);
 
         try {
             downloadSuccessful.set(downloadResult.startDownload());
