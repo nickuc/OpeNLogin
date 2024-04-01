@@ -11,6 +11,7 @@ import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
 import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.LoginManagement;
+import com.tcoded.folialib.FoliaLib;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -30,6 +31,7 @@ import org.bukkit.event.player.*;
 public class PlayerGeneralListeners implements Listener {
 
     private final OpenLoginBukkit plugin;
+    final FoliaLib foliaLib = OpenLoginBukkit.getFoliaLib();
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerQuit(PlayerQuitEvent e) {
@@ -63,7 +65,7 @@ public class PlayerGeneralListeners implements Listener {
         Location to = e.getTo();
         if (to != null && e.getFrom().getY() > to.getY()) return;
 
-        player.teleport(e.getFrom());
+        foliaLib.getImpl().teleportAsync(player, e.getFrom());
         e.setCancelled(true);
     }
 
@@ -198,6 +200,4 @@ public class PlayerGeneralListeners implements Listener {
         String name = e.getPlayer().getName();
         if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
     }
-
-
 }
