@@ -14,20 +14,19 @@ import com.nickuc.openlogin.bukkit.util.TextComponentMessage;
 import com.nickuc.openlogin.common.model.Title;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.ClassUtils;
+import com.tcoded.folialib.FoliaLib;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import static com.nickuc.openlogin.bukkit.OpenLoginBukkit.getFoliaLib;
 
 @AllArgsConstructor
 public class PlayerJoinListeners implements Listener {
 
     private final OpenLoginBukkit plugin;
+    final FoliaLib foliaLib = OpenLoginBukkit.getFoliaLib();
 
     @EventHandler(priority = EventPriority.LOW)
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -35,7 +34,7 @@ public class PlayerJoinListeners implements Listener {
         String name = player.getName();
 
         if (plugin.isNewUser()) {
-            getFoliaLib().getImpl().runLater(() -> {
+            foliaLib.getImpl().runLater(() -> {
                 if (!player.isOnline()) {
                     return;
                 }
@@ -79,5 +78,4 @@ public class PlayerJoinListeners implements Listener {
             TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
         }
     }
-
 }
