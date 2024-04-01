@@ -62,7 +62,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     private static FoliaLib foliaLib;
 
     public void onEnable() {
-
+        foliaLib = new FoliaLib(this);
         PluginManager pm = getServer().getPluginManager();
 
         // detect nLogin

@@ -4,6 +4,7 @@
 
 dependencies {
     implementation 'org.bstats:bstats-bukkit:3.0.0'
+    implementation 'com.tcoded:FoliaLib:0.3.3'
     implementation project(':openlogin-common')
     compileOnly 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
 }
