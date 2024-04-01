@@ -28,6 +28,7 @@ import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import com.nickuc.openlogin.common.util.FileUtils;
 import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.impl.ServerImplementation;
 import lombok.Getter;
 import lombok.Setter;
 import org.bstats.bukkit.Metrics;
@@ -49,6 +50,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     private LoginManagement loginManagement;
     private AccountManagement accountManagement;
     private CommandManagement commandManagement;
+    private ServerImplementation foliaLib;
 
     private Database database;
     private PluginSettings pluginSettings;
@@ -59,10 +61,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     private boolean newUser;
     private int registeredUsers;
 
-    private static FoliaLib foliaLib;
-
     public void onEnable() {
-        foliaLib = new FoliaLib(this);
         PluginManager pm = getServer().getPluginManager();
 
         // detect nLogin
@@ -108,6 +107,9 @@ public class OpenLoginBukkit extends JavaPlugin {
             return;
         }
 
+        // setup Folia lib
+        foliaLib = new FoliaLib(this).getImpl();
+
         // setup account management
         accountManagement = new AccountManagement(database);
 
@@ -134,7 +136,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         setupMetrics();
 
         // updates
-        foliaLib.getImpl().runAsync(wrappedTask -> this.detectUpdates());
+        foliaLib.runAsync(task -> this.detectUpdates());
     }
 
     public void sendMessage(String message) {
@@ -256,9 +258,5 @@ public class OpenLoginBukkit extends JavaPlugin {
 
     public static OpenLoginAPI getApi() {
         return OpenLogin.getApi();
-    }
-
-    public static FoliaLib getFoliaLib() {
-        return foliaLib;
     }
 }

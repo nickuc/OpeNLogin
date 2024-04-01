@@ -11,7 +11,6 @@ import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.command.executors.OpenLoginCommand;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.settings.Messages;
-import com.tcoded.folialib.FoliaLib;
 import lombok.NonNull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,7 +22,6 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
     protected final OpenLoginBukkit plugin;
     private final boolean requireAuth;
     private final String permission;
-    final FoliaLib foliaLib = OpenLoginBukkit.getFoliaLib();
 
     public BukkitAbstractCommand(OpenLoginBukkit plugin, @NonNull String command) {
         this(plugin, false, command);
@@ -53,7 +51,7 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
         }
 
         if (loginManagement.isUnlocked(name)) {
-            foliaLib.getImpl().runAsync(wrappedTask -> {
+            plugin.getFoliaLib().runAsync(task -> {
                 try {
                     perform(sender, lb, args);
                 } catch (Exception e) {

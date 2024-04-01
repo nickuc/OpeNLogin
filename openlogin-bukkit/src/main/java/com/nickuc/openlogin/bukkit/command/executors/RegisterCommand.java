@@ -17,7 +17,6 @@ import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
-import com.tcoded.folialib.FoliaLib;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,7 +27,6 @@ public class RegisterCommand extends BukkitAbstractCommand {
     public RegisterCommand(OpenLoginBukkit plugin) {
         super(plugin, "register");
     }
-    final FoliaLib foliaLib = OpenLoginBukkit.getFoliaLib();
 
     protected void perform(CommandSender sender, String lb, String[] args) {
         if (sender instanceof Player) {
@@ -91,7 +89,7 @@ public class RegisterCommand extends BukkitAbstractCommand {
             TitleAPI.getApi().send(sender, Messages.TITLE_AFTER_REGISTER.asTitle());
             sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
-            foliaLib.getImpl().runAtEntity(sender, wrappedTask -> {
+            plugin.getFoliaLib().runAtEntity(sender, task -> {
                 sender.setWalkSpeed(0.2F);
                 sender.setFlySpeed(0.1F);
             });
@@ -156,7 +154,7 @@ public class RegisterCommand extends BukkitAbstractCommand {
                 TitleAPI.getApi().send(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
                 playerIfOnline.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
-                foliaLib.getImpl().runAtEntity(playerIfOnline, wrappedTask -> {
+                plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> {
                     playerIfOnline.setWalkSpeed(0.2F);
                     playerIfOnline.setFlySpeed(0.1F);
                 });
