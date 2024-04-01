@@ -1,7 +1,6 @@
 /*
  * The MIT License (MIT)
  *
- * A practical, secure and friendly authentication plugin.
  * Copyright © 2024 - OpenLogin Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
