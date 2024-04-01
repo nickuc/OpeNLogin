@@ -3,7 +3,7 @@
  */
 
 plugins {
-    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id "com.github.johnrengelman.shadow" version "7.0.0"
 }
 
 tasks.build.dependsOn('shadowJar')
@@ -17,6 +17,6 @@ shadowJar {
     relocate 'org.bstats.bukkit', 'com.nickuc.openlogin.bukkit.metrics'
     relocate 'org.bstats.bungee', 'com.nickuc.openlogin.bungee.metrics'
     relocate 'org.bstats', 'com.nickuc.openlogin.common.metrics'
-
+    relocate 'com.tcoded', 'com.nickuc.openlogin.bukkit.folia'
     archiveName('OpenLogin.jar')
 }

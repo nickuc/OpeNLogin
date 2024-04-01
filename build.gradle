@@ -15,6 +15,7 @@ subprojects {
         mavenCentral()
         maven { url = uri('https://hub.spigotmc.org/nexus/content/repositories/snapshots/') }
         maven { url = uri('https://repo.codemc.org/repository/maven-public') }
+        maven { url = uri("https://nexuslite.gcnt.net/repos/other/")}
     }
 
     dependencies {
@@ -34,21 +35,11 @@ subprojects {
             expand 'pluginVersion': version
             include 'plugin.yml'
         }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
 
     jar {
-        from {
-
-            configurations.runtime.collect {
-                it.isDirectory() ? it : zipTree(it)
-            }
-
-            configurations.compile.collect {
-                it.isDirectory() ? it : zipTree(it)
-            }
-        }
-
-        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+        archiveClassifier.set("thin")
     }
 
 }
