@@ -2,7 +2,7 @@ subprojects {
     apply plugin: 'java'
 
     group = 'com.nickuc.openlogin'
-    version = '1.6.6'
+    version = '1.6.7'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
