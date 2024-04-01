@@ -63,7 +63,7 @@ public class PlayerGeneralListeners implements Listener {
         Location to = e.getTo();
         if (to != null && e.getFrom().getY() > to.getY()) return;
 
-        player.teleport(e.getFrom());
+        plugin.getFoliaLib().teleportAsync(player, e.getFrom());
         e.setCancelled(true);
     }
 
@@ -198,6 +198,4 @@ public class PlayerGeneralListeners implements Listener {
         String name = e.getPlayer().getName();
         if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
     }
-
-
 }

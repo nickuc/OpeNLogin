@@ -89,7 +89,7 @@ public class RegisterCommand extends BukkitAbstractCommand {
             TitleAPI.getApi().send(sender, Messages.TITLE_AFTER_REGISTER.asTitle());
             sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
-            plugin.getServer().getScheduler().runTask(plugin, () -> {
+            plugin.getFoliaLib().runAtEntity(sender, task -> {
                 sender.setWalkSpeed(0.2F);
                 sender.setFlySpeed(0.1F);
             });
@@ -154,7 +154,7 @@ public class RegisterCommand extends BukkitAbstractCommand {
                 TitleAPI.getApi().send(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
                 playerIfOnline.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
-                plugin.getServer().getScheduler().runTask(plugin, () -> {
+                plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> {
                     playerIfOnline.setWalkSpeed(0.2F);
                     playerIfOnline.setFlySpeed(0.1F);
                 });

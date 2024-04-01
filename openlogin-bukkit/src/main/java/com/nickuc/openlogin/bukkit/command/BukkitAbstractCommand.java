@@ -51,7 +51,7 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
         }
 
         if (loginManagement.isUnlocked(name)) {
-            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
+            plugin.getFoliaLib().runAsync(task -> {
                 try {
                     perform(sender, lb, args);
                 } catch (Exception e) {
@@ -64,5 +64,4 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
     }
 
     protected abstract void perform(CommandSender sender, String lb, String[] args);
-
 }

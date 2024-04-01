@@ -57,7 +57,7 @@ public class UnregisterCommand extends BukkitAbstractCommand {
             return;
         }
 
-        plugin.getServer().getScheduler().runTask(plugin, () -> sender.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+        plugin.getFoliaLib().runAtEntity(sender, task -> sender.kickPlayer(Messages.UNREGISTER_KICK.asString()));
     }
 
     private void performConsole(CommandSender sender, String lb, String[] args) {
@@ -82,7 +82,7 @@ public class UnregisterCommand extends BukkitAbstractCommand {
 
         Player playerIfOnline = plugin.getServer().getPlayer(playerName);
         if (playerIfOnline != null) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> playerIfOnline.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+            plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> playerIfOnline.kickPlayer(Messages.UNREGISTER_KICK.asString()));
         }
 
         sender.sendMessage("§aSuccess!");

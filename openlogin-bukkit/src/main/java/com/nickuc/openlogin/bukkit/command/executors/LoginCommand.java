@@ -57,7 +57,7 @@ public class LoginCommand extends BukkitAbstractCommand {
 
         Player player = (Player) sender;
         if (!accountManagement.comparePassword(account, password)) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
+            plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
             return;
         }
 
@@ -68,7 +68,7 @@ public class LoginCommand extends BukkitAbstractCommand {
             player.sendMessage(Messages.SUCCESSFUL_LOGIN.asString());
             TitleAPI.getApi().send(player, Messages.TITLE_AFTER_LOGIN.asTitle());
 
-            plugin.getServer().getScheduler().runTask(plugin, () -> {
+            plugin.getFoliaLib().runAtEntity(player, task -> {
                 player.setWalkSpeed(0.2F);
                 player.setFlySpeed(0.1F);
             });
