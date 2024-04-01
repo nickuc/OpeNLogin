@@ -6,3 +6,12 @@ dependencies {
 
     compileOnly 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
 }
+
+processResources {
+    filesMatching('plugin.yml') {
+        expand 'pluginVersion': project.version
+    }
+    filesMatching('bungee.yml') {
+        expand 'pluginVersion': project.version
+    }
+}
