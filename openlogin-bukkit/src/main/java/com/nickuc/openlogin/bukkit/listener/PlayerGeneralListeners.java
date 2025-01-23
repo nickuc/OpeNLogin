@@ -76,26 +76,13 @@ public class PlayerGeneralListeners implements Listener {
         Player player = e.getPlayer();
         String name = player.getName();
         if (plugin.getLoginManagement().isAuthenticated(name)) return;
-
-        // Code taken from https://github.com/AuthMe/AuthMeReloaded/blob/master/src/main/java/fr/xephi/authme/listener/PlayerListener.java
+        
         Location from = e.getFrom();
         Location to = e.getTo();
-        if (to == null) {
-            return;
-        }
+        if (to != null && from.getY() > to.getY()) return;
 
-        /*
-         * Limit player X and Z movements to 1 block
-         * Deny player Y+ movements (allows falling)
-         */
-
-        if (from.getBlockX() == to.getBlockX()
-                && from.getBlockZ() == to.getBlockZ()
-                && from.getY() - to.getY() >= 0) {
-            return;
-        }
-
-        plugin.getFoliaLib().teleportAsync(player, e.getFrom());
+        // Fix "too many packets" disconnect by using PlayerMoveEvent#setTo instead of Player#teleport
+        e.setTo(from);
         e.setCancelled(true);
     }
 
