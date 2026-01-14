@@ -37,10 +37,6 @@ public enum Settings {
             "languageFile",
             "messages_en.yml"
     ),
-    ALLOW_ADVERTISING(
-            "allow-advertising",
-            true
-    ),
     TIME_TO_LOGIN(
             "Security.time-to-login",
             45
