@@ -36,7 +36,7 @@ public class ClassUtils {
         try {
             Class.forName(clasz);
             return true;
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException ignored) {
             return false;
         }
     }

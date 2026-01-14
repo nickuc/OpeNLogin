@@ -26,7 +26,6 @@ package com.nickuc.openlogin.bukkit.serializer.chat;
 
 import com.nickuc.openlogin.bukkit.reflection.BukkitReflection;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ChatComponentSerializer {
@@ -66,8 +65,8 @@ public class ChatComponentSerializer {
 
         try {
             return a.invoke(null, json);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("Could not serialize ChatComponent! \"" + json + "\"", e);
+        } catch (ReflectiveOperationException exception) {
+            throw new RuntimeException("Could not serialize ChatComponent! \"" + json + "\"", exception);
         }
     }
 }

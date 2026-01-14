@@ -120,8 +120,8 @@ public class AccountManagement {
                 long regdate = resultSet.getLong("regdate");
                 return Optional.of(new Account(realName, hashedPassword, address, lastLogin, regdate));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
         return Optional.empty();
     }
@@ -182,8 +182,8 @@ public class AccountManagement {
                 );
             }
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
             return false;
         }
     }
@@ -203,8 +203,8 @@ public class AccountManagement {
         try {
             database.update("DELETE FROM `openlogin` WHERE `name` = ?", name.toLowerCase());
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
             return false;
         }
     }

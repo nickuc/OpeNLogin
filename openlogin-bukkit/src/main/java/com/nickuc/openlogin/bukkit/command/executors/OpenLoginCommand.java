@@ -274,9 +274,9 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                 File pluginFile = FileUtils.getSelfJarFile();
                 pluginFile.deleteOnExit();
             }
-        } catch (IOException e) {
+        } catch (IOException exception) {
             downloadLock.set(false);
-            e.printStackTrace();
+            exception.printStackTrace();
             String msg = update ?
                     "§cFailed to download new version. Update manually at: https://github.com/nickuc/OpeNLogin/releases" :
                     "§cFailed to download nLogin :c. Download manually at: nickuc.com";

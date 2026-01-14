@@ -48,8 +48,8 @@ public class PluginSettings {
             if (resultSet.next()) {
                 return resultSet.getString("value");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
         return null;
     }
@@ -63,8 +63,8 @@ public class PluginSettings {
                 database.update("INSERT INTO `settings` (`key`, `value`) VALUES (?, ?)", key, value);
             }
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
             return false;
         }
     }

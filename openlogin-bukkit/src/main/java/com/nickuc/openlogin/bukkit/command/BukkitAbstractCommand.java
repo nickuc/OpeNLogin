@@ -71,8 +71,8 @@ public abstract class BukkitAbstractCommand implements CommandExecutor {
             plugin.getFoliaLib().runAsync(task -> {
                 try {
                     perform(sender, lb, args);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                     plugin.sendMessage("§cFailed to perform the command '" + lb + "', sender: " + sender.getName());
                 }
             });

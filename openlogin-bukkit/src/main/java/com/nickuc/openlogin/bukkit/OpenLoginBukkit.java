@@ -107,8 +107,8 @@ public class OpenLoginBukkit extends JavaPlugin {
                 if (newUserfile.getParentFile().mkdirs()) {
                     newUserfile.createNewFile();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
         }
 
@@ -141,7 +141,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         LoggerFilterManager.setup(getLogger());
 
         // setup listeners
-        setupListeners(newUser);
+        setupListeners();
 
         // start login queue task
         LoginQueue.startTask(this);
@@ -176,24 +176,25 @@ public class OpenLoginBukkit extends JavaPlugin {
                 if (rs.next()) {
                     registeredUsers = rs.getInt("COUNT(*)");
                 }
-            } catch (Exception e) {
+            } catch (Exception exception) {
+                exception.printStackTrace();
                 sendMessage("§cFailed to update the register count.");
             }
             pluginSettings = new PluginSettings(database);
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
             sendMessage("§cFailed to start database. Shutting down server...");
             return false;
         }
     }
 
-    private void setupListeners(boolean newUser) {
+    private void setupListeners() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerGeneralListeners(this), this);
         pm.registerEvents(new PlayerJoinListeners(this), this);
         pm.registerEvents(new PlayerKickListeners(this), this);
-        pm.registerEvents(new PlayerAuthenticateListener(this, newUser), this);
+        pm.registerEvents(new PlayerAuthenticateListener(this), this);
     }
 
     private void setupMetrics() {
@@ -214,7 +215,7 @@ public class OpenLoginBukkit extends JavaPlugin {
                     tagName = latestVersion = tagName.split("\",")[0];
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException exception) {
             sendMessage("§cFailed to find new updates.");
             sendMessage("§cDownload the latest version at: https://github.com/nickuc/OpeNLogin/releases");
         }

@@ -68,14 +68,14 @@ public class BukkitReflection {
 
                 try {
                     sendPacketMethod = getMethod(networkManager, "sendPacket", packetClass);
-                } catch (NoSuchMethodException e) {
+                } catch (NoSuchMethodException exception) {
                     sendPacketMethod = getMethod(networkManager, "a", packetClass);
                 }
             } else {
                 sendPacketMethod = getMethod(playerConnectionClass, "sendPacket", packetClass);
             }
-        } catch (ClassNotFoundException | NoSuchMethodException | NoSuchFieldException e) {
-            e.printStackTrace();
+        } catch (ReflectiveOperationException exception) {
+            exception.printStackTrace();
         }
     }
 

@@ -78,9 +78,9 @@ public interface Database {
                     preparedStatement.setObject(i + 1, args[i]);
                 }
                 resultSet = preparedStatement.executeQuery();
-            } catch (SQLException e) {
+            } catch (SQLException exception) {
                 close();
-                throw new SQLException("Failed to execute query statement: '" + command + "'", e);
+                throw new SQLException("Failed to execute query statement: '" + command + "'", exception);
             }
         }
 

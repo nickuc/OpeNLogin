@@ -49,8 +49,8 @@ public class SQLite implements Database {
         if (connection == null || connection.isClosed()) {
             try {
                 Class.forName("org.sqlite.JDBC");
-            } catch (ClassNotFoundException e) {
-                throw new SQLException("Failed to find class 'org.sqlite.JDBC'", e);
+            } catch (ClassNotFoundException exception) {
+                throw new SQLException("Failed to find class \"org.sqlite.JDBC\"", exception);
             }
             File parentFile = file.getParentFile();
             if (!parentFile.exists() && !parentFile.mkdirs()) {
@@ -83,8 +83,8 @@ public class SQLite implements Database {
                 preparedStatement.setObject(i + 1, args[i]);
             }
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("Failed to execute update statement: '" + command + "'", e);
+        } catch (SQLException exception) {
+            throw new SQLException("Failed to execute update statement: \"" + command + "\"", exception);
         }
     }
 

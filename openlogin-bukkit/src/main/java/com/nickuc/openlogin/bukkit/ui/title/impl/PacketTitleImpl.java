@@ -85,8 +85,8 @@ public class PacketTitleImpl implements TitleAPI {
                 BukkitReflection.sendPacket(player, timeTitlePacket);
                 BukkitReflection.sendPacket(player, titlePacket);
                 BukkitReflection.sendPacket(player, subtitlePacket);
-            } catch (ReflectiveOperationException e) {
-                throw new RuntimeException("Could not send title for " + player.getName() + "!", e);
+            } catch (ReflectiveOperationException exception) {
+                throw new RuntimeException("Could not send title for " + player.getName() + "!", exception);
             }
         }
     }
@@ -96,8 +96,8 @@ public class PacketTitleImpl implements TitleAPI {
         try {
             Object resetTitlePacket = textTitleConstructor.newInstance(enumReset, null);
             BukkitReflection.sendPacket(player, resetTitlePacket);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException("Could not reset title for " + player.getName() + "!", e);
+        } catch (ReflectiveOperationException exception) {
+            throw new RuntimeException("Could not reset title for " + player.getName() + "!", exception);
         }
     }
 }

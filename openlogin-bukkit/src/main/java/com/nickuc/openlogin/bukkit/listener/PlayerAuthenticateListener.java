@@ -26,40 +26,52 @@ package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
-import com.nickuc.openlogin.bukkit.util.TextComponentMessage;
-import com.nickuc.openlogin.common.util.ClassUtils;
-import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-@AllArgsConstructor
 public class PlayerAuthenticateListener implements Listener {
 
     private final OpenLoginBukkit plugin;
     private boolean welcomeMessage;
 
+    public PlayerAuthenticateListener(OpenLoginBukkit plugin) {
+        this.plugin = plugin;
+        this.welcomeMessage = plugin.isNewUser();
+    }
+
     @EventHandler
-    public void onAsyncAuthenticate(AsyncAuthenticateEvent e) {
-        Player player = e.getPlayer();
+    public void onAsyncAuthenticate(AsyncAuthenticateEvent event) {
+        Player player = event.getPlayer();
         if (!player.hasPermission("openlogin.admin")) return;
 
         if (welcomeMessage) {
-            player.sendMessage("");
-            player.sendMessage(" §eWelcome to OpeNLogin!");
-            player.sendMessage("");
-            player.sendMessage(" §7Documentation:");
-            player.sendMessage(" §bhttps://github.com/nickuc/OpeNLogin/tree/master/docs");
-            player.sendMessage("");
-            player.sendMessage(" §7If you need help, fell free to contact our support:");
-            player.sendMessage(" §bhttps://www.nickuc.com/discord");
-            player.sendMessage("");
             welcomeMessage = false;
-        } else if (plugin.isUpdateAvailable()) {
-            player.sendMessage("");
-            player.sendMessage(" §7A new version of §aOpeNLogin §7is available §a(v" + plugin.getDescription().getVersion() + " -> " + plugin.getLatestVersion() + ")§7.");
-            player.sendMessage(" §7Use the command §f'/openlogin update' §7to download new version.");
-            player.sendMessage("");
+            sendWelcomeMessage(player);
+            return;
         }
+
+        if (plugin.isUpdateAvailable()) {
+            sendUpdateMessage(player);
+        }
+    }
+
+    private void sendWelcomeMessage(Player player) {
+        player.sendMessage("");
+        player.sendMessage(" §eWelcome to OpeNLogin!");
+        player.sendMessage("");
+        player.sendMessage(" §7Documentation:");
+        player.sendMessage(" §bhttps://github.com/nickuc/OpeNLogin/tree/master/docs");
+        player.sendMessage("");
+        player.sendMessage(" §7If you need help, fell free to contact our support:");
+        player.sendMessage(" §bhttps://www.nickuc.com/discord");
+        player.sendMessage("");
+    }
+
+    private void sendUpdateMessage(Player player) {
+        player.sendMessage("");
+        player.sendMessage(" §7A new version of §aOpeNLogin §7is available §a(v" + plugin.getDescription().getVersion() + " -> " + plugin.getLatestVersion() + ")§7.");
+        player.sendMessage(" §7Use the command §f'/openlogin update' §7to download new version.");
+        player.sendMessage("");
     }
 }

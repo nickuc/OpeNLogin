@@ -59,8 +59,8 @@ public class FileUtils {
                 }
                 return true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         return false;
     }

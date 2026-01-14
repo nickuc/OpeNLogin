@@ -48,19 +48,19 @@ public class PlayerKickListeners implements Listener {
     private final OpenLoginBukkit plugin;
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerLogin(AsyncPlayerPreLoginEvent e) {
-        String name = e.getName();
+    public void onPlayerLogin(AsyncPlayerPreLoginEvent event) {
+        String name = event.getName();
         Player player = Bukkit.getPlayerExact(name);
 
         // prevent double online nickname
         if (player != null) {
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.ALREADY_ONLINE.asString());
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.ALREADY_ONLINE.asString());
             return;
         }
 
         // prevent invalid nicknames
         if (!VALID_NICK.matcher(name).matches()) {
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.INVALID_NICKNAME.asString("§cSorry, but you are using an invalid nickname."));
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.INVALID_NICKNAME.asString("§cSorry, but you are using an invalid nickname."));
             return;
         }
 
@@ -72,28 +72,28 @@ public class PlayerKickListeners implements Listener {
                 String kickMessage = Messages.NICK_ALREADY_REGISTERED.asString()
                         .replace("{0}", name)
                         .replace("{1}", realname);
-                e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, kickMessage);
+                event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, kickMessage);
             }
         }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerLogin(PlayerLoginEvent e) {
-        Player player = Bukkit.getPlayer(e.getPlayer().getName());
+    public void onPlayerLogin(PlayerLoginEvent event) {
+        Player player = Bukkit.getPlayer(event.getPlayer().getName());
 
         // prevent double online nickname
         if (player != null) {
-            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.ALREADY_ONLINE.asString());
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.ALREADY_ONLINE.asString());
         }
     }
 
     @EventHandler(priority = EventPriority.LOW)
-    public void onPlayerKick(PlayerKickEvent e) {
-        String reason = e.getReason();
+    public void onPlayerKick(PlayerKickEvent event) {
+        String reason = event.getReason();
 
         // prevent kick online players
         if (reason.contains("You logged in from another location")) {
-            e.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 

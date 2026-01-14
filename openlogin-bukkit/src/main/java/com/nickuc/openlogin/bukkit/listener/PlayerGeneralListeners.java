@@ -49,8 +49,8 @@ public class PlayerGeneralListeners implements Listener {
     private final OpenLoginBukkit plugin;
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerQuit(PlayerQuitEvent e) {
-        Player player = e.getPlayer();
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
         String name = player.getName();
         LoginManagement loginManagement = plugin.getLoginManagement();
         loginManagement.cleanup(name);
@@ -59,162 +59,162 @@ public class PlayerGeneralListeners implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
-        Player player = e.getPlayer();
+    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        Player player = event.getPlayer();
         String name = player.getName();
-        String message = e.getMessage().toLowerCase();
+        String message = event.getMessage().toLowerCase();
         String command = message.split(" ")[0];
         if (!plugin.getLoginManagement().isAuthenticated(name) && !plugin.getCommandManagement().isAllowedCommand(command)) {
-            e.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onPlayerMove(PlayerMoveEvent e) {
-        if (e.isCancelled()) return;
+    public void onPlayerMove(PlayerMoveEvent event) {
+        if (event.isCancelled()) return;
 
-        Player player = e.getPlayer();
+        Player player = event.getPlayer();
         String name = player.getName();
         if (plugin.getLoginManagement().isAuthenticated(name)) return;
         
-        Location from = e.getFrom();
-        Location to = e.getTo();
+        Location from = event.getFrom();
+        Location to = event.getTo();
         if (to != null && from.getY() > to.getY()) return;
 
         // Fix "too many packets" disconnect by using PlayerMoveEvent#setTo instead of Player#teleport
-        e.setTo(from);
-        e.setCancelled(true);
+        event.setTo(from);
+        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onBlockPlace(BlockPlaceEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onBlockPlace(BlockPlaceEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onBlockBreak(BlockBreakEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onBlockBreak(BlockBreakEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onEntityDamageEvent(EntityDamageEvent e) {
-        if (e.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
-        if (e.isCancelled()) return;
-        if (!(e.getEntity() instanceof Player)) return;
+    public void onEntityDamageEvent(EntityDamageEvent event) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
+        if (event.isCancelled()) return;
+        if (!(event.getEntity() instanceof Player)) return;
 
-        Player player = ((Player) e.getEntity());
+        Player player = ((Player) event.getEntity());
         if (!plugin.getLoginManagement().isAuthenticated(player.getName())) {
-            e.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onAsyncPlayerChat(AsyncPlayerChatEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler
-    public void onInventoryOpen(InventoryOpenEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onInventoryOpen(InventoryOpenEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        String name = e.getWhoClicked().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onInventoryClick(InventoryClickEvent event) {
+        String name = event.getWhoClicked().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onPlayerDropItem(PlayerDropItemEvent e) {
-        if (e.isCancelled()) return;
+    public void onPlayerDropItem(PlayerDropItemEvent event) {
+        if (event.isCancelled()) return;
 
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerInteract(PlayerInteractEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-        if (e.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
-        if (e.isCancelled()) return;
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.SUICIDE) return;
+        if (event.isCancelled()) return;
 
-        if (e.getEntity() instanceof Player) {
-            Player player = (Player) e.getEntity();
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
             if (!plugin.getLoginManagement().isAuthenticated(player.getName())) {
-                e.setCancelled(true);
+                event.setCancelled(true);
                 return;
             }
         }
 
-        if (e.getDamager() instanceof Player) {
-            Player player = (Player) e.getDamager();
+        if (event.getDamager() instanceof Player) {
+            Player player = (Player) event.getDamager();
             if (!plugin.getLoginManagement().isAuthenticated(player.getName())) {
-                e.setCancelled(true);
+                event.setCancelled(true);
             }
         }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerShearEntity(PlayerShearEntityEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerShearEntity(PlayerShearEntityEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerFish(PlayerFishEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerFish(PlayerFishEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerBedEnter(PlayerBedEnterEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerBedEnter(PlayerBedEnterEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerEditBook(PlayerEditBookEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerEditBook(PlayerEditBookEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onSignChange(SignChangeEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onSignChange(SignChangeEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerItemHeld(PlayerItemHeldEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerItemHeld(PlayerItemHeldEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerItemConsume(PlayerItemConsumeEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerPickupItem(PlayerPickupItemEvent e) {
-        String name = e.getPlayer().getName();
-        if (!plugin.getLoginManagement().isAuthenticated(name)) e.setCancelled(true);
+    public void onPlayerPickupItem(PlayerPickupItemEvent event) {
+        String name = event.getPlayer().getName();
+        if (!plugin.getLoginManagement().isAuthenticated(name)) event.setCancelled(true);
     }
 }

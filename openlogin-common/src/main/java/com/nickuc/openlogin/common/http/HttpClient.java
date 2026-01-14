@@ -55,8 +55,8 @@ public final class HttpClient {
         if (requestMethod != null && !requestMethod.isEmpty()) {
             try {
                 http.setRequestMethod(requestMethod);
-            } catch (ProtocolException e) {
-                throw new IllegalArgumentException("Method '" + requestMethod + "' does not exists!", e);
+            } catch (ProtocolException exception) {
+                throw new IllegalArgumentException("Method '" + requestMethod + "' does not exists!", exception);
             }
         }
         http.setRequestProperty("User-Agent", userAgent);
@@ -96,7 +96,7 @@ public final class HttpClient {
             }
 
             return response.toString();
-        } catch (SocketTimeoutException e) {
+        } catch (SocketTimeoutException exception) {
             throw new SocketTimeoutException("[GET] The connection took too long to be answered.");
         }
     }
@@ -130,7 +130,7 @@ public final class HttpClient {
             } while (redirect);
 
             return new AsyncDownloadResult(http, output);
-        } catch (SocketTimeoutException e) {
+        } catch (SocketTimeoutException exception) {
             throw new SocketTimeoutException("[GET] The connection took too long to be answered.");
         }
     }

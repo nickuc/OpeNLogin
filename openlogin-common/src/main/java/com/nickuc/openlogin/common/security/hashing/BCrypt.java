@@ -786,7 +786,8 @@ public final class BCrypt {
             for (int i = 0; i < try_bytes.length; i++)
                 ret |= hashed_bytes[i] ^ try_bytes[i];
             return ret == 0;
-        } catch (Exception e) {
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         return false;
     }

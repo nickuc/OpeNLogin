@@ -32,7 +32,6 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.command.PluginCommand;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -71,9 +70,8 @@ public class CommandManagement {
                 Constructor<?> constructor = command.clasz.getConstructor(OpenLoginBukkit.class);
                 BukkitAbstractCommand bukkitCommand = (BukkitAbstractCommand) constructor.newInstance(plugin);
                 pluginCommand.setExecutor(bukkitCommand);
-            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
-                     InvocationTargetException e) {
-                e.printStackTrace();
+            } catch (ReflectiveOperationException event) {
+                event.printStackTrace();
             }
         }
     }

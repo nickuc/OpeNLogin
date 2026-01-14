@@ -44,8 +44,8 @@ public class PlayerJoinListeners implements Listener {
     private final OpenLoginBukkit plugin;
 
     @EventHandler(priority = EventPriority.LOW)
-    public void onPlayerJoin(PlayerJoinEvent e) {
-        Player player = e.getPlayer();
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
         String name = player.getName();
 
         if (plugin.isNewUser()) {
@@ -75,7 +75,7 @@ public class PlayerJoinListeners implements Listener {
                         new Title("", "§ePlease answer the question sent in the chat.", 0, 9999, 10));
             }, 30L);
 
-            e.setJoinMessage("");
+            event.setJoinMessage("");
             return;
         }
 

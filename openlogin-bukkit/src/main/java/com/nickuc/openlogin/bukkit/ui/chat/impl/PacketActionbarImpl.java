@@ -71,8 +71,8 @@ public class PacketActionbarImpl implements ActionbarAPI {
                     chatConstructor.newInstance(chatMessage, typeMessage, EMPTY_UUID) :
                     chatConstructor.newInstance(chatMessage, typeMessage);
             BukkitReflection.sendPacket(player, packet);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException("Could not send actionbar for " + player.getName() + "!", e);
+        } catch (ReflectiveOperationException exception) {
+            throw new RuntimeException("Could not send actionbar for " + player.getName() + "!", exception);
         }
     }
 }
