@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-package com.nickuc.openlogin.bukkit.command.executors;
+package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
-import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
+import com.nickuc.openlogin.bukkit.command.BukkitCommand;
 import com.nickuc.openlogin.bukkit.ui.chat.ActionbarAPI;
 import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.http.HttpClient;
@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class OpenLoginCommand extends BukkitAbstractCommand {
+public class OpenLoginCommand extends BukkitCommand {
 
     private final AtomicBoolean
             downloadLock = new AtomicBoolean(),

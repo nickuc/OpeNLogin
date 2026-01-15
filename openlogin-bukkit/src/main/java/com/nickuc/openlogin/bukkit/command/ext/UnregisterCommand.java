@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-package com.nickuc.openlogin.bukkit.command.executors;
+package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
-import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
+import com.nickuc.openlogin.bukkit.command.BukkitCommand;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.settings.Messages;
@@ -34,7 +34,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-public class UnregisterCommand extends BukkitAbstractCommand {
+public class UnregisterCommand extends BukkitCommand {
 
     public UnregisterCommand(OpenLoginBukkit plugin) {
         super(plugin, true, "unregister");

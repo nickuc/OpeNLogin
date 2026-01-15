@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-package com.nickuc.openlogin.bukkit.command.executors;
+package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncLoginEvent;
-import com.nickuc.openlogin.bukkit.command.BukkitAbstractCommand;
+import com.nickuc.openlogin.bukkit.command.BukkitCommand;
 import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
@@ -38,7 +38,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-public class LoginCommand extends BukkitAbstractCommand {
+public class LoginCommand extends BukkitCommand {
 
     public LoginCommand(OpenLoginBukkit plugin) {
         super(plugin, "login");

@@ -25,7 +25,7 @@
 package com.nickuc.openlogin.bukkit.command;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
-import com.nickuc.openlogin.bukkit.command.executors.OpenLoginCommand;
+import com.nickuc.openlogin.bukkit.command.ext.OpenLoginCommand;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.settings.Messages;
 import lombok.NonNull;
@@ -34,17 +34,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public abstract class BukkitAbstractCommand implements CommandExecutor {
+public abstract class BukkitCommand implements CommandExecutor {
 
     protected final OpenLoginBukkit plugin;
     private final boolean requireAuth;
     private final String permission;
 
-    public BukkitAbstractCommand(OpenLoginBukkit plugin, @NonNull String command) {
+    public BukkitCommand(OpenLoginBukkit plugin, @NonNull String command) {
         this(plugin, false, command);
     }
 
-    public BukkitAbstractCommand(OpenLoginBukkit plugin, boolean requireAuth, @NonNull String command) {
+    public BukkitCommand(OpenLoginBukkit plugin, boolean requireAuth, @NonNull String command) {
         this.plugin = plugin;
         this.requireAuth = requireAuth;
         this.permission = "openlogin.command." + command.toLowerCase();

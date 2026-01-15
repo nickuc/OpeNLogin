@@ -25,7 +25,7 @@
 package com.nickuc.openlogin.bukkit.command;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
-import com.nickuc.openlogin.bukkit.command.executors.*;
+import com.nickuc.openlogin.bukkit.command.ext.*;
 import com.nickuc.openlogin.common.security.filter.LoggerFilterManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -67,8 +67,8 @@ public class CommandManagement {
                     LoggerFilterManager.addOpenLoginCommand("/" + alias.toLowerCase());
                 }
 
-                Constructor<?> constructor = command.clasz.getConstructor(OpenLoginBukkit.class);
-                BukkitAbstractCommand bukkitCommand = (BukkitAbstractCommand) constructor.newInstance(plugin);
+                Constructor<?> constructor = command.clazz.getConstructor(OpenLoginBukkit.class);
+                BukkitCommand bukkitCommand = (BukkitCommand) constructor.newInstance(plugin);
                 pluginCommand.setExecutor(bukkitCommand);
             } catch (ReflectiveOperationException event) {
                 event.printStackTrace();
@@ -86,8 +86,6 @@ public class CommandManagement {
         UNREGISTER("unregister", UnregisterCommand.class);
 
         private final String name;
-        private final Class<?> clasz;
-
+        private final Class<?> clazz;
     }
-
 }
