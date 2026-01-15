@@ -4,8 +4,8 @@ plugins {
 tasks.build.dependsOn('shadowJar')
 
 dependencies {
-    implementation project(':openlogin-common')
-    implementation project(':openlogin-bukkit')
+    implementation project(':common')
+    implementation project(':bukkit')
 }
 
 shadowJar {

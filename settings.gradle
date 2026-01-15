@@ -3,6 +3,6 @@
  */
 
 rootProject.name = 'openlogin'
-include(':openlogin-common')
-include(':openlogin-bukkit')
-include(':openlogin-universal')
+include(':common')
+include(':bukkit')
+include(':universal')

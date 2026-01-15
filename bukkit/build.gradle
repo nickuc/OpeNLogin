@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(':openlogin-common')
+    implementation project(':common')
 
     implementation 'org.bstats:bstats-bukkit:3.0.0'
     implementation 'com.tcoded:FoliaLib:0.3.3'
