@@ -83,7 +83,6 @@ public class PlayerGeneralListeners implements Listener {
 
         // Fix "too many packets" disconnect by using PlayerMoveEvent#setTo instead of Player#teleport
         event.setTo(from);
-        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
