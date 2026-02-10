@@ -113,6 +113,9 @@ buildNumber.properties
 run/
 /.gradle/
 /.gitignore
-/openlogin-bukkit/build/
-/openlogin-common/build/
-/openlogin-universal/build/
+
+# Build directory
+/build/
+/bukkit/build/
+/common/build/
+/universal/build/
