@@ -95,7 +95,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         sendMessage(c + "/ \\_//| |_) |  __/ /\\  / /__| (_) | (_| | | | | |");
         sendMessage(c + "\\___/ | .__/ \\___\\_\\ \\/\\____/\\___/ \\__, |_|_| |_|");
         sendMessage(c + "      |_|                          |___/         ");
-        sendMessage(c + "By: www.nickuc.com / github.com/nickuc/OpeNLogin - V " + getDescription().getVersion());
+        sendMessage(c + "By: www.nickuc.com / github.com/nickuc-com/OpeNLogin - V " + getDescription().getVersion());
         sendMessage("");
 
         Server server = getServer();
@@ -217,11 +217,11 @@ public class OpenLoginBukkit extends JavaPlugin {
             }
         } catch (IOException exception) {
             sendMessage("§cFailed to find new updates.");
-            sendMessage("§cDownload the latest version at: https://github.com/nickuc/OpeNLogin/releases");
+            sendMessage("§cDownload the latest version at: https://github.com/nickuc-com/OpeNLogin/releases");
         }
         if (tagName == null) {
             sendMessage("§cFailed to find new updates: invalid response.");
-            sendMessage("§cDownload the latest version at: https://github.com/nickuc/OpeNLogin/releases");
+            sendMessage("§cDownload the latest version at: https://github.com/nickuc-com/OpeNLogin/releases");
         } else {
             String currentVersion = "v" + getDescription().getVersion();
             updateAvailable = !currentVersion.equals(tagName);

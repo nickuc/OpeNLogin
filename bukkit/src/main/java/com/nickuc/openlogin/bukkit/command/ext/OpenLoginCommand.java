@@ -215,13 +215,13 @@ public class OpenLoginCommand extends BukkitCommand {
         sender.sendMessage(" §eThis server is running §fOpenLogin v " + plugin.getDescription().getVersion() + ".");
         sender.sendMessage(" §7Powered by §bwww.nickuc.com§7.");
         sender.sendMessage("");
-        sender.sendMessage(" §7GitHub: §fhttps://github.com/nickuc/OpeNLogin");
+        sender.sendMessage(" §7GitHub: §fhttps://github.com/nickuc-com/OpeNLogin");
         sender.sendMessage("");
     }
 
     private boolean update(Player player) {
         File output = new File(plugin.getDataFolder().getParentFile(), "OpenLogin-" + plugin.getLatestVersion() + ".jar");
-        return downloadActionbar(player, "https://github.com/nickuc/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpenLogin.jar", output, true, null);
+        return downloadActionbar(player, "https://github.com/nickuc-com/OpeNLogin/releases/download/" + plugin.getLatestVersion() + "/OpenLogin.jar", output, true, null);
     }
 
     private boolean downloadNLogin(Player player, Runnable callback) {
@@ -278,7 +278,7 @@ public class OpenLoginCommand extends BukkitCommand {
             downloadLock.set(false);
             exception.printStackTrace();
             String msg = update ?
-                    "§cFailed to download new version. Update manually at: https://github.com/nickuc/OpeNLogin/releases" :
+                    "§cFailed to download new version. Update manually at: https://github.com/nickuc-com/OpeNLogin/releases" :
                     "§cFailed to download nLogin :c. Download manually at: nickuc.com";
             plugin.sendMessage(msg);
             player.sendMessage(msg);

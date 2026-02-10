@@ -41,7 +41,7 @@ import java.nio.charset.StandardCharsets;
 public final class HttpClient {
 
     public static final HttpClient DEFAULT = new HttpClient(
-            "OpeNLogin (+https://github.com/nickuc/OpeNLogin)",
+            "OpeNLogin (+https://github.com/nickuc-com/OpeNLogin)",
             10000,
             16000
     );

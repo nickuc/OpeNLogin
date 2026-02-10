@@ -12,7 +12,7 @@
 file-version: 1
 
 # Language of the plugin.
-# For more information: https://github.com/nickuc/OpeNLogin/blob/master/docs/lang.md
+# For more information: https://github.com/nickuc-com/OpeNLogin/blob/master/docs/lang.md
 languageFile: 'messages_en.yml'
 
 # Security system related settings.
