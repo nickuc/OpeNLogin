@@ -28,4 +28,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Artifacts
-        path: openlogin-universal/build/libs/OpenLogin.jar
+        path: universal/build/libs/OpenLogin.jar
