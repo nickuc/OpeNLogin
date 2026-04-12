@@ -27,6 +27,8 @@ package com.nickuc.openlogin.common.model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.net.InetSocketAddress;
+
 @RequiredArgsConstructor
 @Getter
 public final class Session {
@@ -45,5 +47,19 @@ public final class Session {
         if (timeoutMs <= 0) return false;
         if (!address.equals(currentIp)) return false;
         return System.currentTimeMillis() - lastLogin < timeoutMs;
+    }
+
+    /**
+     * Extracts the host address from a socket address.
+     *
+     * @param addr the socket address
+     * @return the IP string, or null if unavailable
+     */
+    public static String extractIp(InetSocketAddress addr) {
+        try {
+            return addr != null ? addr.getAddress().getHostAddress() : null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

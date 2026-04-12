@@ -30,53 +30,38 @@ import com.nickuc.openlogin.bukkit.task.LoginQueue;
 import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
-import com.nickuc.openlogin.common.model.Account;
+import com.nickuc.openlogin.common.manager.SessionManagement;
 import com.nickuc.openlogin.common.model.Session;
 import com.nickuc.openlogin.common.settings.Messages;
-import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.entity.Player;
 
-import java.util.Optional;
-
 /**
- * Manages player sessions: check, restore, and refresh.
+ * Bukkit session facade.
+ * Extracts platform data and delegates to {@link SessionManagement}.
  */
 public final class SessionManager {
 
     private final OpenLoginBukkit plugin;
-    private final AccountManagement accountManagement;
-    private final LoginManagement loginManagement;
+    private final SessionManagement sessionManagement;
 
     public SessionManager(OpenLoginBukkit plugin) {
         this.plugin = plugin;
-        this.accountManagement = plugin.getAccountManagement();
-        this.loginManagement = plugin.getLoginManagement();
+        AccountManagement accountManagement = plugin.getAccountManagement();
+        LoginManagement loginManagement = plugin.getLoginManagement();
+
+        this.sessionManagement = new SessionManagement(
+                accountManagement,
+                loginManagement,
+                LoginQueue::removeFromQueue
+        );
     }
 
-    /**
-     * Attempts to restore a player's session on join.
-     *
-     * @param player the player to check
-     * @return true if session was valid and restored
-     */
     public boolean tryRestore(Player player) {
-        String currentIp = getPlayerIp(player);
-        if (currentIp == null) return false;
+        String ip = Session.extractIp(player.getAddress());
+        if (ip == null) return false;
 
-        Optional<Account> opt = accountManagement.retrieveOrLoad(player.getName());
-        if (!opt.isPresent()) return false;
-
-        Account account = opt.get();
-        Session session = new Session(account.getAddress(), account.getLastLogin());
-
-        if (!session.isValid(currentIp, Settings.SESSION_TIMEOUT.asInt())) {
-            return false;
-        }
-
-        // Session valid — auto-login
-        loginManagement.setAuthenticated(player.getName());
-        accountManagement.updateSession(player.getName(), currentIp);
-        LoginQueue.removeFromQueue(player.getName());
+        SessionManagement.SessionResult result = sessionManagement.tryRestore(player.getName(), ip);
+        if (!result.isRestored()) return false;
 
         player.sendMessage(Messages.SUCCESSFUL_SESSION_LOGIN.asString());
         TitleAPI.getApi().send(player, Messages.TITLE_SESSION_LOGIN.asTitle());
@@ -85,22 +70,10 @@ public final class SessionManager {
         return true;
     }
 
-    /**
-     * Refreshes session data after successful password login.
-     */
     public void refresh(Player player) {
-        String ip = getPlayerIp(player);
+        String ip = Session.extractIp(player.getAddress());
         if (ip != null) {
-            accountManagement.updateSession(player.getName(), ip);
-        }
-    }
-
-    private String getPlayerIp(Player player) {
-        try {
-            java.net.InetSocketAddress addr = player.getAddress();
-            return addr != null ? addr.getAddress().getHostAddress() : null;
-        } catch (Exception e) {
-            return null;
+            sessionManagement.refresh(player.getName(), ip);
         }
     }
 }
