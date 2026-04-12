@@ -12,6 +12,13 @@
 
 Messages:
   Title:
+    session-restored:
+      title: ""
+      subtitle: "&eYour login session has been continued."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
     # Message sent before login
     before-login:
       title: "&a&l¡Bienvenido!"
@@ -113,6 +120,7 @@ Messages:
     database-error: "&cLo sentimos, no pudimos completar esta operación. Por favor, intenta de nuevo. [Error SQL]"
 
   other-messages:
+    session-restored: "&aYour login session has been continued."
     # Mensagem enviada para o uso do comando /logar
     message-login: "&eUsá el comando /login <contraseña>"
 

@@ -31,6 +31,7 @@ import com.nickuc.openlogin.bukkit.listener.PlayerAuthenticateListener;
 import com.nickuc.openlogin.bukkit.listener.PlayerGeneralListeners;
 import com.nickuc.openlogin.bukkit.listener.PlayerJoinListeners;
 import com.nickuc.openlogin.bukkit.listener.PlayerKickListeners;
+import com.nickuc.openlogin.bukkit.session.SessionManager;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
 import com.nickuc.openlogin.common.OpenLogin;
 import com.nickuc.openlogin.common.api.OpenLoginAPI;
@@ -67,6 +68,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     private CommandManagement commandManagement;
     private ServerImplementation foliaLib;
     private LocaleManager localeManager;
+    private SessionManager sessionManager;
 
     private Database database;
     private PluginSettings pluginSettings;
@@ -131,6 +133,9 @@ public class OpenLoginBukkit extends JavaPlugin {
 
         // setup login management
         loginManagement = new LoginManagement(accountManagement);
+
+        // setup session manager
+        sessionManager = new SessionManager(this);
 
         // setup commands
         commandManagement = new CommandManagement(this);

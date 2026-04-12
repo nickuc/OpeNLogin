@@ -14,6 +14,13 @@
 
 Messages:
   Title:
+    session-restored:
+      title: ""
+      subtitle: "&eYour login session has been continued."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
     # Giriş yapmadan önce gönderilen mesaj.
     before-login:
       title: "&a&lHOŞGELDİN!"
@@ -337,6 +344,7 @@ Messages:
     database-error: "&cÜzgünüm, bu işlemi tamamlayamadık.Lütfen tekrar deneyin. [SQL HATASI]"
 
   other-messages:
+    session-restored: "&aYour login session has been continued."
     # Hızlıca giriş yapmak için gösterilen mesaj: /login.
     hover-message-login: "&7Hızlıca giriş yapmak için buraya tıkla."
 

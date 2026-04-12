@@ -34,6 +34,7 @@ import java.util.List;
 public enum Messages {
 
     // title messages
+    TITLE_SESSION_RESTORED("Title.session-restored"),
     TITLE_BEFORE_LOGIN("Title.before-login"),
     TITLE_BEFORE_REGISTER("Title.before-register"),
     TITLE_AFTER_LOGIN("Title.after-login"),
@@ -70,6 +71,7 @@ public enum Messages {
     DATABASE_ERROR("error-messages.database-error"),
 
     // other messages
+    SESSION_RESTORED("other-messages.session-restored"),
     MESSAGE_LOGIN("other-messages.message-login"),
     MESSAGE_REGISTER("other-messages.message-register"),
     MESSAGE_CHANGEPASSWORD("other-messages.message-changepassword"),

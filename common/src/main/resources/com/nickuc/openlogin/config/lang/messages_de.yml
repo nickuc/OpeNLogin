@@ -14,6 +14,13 @@
 
 Messages:
   Title:
+    session-restored:
+      title: ""
+      subtitle: "&eYour login session has been continued."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
     # Message sent before login.
     before-login:
       title: "&2Willkommen!"
@@ -337,6 +344,7 @@ Messages:
     database-error: "&cTut uns leid, wir konnten die Aktion nicht vervollständigen. Bitte versuche es erneut. [SQL FEHLER]"
 
   other-messages:
+    session-restored: "&aYour login session has been continued."
     # Hover message: /login.
     hover-message-login: "&7Klick hier um den Befehl zu vervollständigen und dich schneller einzuloggen."
 

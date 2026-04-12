@@ -10,6 +10,13 @@
 
 Messages:
   Title:
+    session-restored:
+      title: ""
+      subtitle: "&eYour login session has been continued."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
     # Message sent before login
     before-login:
       title: "&a&lVÍTEJ!"
@@ -111,6 +118,7 @@ Messages:
     database-error: "&cOmlouváme se, nepodařilo se vykonat operaci. Zkuste to znovu. [SQL FAIL]"
 
   other-messages:
+    session-restored: "&aYour login session has been continued."
     # Mensagem enviada para o uso do comando /logar
     message-login: "&ePoužij příkaz /login <heslo>"
 

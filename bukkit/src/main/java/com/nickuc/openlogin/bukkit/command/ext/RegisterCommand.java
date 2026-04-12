@@ -106,12 +106,7 @@ public class RegisterCommand extends BukkitCommand {
             TitleAPI.getApi().send(sender, plugin.getLocaleManager().getTitle(sender, Messages.TITLE_AFTER_REGISTER.getKey(), Messages.TITLE_AFTER_REGISTER.asTitle()));
             sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.SUCCESSFUL_REGISTER));
 
-            plugin.getFoliaLib().runAtEntity(sender, task -> {
-                sender.setWalkSpeed(0.2F);
-                sender.setFlySpeed(0.1F);
-            });
-
-            new AsyncAuthenticateEvent(sender).callEvt();
+            plugin.getFoliaLib().runAsync(task -> new AsyncAuthenticateEvent(sender).callEvt());
         }
     }
 
@@ -171,12 +166,7 @@ public class RegisterCommand extends BukkitCommand {
                 TitleAPI.getApi().send(playerIfOnline, plugin.getLocaleManager().getTitle(playerIfOnline, Messages.TITLE_AFTER_REGISTER.getKey(), Messages.TITLE_AFTER_REGISTER.asTitle()));
                 playerIfOnline.sendMessage(plugin.getLocaleManager().get(playerIfOnline, Messages.SUCCESSFUL_REGISTER));
 
-                plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> {
-                    playerIfOnline.setWalkSpeed(0.2F);
-                    playerIfOnline.setFlySpeed(0.1F);
-                });
-
-                new AsyncAuthenticateEvent(playerIfOnline).callEvt();
+                plugin.getFoliaLib().runAsync(task -> new AsyncAuthenticateEvent(playerIfOnline).callEvt());
             }
         }
     }

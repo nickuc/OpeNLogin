@@ -82,16 +82,12 @@ public class LoginCommand extends BukkitCommand {
         AsyncLoginEvent loginEvent = new AsyncLoginEvent(player);
         if (loginEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
+            plugin.getSessionManager().refresh(player);
 
             player.sendMessage(plugin.getLocaleManager().get(player, Messages.SUCCESSFUL_LOGIN.getKey()));
             TitleAPI.getApi().send(player, plugin.getLocaleManager().getTitle(player, Messages.TITLE_AFTER_LOGIN.getKey(), Messages.TITLE_AFTER_LOGIN.asTitle()));
 
-            plugin.getFoliaLib().runAtEntity(player, task -> {
-                player.setWalkSpeed(0.2F);
-                player.setFlySpeed(0.1F);
-            });
-
-            new AsyncAuthenticateEvent(player).callEvt();
+            plugin.getFoliaLib().runAsync(task -> new AsyncAuthenticateEvent(player).callEvt());
         }
     }
 }

@@ -13,6 +13,13 @@
 
 Messages:
   Title:
+    session-restored:
+      title: ""
+      subtitle: "&eYour login session has been continued."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
     # Message sent before login
     before-login:
       title: "&a&l欢迎!"
@@ -114,6 +121,7 @@ Messages:
     database-error: "&c出错了! &7插件运行过程中出现问题,请更改配置文件后重试. &c(错误原因: 数据库连接不成功)"
 
   other-messages:
+    session-restored: "&aYour login session has been continued."
     # Mensagem enviada para o uso do comando /logar
     message-login: "&e请使用指令 /login <密码> 来登录"
 

@@ -14,6 +14,13 @@
 
 Messages:
   Title:
+    session-restored:
+      title: ""
+      subtitle: "&eYour login session has been continued."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
     # Message sent before login.
     before-login:
       title: "&a&lSveiki!"
@@ -336,6 +343,7 @@ Messages:
     database-error: "&cDeja, mums nepavyko užbaigti šios operacijos. Prašau, pabandykite dar kartą. [SQL FAIL]"
 
   other-messages:
+    session-restored: "&aYour login session has been continued."
     # Hover message: /login.
     hover-message-login: "&7Spustelėkite čia, kad užbaigtumėte komandą ir greitai prisijungtumėte."
 

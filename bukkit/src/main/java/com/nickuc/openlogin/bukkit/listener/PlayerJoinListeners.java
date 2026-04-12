@@ -82,10 +82,13 @@ public class PlayerJoinListeners implements Listener {
         }
 
         boolean registered = plugin.getAccountManagement().retrieveOrLoad(name).isPresent();
-        LoginQueue.addToQueue(name, registered);
 
-        player.setWalkSpeed(0F);
-        player.setFlySpeed(0F);
+        // Check for valid session
+        if (registered && plugin.getSessionManager().tryRestore(player)) {
+            return;
+        }
+
+        LoginQueue.addToQueue(name, registered);
 
         if (registered) {
             player.sendMessage(lm.get(player, Messages.MESSAGE_LOGIN.getKey()));
