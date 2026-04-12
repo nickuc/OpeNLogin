@@ -106,10 +106,8 @@ public class RegisterCommand extends BukkitCommand {
             TitleAPI.getApi().send(sender, Messages.TITLE_AFTER_REGISTER.asTitle());
             sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
-            plugin.getFoliaLib().runAtEntity(sender, task -> {
-                sender.setWalkSpeed(0.2F);
-                sender.setFlySpeed(0.1F);
-            });
+            // Refresh session after successful registration
+            plugin.getBukkitSession().refresh(sender);
 
             new AsyncAuthenticateEvent(sender).callEvt();
         }
@@ -171,10 +169,8 @@ public class RegisterCommand extends BukkitCommand {
                 TitleAPI.getApi().send(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
                 playerIfOnline.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
-                plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> {
-                    playerIfOnline.setWalkSpeed(0.2F);
-                    playerIfOnline.setFlySpeed(0.1F);
-                });
+                // Refresh session after successful registration
+                plugin.getBukkitSession().refresh(playerIfOnline);
 
                 new AsyncAuthenticateEvent(playerIfOnline).callEvt();
             }

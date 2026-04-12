@@ -45,6 +45,14 @@ Messages:
         start: 0
         duration: 60
         end: 6
+    # Message sent when a login session is continued.
+    session-login:
+      title: ""
+      subtitle: "&eLa tua sessione di accesso è stata continuata."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
 
   delay-kick:
     # Messaggio inviato quando un utente impiega molto tempo per registrarsi
@@ -62,6 +70,9 @@ Messages:
 
     # Messaggio inviato quando un utente si registra correttamente
     successful-register: "&aTi sei registrato con successo."
+
+    # Message sent when a user logs in using the same ip address.
+    successful-session-login: "&aLa tua sessione di accesso è stata continuata."
 
     # Messaggio inviato quando un giocatore si annulla con successo
     unregister-kick: "&cHai annullato la registrazione con successo."

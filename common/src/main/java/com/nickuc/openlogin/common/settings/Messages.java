@@ -38,6 +38,7 @@ public enum Messages {
     TITLE_BEFORE_REGISTER("Title.before-register"),
     TITLE_AFTER_LOGIN("Title.after-login"),
     TITLE_AFTER_REGISTER("Title.after-register"),
+    TITLE_SESSION_LOGIN("Title.session-login"),
 
     // delay kick
     DELAY_KICK_LOGIN("delay-kick.login-kick"),
@@ -47,6 +48,7 @@ public enum Messages {
     PASSWORD_CHANGED("successful-operations.password-changed"),
     SUCCESSFUL_LOGIN("successful-operations.successful-login"),
     SUCCESSFUL_REGISTER("successful-operations.successful-register"),
+    SUCCESSFUL_SESSION_LOGIN("successful-operations.successful-session-login"),
     UNREGISTER_KICK("successful-operations.unregister-kick"),
 
     // kick messages

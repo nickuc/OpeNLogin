@@ -85,10 +85,8 @@ public class LoginCommand extends BukkitCommand {
             player.sendMessage(Messages.SUCCESSFUL_LOGIN.asString());
             TitleAPI.getApi().send(player, Messages.TITLE_AFTER_LOGIN.asTitle());
 
-            plugin.getFoliaLib().runAtEntity(player, task -> {
-                player.setWalkSpeed(0.2F);
-                player.setFlySpeed(0.1F);
-            });
+            // Refresh session after successful password login
+            plugin.getBukkitSession().refresh(player);
 
             new AsyncAuthenticateEvent(player).callEvt();
         }
