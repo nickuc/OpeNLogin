@@ -47,7 +47,7 @@ Messages:
     # Message sent when a login session is continued.
     session-login:
       title: ""
-      subtitle: "&eتمت متابعة جلسة تسجيل الدخول الخاصة بك."
+      subtitle: "&eTu sesión se reanudó correctamente."
       delays:
         start: 0
         duration: 60
@@ -71,7 +71,7 @@ Messages:
     successful-register: "&aTe registraste correctamente."
 
     # Message sent when a user logs in using the same ip address.
-    successful-session-login: "&aتمت متابعة جلسة تسجيل الدخول الخاصة بك."
+    successful-session-login: "&aTu sesión se reanudó correctamente."
 
     # Message sent when a player successfully disregisters
     unregister-kick: "&cCancelaste tu registro correctamente."
