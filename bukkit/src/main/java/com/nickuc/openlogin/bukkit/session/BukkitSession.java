@@ -39,12 +39,12 @@ import org.bukkit.entity.Player;
  * Bukkit session facade.
  * Extracts platform data and delegates to {@link SessionManagement}.
  */
-public final class SessionManager {
+public final class BukkitSession {
 
     private final OpenLoginBukkit plugin;
     private final SessionManagement sessionManagement;
 
-    public SessionManager(OpenLoginBukkit plugin) {
+    public BukkitSession(OpenLoginBukkit plugin) {
         this.plugin = plugin;
         AccountManagement accountManagement = plugin.getAccountManagement();
         LoginManagement loginManagement = plugin.getLoginManagement();

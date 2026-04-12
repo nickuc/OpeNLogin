@@ -107,7 +107,7 @@ public class RegisterCommand extends BukkitCommand {
             sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
             // Refresh session after successful registration
-            plugin.getSessionManager().refresh(sender);
+            plugin.getBukkitSession().refresh(sender);
 
             new AsyncAuthenticateEvent(sender).callEvt();
         }
@@ -170,7 +170,7 @@ public class RegisterCommand extends BukkitCommand {
                 playerIfOnline.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
 
                 // Refresh session after successful registration
-                plugin.getSessionManager().refresh(playerIfOnline);
+                plugin.getBukkitSession().refresh(playerIfOnline);
 
                 new AsyncAuthenticateEvent(playerIfOnline).callEvt();
             }

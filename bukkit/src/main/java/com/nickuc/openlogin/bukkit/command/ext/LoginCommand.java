@@ -86,7 +86,7 @@ public class LoginCommand extends BukkitCommand {
             TitleAPI.getApi().send(player, Messages.TITLE_AFTER_LOGIN.asTitle());
 
             // Refresh session after successful password login
-            plugin.getSessionManager().refresh(player);
+            plugin.getBukkitSession().refresh(player);
 
             new AsyncAuthenticateEvent(player).callEvt();
         }

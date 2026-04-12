@@ -83,7 +83,7 @@ public class PlayerJoinListeners implements Listener {
         LoginQueue.addToQueue(name, registered);
 
         // Try to restore session
-        if (registered && plugin.getSessionManager().tryRestore(player)) {
+        if (registered && plugin.getBukkitSession().tryRestore(player)) {
             return; // Session restored, skip login/register prompts
         }
 
