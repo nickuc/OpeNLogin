@@ -50,31 +50,32 @@ public class LoginCommand extends BukkitCommand {
             return;
         }
 
-        String name = sender.getName();
+        Player player = (Player) sender;
+        String name = player.getName();
         LoginManagement loginManagement = plugin.getLoginManagement();
         if (loginManagement.isAuthenticated(name)) {
-            sender.sendMessage(Messages.ALREADY_LOGIN.asString());
+            player.sendMessage(plugin.getLocaleManager().get(player, Messages.ALREADY_LOGIN.getKey()));
             return;
         }
 
         if (args.length != 1) {
-            sender.sendMessage(Messages.MESSAGE_LOGIN.asString());
+            player.sendMessage(plugin.getLocaleManager().get(player, Messages.MESSAGE_LOGIN.getKey()));
             return;
         }
 
         AccountManagement accountManagement = plugin.getAccountManagement();
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            player.sendMessage(plugin.getLocaleManager().get(player, Messages.NOT_REGISTERED.getKey()));
             return;
         }
 
         Account account = accountOpt.get();
         String password = args[0];
 
-        Player player = (Player) sender;
         if (!accountManagement.comparePassword(account, password)) {
-            plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
+            String kickMsg = plugin.getLocaleManager().get(player, Messages.INCORRECT_PASSWORD.getKey());
+            plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(kickMsg));
             return;
         }
 
@@ -82,8 +83,8 @@ public class LoginCommand extends BukkitCommand {
         if (loginEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
 
-            player.sendMessage(Messages.SUCCESSFUL_LOGIN.asString());
-            TitleAPI.getApi().send(player, Messages.TITLE_AFTER_LOGIN.asTitle());
+            player.sendMessage(plugin.getLocaleManager().get(player, Messages.SUCCESSFUL_LOGIN.getKey()));
+            TitleAPI.getApi().send(player, plugin.getLocaleManager().getTitle(player, Messages.TITLE_AFTER_LOGIN.getKey(), Messages.TITLE_AFTER_LOGIN.asTitle()));
 
             plugin.getFoliaLib().runAtEntity(player, task -> {
                 player.setWalkSpeed(0.2F);

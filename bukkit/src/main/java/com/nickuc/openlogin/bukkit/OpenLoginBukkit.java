@@ -26,6 +26,7 @@ package com.nickuc.openlogin.bukkit;
 
 import com.nickuc.openlogin.bukkit.api.OLBukkitAPI;
 import com.nickuc.openlogin.bukkit.command.CommandManagement;
+import com.nickuc.openlogin.bukkit.i18n.LocaleManager;
 import com.nickuc.openlogin.bukkit.listener.PlayerAuthenticateListener;
 import com.nickuc.openlogin.bukkit.listener.PlayerGeneralListeners;
 import com.nickuc.openlogin.bukkit.listener.PlayerJoinListeners;
@@ -39,9 +40,7 @@ import com.nickuc.openlogin.common.database.SQLite;
 import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
-import com.nickuc.openlogin.common.model.Title;
 import com.nickuc.openlogin.common.security.filter.LoggerFilterManager;
-import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import com.nickuc.openlogin.common.util.FileUtils;
 import com.tcoded.folialib.FoliaLib;
@@ -52,7 +51,6 @@ import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bstats.charts.SingleLineChart;
 import org.bukkit.Server;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -68,6 +66,7 @@ public class OpenLoginBukkit extends JavaPlugin {
     private AccountManagement accountManagement;
     private CommandManagement commandManagement;
     private ServerImplementation foliaLib;
+    private LocaleManager localeManager;
 
     private Database database;
     private PluginSettings pluginSettings;
@@ -208,7 +207,6 @@ public class OpenLoginBukkit extends JavaPlugin {
         try {
             String result = HttpClient.DEFAULT.get("https://api.github.com/repos/nickuc/OpeNLogin/releases/latest");
 
-            // avoid use Google Gson to avoid problems with older versions.
             if (result.contains("\"tag_name\":\"")) {
                 tagName = result.split("\"tag_name\":\"")[1];
                 if (tagName.contains("\",")) {
@@ -243,34 +241,9 @@ public class OpenLoginBukkit extends JavaPlugin {
             Settings.define(setting, getConfig().get(setting.getKey()));
         }
 
-        String lang = Settings.LANGUAGE_FILE.asString();
-        File messagesFile = new File(getDataFolder() + "/lang", lang);
-        if (!messagesFile.exists() && !FileUtils.copyFromJar("com/nickuc/openlogin/config/lang/" + lang, messagesFile) && !FileUtils.copyFromJar("com/nickuc/openlogin/config/lang/messages_en.yml", messagesFile)) {
-            sendMessage("§cFailed to create '" + lang + "' language file.");
-            return false;
-        }
-
-        YamlConfiguration messagesConfig = YamlConfiguration.loadConfiguration(messagesFile);
-        for (Messages message : Messages.values()) {
-            String path = message.getKey();
-            if (path.startsWith("Messages.Title")) {
-                String title = "", subtitle = "";
-                int start = 0, duration = 0, end = 0;
-
-                path = path + ".";
-                if (messagesConfig.isSet(path + "title") && messagesConfig.isSet(path + "subtitle")) {
-                    title = messagesConfig.getString(path + "title");
-                    subtitle = messagesConfig.getString(path + "subtitle");
-                    start = messagesConfig.getInt(path + "delays.start", 0);
-                    duration = messagesConfig.getInt(path + "delays.duration", 60);
-                    end = messagesConfig.getInt(path + "delays.end", 6);
-                    Messages.define(message, new Title(title, subtitle, start, duration, end));
-                }
-            } else if (messagesConfig.isSet(path)) {
-                Object obj = messagesConfig.get(path);
-                Messages.define(message, obj);
-            }
-        }
+        String defaultLang = Settings.LANGUAGE_FILE.asString();
+        localeManager = new LocaleManager(new File(getDataFolder(), "lang"), defaultLang);
+        localeManager.setPerPlayerLocaleEnabled(Settings.PER_PLAYER_LOCALE.asBoolean());
         return true;
     }
 

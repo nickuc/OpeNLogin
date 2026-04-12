@@ -60,7 +60,13 @@ public class LoginQueue {
                 PlayerLogin playerLogin = entry.getValue();
                 int seconds = playerLogin.seconds;
                 if (seconds >= Settings.TIME_TO_LOGIN.asInt()) {
-                    plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(playerLogin.registered ? Messages.DELAY_KICK_LOGIN.asString() : Messages.DELAY_KICK_REGISTER.asString()));
+                    final Player finalPlayer = player;
+                    final boolean registered = playerLogin.registered;
+                    plugin.getFoliaLib().runAtEntity(finalPlayer, task -> {
+                        String kickKey = registered ? Messages.DELAY_KICK_LOGIN.getKey() : Messages.DELAY_KICK_REGISTER.getKey();
+                        String kickMsg = plugin.getLocaleManager().get(finalPlayer, kickKey);
+                        finalPlayer.kickPlayer(kickMsg);
+                    });
                     pendingLogin.remove(name);
                     return;
                 }

@@ -57,12 +57,12 @@ public class RegisterCommand extends BukkitCommand {
         String name = sender.getName();
         LoginManagement loginManagement = plugin.getLoginManagement();
         if (loginManagement.isAuthenticated(name)) {
-            sender.sendMessage(Messages.ALREADY_LOGIN.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.ALREADY_LOGIN));
             return;
         }
 
         if (args.length != 2) {
-            sender.sendMessage(Messages.MESSAGE_REGISTER.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.MESSAGE_REGISTER));
             return;
         }
 
@@ -70,24 +70,24 @@ public class RegisterCommand extends BukkitCommand {
         int passwordLength = password.length();
 
         if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORD_TOO_SMALL));
             return;
         }
 
         if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORD_TOO_LARGE));
             return;
         }
 
         if (!password.equals(args[1])) {
-            sender.sendMessage(Messages.PASSWORDS_DONT_MATCH.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORDS_DONT_MATCH));
             return;
         }
 
         AccountManagement accountManagement = plugin.getAccountManagement();
         boolean exists = accountManagement.retrieveOrLoad(name).isPresent();
         if (exists) {
-            sender.sendMessage(Messages.ALREADY_REGISTERED.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.ALREADY_REGISTERED));
             return;
         }
 
@@ -95,7 +95,7 @@ public class RegisterCommand extends BukkitCommand {
         String hashedPassword = BCrypt.hashpw(password, salt);
         String address = sender.getAddress().getAddress().getHostAddress();
         if (!accountManagement.update(name, hashedPassword, address, false)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.DATABASE_ERROR));
             return;
         }
 
@@ -103,8 +103,8 @@ public class RegisterCommand extends BukkitCommand {
         if (registerEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
 
-            TitleAPI.getApi().send(sender, Messages.TITLE_AFTER_REGISTER.asTitle());
-            sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+            TitleAPI.getApi().send(sender, plugin.getLocaleManager().getTitle(sender, Messages.TITLE_AFTER_REGISTER.getKey(), Messages.TITLE_AFTER_REGISTER.asTitle()));
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.SUCCESSFUL_REGISTER));
 
             plugin.getFoliaLib().runAtEntity(sender, task -> {
                 sender.setWalkSpeed(0.2F);
@@ -168,8 +168,8 @@ public class RegisterCommand extends BukkitCommand {
             if (registerEvent.callEvt()) {
                 plugin.getLoginManagement().setAuthenticated(playerName);
 
-                TitleAPI.getApi().send(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
-                playerIfOnline.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+                TitleAPI.getApi().send(playerIfOnline, plugin.getLocaleManager().getTitle(playerIfOnline, Messages.TITLE_AFTER_REGISTER.getKey(), Messages.TITLE_AFTER_REGISTER.asTitle()));
+                playerIfOnline.sendMessage(plugin.getLocaleManager().get(playerIfOnline, Messages.SUCCESSFUL_REGISTER));
 
                 plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> {
                     playerIfOnline.setWalkSpeed(0.2F);

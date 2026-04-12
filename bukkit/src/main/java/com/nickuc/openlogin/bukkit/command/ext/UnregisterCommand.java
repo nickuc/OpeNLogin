@@ -50,7 +50,7 @@ public class UnregisterCommand extends BukkitCommand {
 
     private void performPlayer(Player sender, String lb, String[] args) {
         if (args.length != 1) {
-            sender.sendMessage(Messages.MESSAGE_UNREGISTER.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.MESSAGE_UNREGISTER));
             return;
         }
 
@@ -58,23 +58,24 @@ public class UnregisterCommand extends BukkitCommand {
         String name = sender.getName();
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.NOT_REGISTERED));
             return;
         }
 
         Account account = accountOpt.get();
         String currentPassword = args[0];
         if (!accountManagement.comparePassword(account, currentPassword)) {
-            sender.sendMessage(Messages.INCORRECT_PASSWORD.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.INCORRECT_PASSWORD));
             return;
         }
 
         if (!accountManagement.delete(name)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.DATABASE_ERROR));
             return;
         }
 
-        plugin.getFoliaLib().runAtEntity(sender, task -> sender.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+        String kickMsg = plugin.getLocaleManager().get(sender, Messages.UNREGISTER_KICK);
+        plugin.getFoliaLib().runAtEntity(sender, task -> sender.kickPlayer(kickMsg));
     }
 
     private void performConsole(CommandSender sender, String lb, String[] args) {
@@ -99,7 +100,8 @@ public class UnregisterCommand extends BukkitCommand {
 
         Player playerIfOnline = plugin.getServer().getPlayer(playerName);
         if (playerIfOnline != null) {
-            plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> playerIfOnline.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+            String kickMsg = plugin.getLocaleManager().get(playerIfOnline, Messages.UNREGISTER_KICK);
+            plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> playerIfOnline.kickPlayer(kickMsg));
         }
 
         sender.sendMessage("§aSuccess!");

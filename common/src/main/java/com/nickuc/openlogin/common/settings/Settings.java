@@ -37,6 +37,10 @@ public enum Settings {
             "languageFile",
             "messages_en.yml"
     ),
+    PER_PLAYER_LOCALE(
+            "perPlayerLocale",
+            true
+    ),
     TIME_TO_LOGIN(
             "Security.time-to-login",
             45
@@ -79,6 +83,10 @@ public enum Settings {
 
     public int asInt() {
         return get(Integer.class);
+    }
+
+    public boolean asBoolean() {
+        return get(Boolean.class);
     }
 
     @SuppressWarnings("unchecked")

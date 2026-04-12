@@ -15,6 +15,10 @@ file-version: 1
 # For more information: https://github.com/nickuc-com/OpeNLogin/blob/master/docs/lang.md
 languageFile: 'messages_en.yml'
 
+# If enabled, each player will see messages in their own Minecraft client language.
+# If disabled, all players will see messages in the server-wide language (languageFile).
+perPlayerLocale: true
+
 # Security system related settings.
 Security:
   # Amount of time for a player to log in/register (set in seconds).

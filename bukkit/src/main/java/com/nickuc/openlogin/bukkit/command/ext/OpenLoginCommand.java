@@ -64,7 +64,11 @@ public class OpenLoginCommand extends BukkitCommand {
 
                     plugin.reloadConfig();
                     plugin.setupSettings();
-                    sender.sendMessage(Messages.PLUGIN_RELOAD_MESSAGE.asString());
+                    if (sender instanceof Player) {
+                        ((Player) sender).sendMessage(plugin.getLocaleManager().get((Player) sender, Messages.PLUGIN_RELOAD_MESSAGE));
+                    } else {
+                        sender.sendMessage(Messages.PLUGIN_RELOAD_MESSAGE.asString());
+                    }
                     return;
                 }
 
@@ -161,7 +165,11 @@ public class OpenLoginCommand extends BukkitCommand {
                         if (!plugin.getLoginManagement().isAuthenticated(name)) return;
 
                         if (!sender.hasPermission("openlogin.admin")) {
-                            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString("openlogin.admin"));
+                            if (sender instanceof Player) {
+                                ((Player) sender).sendMessage(plugin.getLocaleManager().get((Player) sender, Messages.INSUFFICIENT_PERMISSIONS, "openlogin.admin"));
+                            } else {
+                                sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString("openlogin.admin"));
+                            }
                             return;
                         }
                     }

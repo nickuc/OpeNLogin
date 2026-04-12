@@ -25,6 +25,7 @@
 package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.i18n.LocaleManager;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
 import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.bukkit.util.TextComponentMessage;
@@ -47,6 +48,7 @@ public class PlayerJoinListeners implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         String name = player.getName();
+        LocaleManager lm = plugin.getLocaleManager();
 
         if (plugin.isNewUser()) {
             plugin.getFoliaLib().runLater(() -> {
@@ -86,11 +88,11 @@ public class PlayerJoinListeners implements Listener {
         player.setFlySpeed(0F);
 
         if (registered) {
-            player.sendMessage(Messages.MESSAGE_LOGIN.asString());
-            TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
+            player.sendMessage(lm.get(player, Messages.MESSAGE_LOGIN.getKey()));
+            TitleAPI.getApi().send(player, lm.getTitle(player, Messages.TITLE_BEFORE_LOGIN.getKey(), Messages.TITLE_BEFORE_LOGIN.asTitle()));
         } else {
-            player.sendMessage(Messages.MESSAGE_REGISTER.asString());
-            TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
+            player.sendMessage(lm.get(player, Messages.MESSAGE_REGISTER.getKey()));
+            TitleAPI.getApi().send(player, lm.getTitle(player, Messages.TITLE_BEFORE_REGISTER.getKey(), Messages.TITLE_BEFORE_REGISTER.asTitle()));
         }
     }
 }

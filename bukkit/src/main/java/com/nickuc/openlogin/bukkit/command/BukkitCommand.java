@@ -63,7 +63,11 @@ public abstract class BukkitCommand implements CommandExecutor {
                 return true;
             }
         } else if (!sender.hasPermission(permission)) {
-            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString(permission));
+            if (sender instanceof Player) {
+                ((Player) sender).sendMessage(locale((Player) sender, Messages.INSUFFICIENT_PERMISSIONS, permission));
+            } else {
+                sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString(permission));
+            }
             return true;
         }
 
@@ -81,4 +85,18 @@ public abstract class BukkitCommand implements CommandExecutor {
     }
 
     protected abstract void perform(CommandSender sender, String lb, String[] args);
+
+    /**
+     * Gets a localized message for a player with format args.
+     */
+    protected String locale(Player player, Messages message, Object... format) {
+        String msg = plugin.getLocaleManager().get(player, message.getKey());
+        if (msg != null && format.length > 0) {
+            try {
+                return String.format(msg, format);
+            } catch (Exception ignored) {
+            }
+        }
+        return msg != null ? msg : message.asString(format);
+    }
 }

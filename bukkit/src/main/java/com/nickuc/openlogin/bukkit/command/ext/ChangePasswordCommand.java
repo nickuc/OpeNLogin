@@ -53,7 +53,7 @@ public class ChangePasswordCommand extends BukkitCommand {
 
     private void performPlayer(Player sender, String lb, String[] args) {
         if (args.length != 2) {
-            sender.sendMessage(Messages.MESSAGE_CHANGEPASSWORD.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.MESSAGE_CHANGEPASSWORD));
             return;
         }
 
@@ -62,17 +62,17 @@ public class ChangePasswordCommand extends BukkitCommand {
         int passwordLength = newPassword.length();
 
         if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORD_TOO_SMALL));
             return;
         }
 
         if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORD_TOO_LARGE));
             return;
         }
 
         if (currentPassword.equals(newPassword)) {
-            sender.sendMessage(Messages.PASSWORD_SAME_AS_OLD.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORD_SAME_AS_OLD));
             return;
         }
 
@@ -80,13 +80,13 @@ public class ChangePasswordCommand extends BukkitCommand {
         String name = sender.getName();
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.NOT_REGISTERED));
             return;
         }
 
         Account account = accountOpt.get();
         if (!accountManagement.comparePassword(account, currentPassword)) {
-            sender.sendMessage(Messages.PASSWORDS_DONT_MATCH.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORDS_DONT_MATCH));
             return;
         }
 
@@ -94,11 +94,11 @@ public class ChangePasswordCommand extends BukkitCommand {
         String hashedPassword = BCrypt.hashpw(newPassword, salt);
         String address = Objects.requireNonNull(sender.getAddress()).getAddress().getHostAddress();
         if (!accountManagement.update(name, hashedPassword, address)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.DATABASE_ERROR));
             return;
         }
 
-        sender.sendMessage(Messages.PASSWORD_CHANGED.asString());
+        sender.sendMessage(plugin.getLocaleManager().get(sender, Messages.PASSWORD_CHANGED));
     }
 
     private void performConsole(CommandSender sender, String lb, String[] args) {
@@ -156,7 +156,7 @@ public class ChangePasswordCommand extends BukkitCommand {
         sender.sendMessage(Messages.PASSWORD_CHANGED.asString());
 
         if (playerIfOnline != null) {
-            playerIfOnline.sendMessage(Messages.PASSWORD_CHANGED.asString());
+            playerIfOnline.sendMessage(plugin.getLocaleManager().get(playerIfOnline, Messages.PASSWORD_CHANGED));
         }
     }
 }
