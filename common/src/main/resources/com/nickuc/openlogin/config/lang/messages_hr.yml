@@ -42,6 +42,14 @@ Messages:
         start: 0
         duration: 60
         end: 6
+    # Message sent when a login session is continued.
+    session-login:
+      title: ""
+      subtitle: "&eVaša sesija prijave je nastavljena."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
 
   delay-kick:
     # Message sent when a user takes a long time to register
@@ -59,6 +67,9 @@ Messages:
 
     # Message sent when a user successfully registers
     successful-register: "&aUspješno ste se registrirali."
+
+    # Message sent when a user logs in using the same ip address.
+    successful-session-login: "&aVaša sesija prijave je nastavljena."
 
     # Message sent when a player successfully disregisters
     unregister-kick: "&cUspješno ste se iz-registrirali."

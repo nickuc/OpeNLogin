@@ -189,6 +189,30 @@ public class AccountManagement {
     }
 
     /**
+     * Updates only the player's address and lastlogin timestamp.
+     * Called by SessionManager to refresh session data.
+     *
+     * @param name    the name of the player
+     * @param address the player's current IP address
+     * @return true on success
+     */
+    public boolean updateSession(@NonNull String name, @Nullable String address) {
+        long current = System.currentTimeMillis();
+        try {
+            database.update(
+                    "UPDATE `openlogin` SET `address` = ?, `lastlogin` = ? WHERE `name` = ?",
+                    address == null ? "127.0.0.1" : address,
+                    current,
+                    name.toLowerCase()
+            );
+            return true;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * Delete all of the player's data.
      *
      * @param name the name of the player

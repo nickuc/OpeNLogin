@@ -45,6 +45,14 @@ Messages:
         start: 0
         duration: 60
         end: 6
+    # Message sent when a login session is continued.
+    session-login:
+      title: ""
+      subtitle: "&e您的登录会话已延续."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
 
   delay-kick:
     # Message sent when a user takes a long time to register
@@ -62,6 +70,9 @@ Messages:
 
     # Message sent when a user successfully registers
     successful-register: "&a你已成功注册."
+
+    # Message sent when a user logs in using the same ip address.
+    successful-session-login: "&a您的登录会话已延续."
 
     # Message sent when a player successfully disregisters
     unregister-kick: "&c你已成功登出."

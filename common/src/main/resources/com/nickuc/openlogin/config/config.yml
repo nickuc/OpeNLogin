@@ -20,6 +20,11 @@ Security:
   # Amount of time for a player to log in/register (set in seconds).
   time-to-login: 45
 
+  # Session timeout in milliseconds. Player is auto-logged in if they rejoin
+  # within this time from the same IP. Default: 86400000 (24 hours).
+  # Set to 0 to disable session system.
+  session-timeout: 86400000
+
   password:
     # Small password size.
     small: 5

@@ -45,6 +45,14 @@ Messages:
         start: 0
         duration: 30
         end: 6
+    # Message sent when a login session is continued.
+    session-login:
+      title: ""
+      subtitle: "&eTwoja sesja logowania została kontynuowana."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
 
   delay-kick:
     # Message sent when a user takes a long time to register
@@ -62,6 +70,9 @@ Messages:
 
     # Message sent when a user successfully registers
     successful-register: "&aPomyślnie się zarejestrowałeś."
+
+    # Message sent when a user logs in using the same ip address.
+    successful-session-login: "&aTwoja sesja logowania została kontynuowana."
 
     # Message sent when a player successfully disregisters
     unregister-kick: "&cRejestr został pomyślnie usunięty."

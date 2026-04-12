@@ -44,6 +44,14 @@ Messages:
         start: 0
         duration: 60
         end: 6
+    # Message sent when a login session is continued.
+    session-login:
+      title: ""
+      subtitle: "&eتمت متابعة جلسة تسجيل الدخول الخاصة بك."
+      delays:
+        start: 0
+        duration: 60
+        end: 6
 
   delay-kick:
     # Message sent when a user takes a long time to register
@@ -61,6 +69,9 @@ Messages:
 
     # Message sent when a user successfully registers
     successful-register: "&aTe registraste correctamente."
+
+    # Message sent when a user logs in using the same ip address.
+    successful-session-login: "&aتمت متابعة جلسة تسجيل الدخول الخاصة بك."
 
     # Message sent when a player successfully disregisters
     unregister-kick: "&cCancelaste tu registro correctamente."

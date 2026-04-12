@@ -74,8 +74,7 @@ public class BukkitReflection {
             } else {
                 sendPacketMethod = getMethod(playerConnectionClass, "sendPacket", packetClass);
             }
-        } catch (ReflectiveOperationException exception) {
-            exception.printStackTrace();
+        } catch (ReflectiveOperationException ignored) {
         }
     }
 

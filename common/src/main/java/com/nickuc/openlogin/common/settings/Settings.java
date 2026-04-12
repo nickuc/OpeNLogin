@@ -37,6 +37,10 @@ public enum Settings {
             "languageFile",
             "messages_en.yml"
     ),
+    SESSION_TIMEOUT(
+            "Security.session-timeout",
+            86400000
+    ),
     TIME_TO_LOGIN(
             "Security.time-to-login",
             45
