@@ -32,3 +32,9 @@
 # Language of the plugin:
 languageFile: 'messages_en.yml'
 ```
+
+### Message formatting
+
+Messages support [MiniMessage](https://docs.advntr.dev/minimessage/format.html) tags, e.g. `<#5EC26A>`, `<gradient:#7F5AF0:#2CB67D>...</gradient>`, `<bold>...</bold>`. Legacy `&`-codes (`&a`, `&c`, `&l`, ...) still work and are converted automatically, so existing customized lang files keep working unchanged.
+
+Placeholders use named tags instead of `{0}`/`{1}`, e.g. `<nickname>`, `<realname>`, `<permission>` depending on the message. Literal angle brackets in message text (e.g. a `<password>` usage hint) must use square brackets instead — `[password]` — since `<...>` is reserved for MiniMessage tags.

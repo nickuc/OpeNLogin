@@ -24,6 +24,7 @@
 
 package com.nickuc.openlogin.bukkit;
 
+import com.nickuc.openlogin.bukkit.adventure.AudienceProvider;
 import com.nickuc.openlogin.bukkit.api.OLBukkitAPI;
 import com.nickuc.openlogin.bukkit.command.CommandManagement;
 import com.nickuc.openlogin.bukkit.listener.PlayerAuthenticateListener;
@@ -79,6 +80,8 @@ public class OpenLoginBukkit extends JavaPlugin {
     private int registeredUsers;
 
     public void onEnable() {
+        AudienceProvider.init(this);
+
         PluginManager pm = getServer().getPluginManager();
 
         // detect nLogin
@@ -154,6 +157,10 @@ public class OpenLoginBukkit extends JavaPlugin {
 
         // updates
         foliaLib.runAsync(task -> this.detectUpdates());
+    }
+
+    public void onDisable() {
+        AudienceProvider.close();
     }
 
     public void sendMessage(String message) {

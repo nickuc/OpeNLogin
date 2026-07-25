@@ -25,6 +25,7 @@
 package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.command.BukkitCommand;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.model.Account;
@@ -50,7 +51,7 @@ public class UnregisterCommand extends BukkitCommand {
 
     private void performPlayer(Player sender, String lb, String[] args) {
         if (args.length != 1) {
-            sender.sendMessage(Messages.MESSAGE_UNREGISTER.asString());
+            ComponentSender.send(sender, Messages.MESSAGE_UNREGISTER.asComponent());
             return;
         }
 
@@ -58,28 +59,28 @@ public class UnregisterCommand extends BukkitCommand {
         String name = sender.getName();
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            ComponentSender.send(sender, Messages.NOT_REGISTERED.asComponent());
             return;
         }
 
         Account account = accountOpt.get();
         String currentPassword = args[0];
         if (!accountManagement.comparePassword(account, currentPassword)) {
-            sender.sendMessage(Messages.INCORRECT_PASSWORD.asString());
+            ComponentSender.send(sender, Messages.INCORRECT_PASSWORD.asComponent());
             return;
         }
 
         if (!accountManagement.delete(name)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            ComponentSender.send(sender, Messages.DATABASE_ERROR.asComponent());
             return;
         }
 
-        plugin.getFoliaLib().runAtEntity(sender, task -> sender.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+        plugin.getFoliaLib().runAtEntity(sender, task -> sender.kickPlayer(ComponentSender.toKickString(Messages.UNREGISTER_KICK.asComponent())));
     }
 
     private void performConsole(CommandSender sender, String lb, String[] args) {
         if (args.length != 1) {
-            sender.sendMessage("§cUsage: /" + lb + " <player>");
+            ComponentSender.send(sender, "<#E0575B>Usage: /" + lb + " [player]");
             return;
         }
 
@@ -88,20 +89,20 @@ public class UnregisterCommand extends BukkitCommand {
 
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(playerName);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            ComponentSender.send(sender, Messages.NOT_REGISTERED.asComponent());
             return;
         }
 
         if (!accountManagement.delete(playerName)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            ComponentSender.send(sender, Messages.DATABASE_ERROR.asComponent());
             return;
         }
 
         Player playerIfOnline = plugin.getServer().getPlayer(playerName);
         if (playerIfOnline != null) {
-            plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> playerIfOnline.kickPlayer(Messages.UNREGISTER_KICK.asString()));
+            plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> playerIfOnline.kickPlayer(ComponentSender.toKickString(Messages.UNREGISTER_KICK.asComponent())));
         }
 
-        sender.sendMessage("§aSuccess!");
+        ComponentSender.send(sender, "<#5EC26A>Success!");
     }
 }

@@ -25,6 +25,7 @@
 package com.nickuc.openlogin.bukkit.task;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import lombok.NonNull;
@@ -60,7 +61,7 @@ public class LoginQueue {
                 PlayerLogin playerLogin = entry.getValue();
                 int seconds = playerLogin.seconds;
                 if (seconds >= Settings.TIME_TO_LOGIN.asInt()) {
-                    plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(playerLogin.registered ? Messages.DELAY_KICK_LOGIN.asString() : Messages.DELAY_KICK_REGISTER.asString()));
+                    plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(ComponentSender.toKickString(playerLogin.registered ? Messages.DELAY_KICK_LOGIN.asComponent() : Messages.DELAY_KICK_REGISTER.asComponent())));
                     pendingLogin.remove(name);
                     return;
                 }

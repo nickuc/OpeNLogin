@@ -25,10 +25,10 @@
 package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncLoginEvent;
 import com.nickuc.openlogin.bukkit.command.BukkitCommand;
-import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Account;
@@ -46,26 +46,26 @@ public class LoginCommand extends BukkitCommand {
 
     protected void perform(CommandSender sender, String lb, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
+            ComponentSender.send(sender, Messages.PLAYER_COMMAND_USAGE.asComponent());
             return;
         }
 
         String name = sender.getName();
         LoginManagement loginManagement = plugin.getLoginManagement();
         if (loginManagement.isAuthenticated(name)) {
-            sender.sendMessage(Messages.ALREADY_LOGIN.asString());
+            ComponentSender.send(sender, Messages.ALREADY_LOGIN.asComponent());
             return;
         }
 
         if (args.length != 1) {
-            sender.sendMessage(Messages.MESSAGE_LOGIN.asString());
+            ComponentSender.send(sender, Messages.MESSAGE_LOGIN.asComponent());
             return;
         }
 
         AccountManagement accountManagement = plugin.getAccountManagement();
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            ComponentSender.send(sender, Messages.NOT_REGISTERED.asComponent());
             return;
         }
 
@@ -74,7 +74,7 @@ public class LoginCommand extends BukkitCommand {
 
         Player player = (Player) sender;
         if (!accountManagement.comparePassword(account, password)) {
-            plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(Messages.INCORRECT_PASSWORD.asString()));
+            plugin.getFoliaLib().runAtEntity(player, task -> player.kickPlayer(ComponentSender.toKickString(Messages.INCORRECT_PASSWORD.asComponent())));
             return;
         }
 
@@ -82,8 +82,8 @@ public class LoginCommand extends BukkitCommand {
         if (loginEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
 
-            player.sendMessage(Messages.SUCCESSFUL_LOGIN.asString());
-            TitleAPI.getApi().send(player, Messages.TITLE_AFTER_LOGIN.asTitle());
+            ComponentSender.send(player, Messages.SUCCESSFUL_LOGIN.asComponent());
+            ComponentSender.sendTitle(player, Messages.TITLE_AFTER_LOGIN.asTitle());
 
             plugin.getFoliaLib().runAtEntity(player, task -> {
                 player.setWalkSpeed(0.2F);

@@ -25,9 +25,11 @@
 package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.settings.Messages;
 import lombok.RequiredArgsConstructor;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,13 +56,13 @@ public class PlayerKickListeners implements Listener {
 
         // prevent double online nickname
         if (player != null) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.ALREADY_ONLINE.asString());
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ComponentSender.toKickString(Messages.ALREADY_ONLINE.asComponent()));
             return;
         }
 
         // prevent invalid nicknames
         if (!VALID_NICK.matcher(name).matches()) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Messages.INVALID_NICKNAME.asString("§cSorry, but you are using an invalid nickname."));
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ComponentSender.toKickString(Messages.INVALID_NICKNAME.asComponent()));
             return;
         }
 
@@ -69,9 +71,9 @@ public class PlayerKickListeners implements Listener {
             Account account = accountOpt.get();
             String realname = account.getRealName();
             if (!name.equals(realname)) {
-                String kickMessage = Messages.NICK_ALREADY_REGISTERED.asString()
-                        .replace("{0}", name)
-                        .replace("{1}", realname);
+                String kickMessage = ComponentSender.toKickString(Messages.NICK_ALREADY_REGISTERED.asComponent(
+                        Placeholder.unparsed("nickname", name),
+                        Placeholder.unparsed("realname", realname)));
                 event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, kickMessage);
             }
         }
@@ -83,7 +85,7 @@ public class PlayerKickListeners implements Listener {
 
         // prevent double online nickname
         if (player != null) {
-            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Messages.ALREADY_ONLINE.asString());
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ComponentSender.toKickString(Messages.ALREADY_ONLINE.asComponent()));
         }
     }
 

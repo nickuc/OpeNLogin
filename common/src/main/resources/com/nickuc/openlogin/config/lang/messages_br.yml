@@ -12,16 +12,16 @@ Messages:
   Title:
     # Mensagem enviada antes de logar.
     before-login:
-      title: "&a&lBEM-VINDO!"
-      subtitle: "&7Utilize /logar <sua senha> para autenticar"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>BEM-VINDO!</bold></gradient>"
+      subtitle: "<#A0A0B0>Utilize /logar [sua senha] para autenticar"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Mensagem enviada antes de registrar.
     before-register:
-      title: "&a&lBEM-VINDO!"
-      subtitle: "&7Utilize /registrar <sua senha> <sua senha> para registrar"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>BEM-VINDO!</bold></gradient>"
+      subtitle: "<#A0A0B0>Utilize /registrar [sua senha] [sua senha] para registrar"
       delays:
         start: 0
         duration: 9999
@@ -29,7 +29,7 @@ Messages:
     # Mensagem enviada após logar.
     after-login:
       title: ""
-      subtitle: "&aVocê se autenticou com sucesso!"
+      subtitle: "<#5EC26A>Você se autenticou com sucesso!"
       delays:
         start: 0
         duration: 60
@@ -37,7 +37,7 @@ Messages:
     # Mensagem enviada após registrar.
     after-register:
       title: ""
-      subtitle: "&aVocê se registrou com sucesso!"
+      subtitle: "<#5EC26A>Você se registrou com sucesso!"
       delays:
         start: 0
         duration: 60
@@ -45,80 +45,80 @@ Messages:
 
   delay-kick:
     # Mensagem enviada quando um usuário demora muito para se registrar.
-    register-kick: "&cVocê demorou muito para registrar."
+    register-kick: "<#E0575B>Você demorou muito para registrar."
 
     # Mensagem enviada quando um usuário demora muito para se logar.
-    login-kick: "&cVocê demorou muito para logar."
+    login-kick: "<#E0575B>Você demorou muito para logar."
 
   successful-operations:
     # Mensagem enviada quando um usuário troca a sua senha.
-    password-changed: "&aA sua senha foi alterada com sucesso."
+    password-changed: "<#5EC26A>A sua senha foi alterada com sucesso."
 
     # Mensagem enviada quando um usuário loga com sucesso..
-    successful-login: "&aVocê logou com sucesso."
+    successful-login: "<#5EC26A>Você logou com sucesso."
 
     # Mensagem enviada quando um usuário se registra com sucesso.
-    successful-register: "&aVocê se registrou com sucesso."
+    successful-register: "<#5EC26A>Você se registrou com sucesso."
 
     # Mensagem enviada quando um jogador se desregistra com sucesso.
-    unregister-kick: "&cVocê se desregistrou com sucesso."
+    unregister-kick: "<#E0575B>Você se desregistrou com sucesso."
 
   kick-messages:
     # Mensagem quando um jogador tenta logar no servidor com uma pequena diferença no nick.
-    nick-already-registered: "&cVocê não pode entrar com o nick {0}&r\n&r&cEste nick já foi registrado como {1}&r\n&r\n&r&cPara entrar, você deverá usar seu nick sem letras maiúsculas/minúsculas"
+    nick-already-registered: "<#E0575B>Você não pode entrar com o nick <nickname>\n<#E0575B>Este nick já foi registrado como <realname>\n\n<#E0575B>Para entrar, você deverá usar seu nick sem letras maiúsculas/minúsculas"
 
     # Mensagem enviada quando um usuário erra muitas vezes.
-    failed-many-times: "&cVocê inseriu a senha incorreta."
+    failed-many-times: "<#E0575B>Você inseriu a senha incorreta."
 
     # Mensagem enviada quando a senha inserida é incorreta.
-    incorrect-password: "&cSenha incorreta. Por favor, tente novamente."
+    incorrect-password: "<#E0575B>Senha incorreta. Por favor, tente novamente."
 
   error-messages:
     # Mensagem enviada quando você já está logado.
-    already-login: "&cVocê já está logado."
+    already-login: "<#E0575B>Você já está logado."
 
     # Mensagem enviada quando um nickname já foi registrado.
-    already-registered: "&cEste nickname já foi registrado."
+    already-registered: "<#E0575B>Este nickname já foi registrado."
 
     # Mensagem enviada quando um nickname ainda não foi registrado.
-    not-registered: "&cEste nickname ainda não foi registrado."
+    not-registered: "<#E0575B>Este nickname ainda não foi registrado."
 
     # Mensagem enviada quando a senha inserida não é igual a segunda.
-    passwords-dont-match: "&cAs senhas não são iguais."
+    passwords-dont-match: "<#E0575B>As senhas não são iguais."
 
     # Mensagem enviada quando um jogador tenta trocar a senha igual a atual.
-    password-same-as-old: "&cA senha inserida é a mesma que a atual."
+    password-same-as-old: "<#E0575B>A senha inserida é a mesma que a atual."
 
     # Mensagem enviada quando a senha inserida é muito grande.
-    password-too-large: "&cA senha inserida é muito grande."
+    password-too-large: "<#E0575B>A senha inserida é muito grande."
 
     # Mensagem enviada quando a senha inserida é muito pequena.
-    password-too-small: "&cA senha inserida é muito pequena."
+    password-too-small: "<#E0575B>A senha inserida é muito pequena."
 
     # Mensagem quando um jogador não possuí a permissão necessária para executar determinado comando.
-    insufficient-permissions: "&cVocê não tem permissão para executar este comando."
+    insufficient-permissions: "<#E0575B>Você não tem permissão para executar este comando. <#A0A0B0>(<permission>)"
 
     # Mensagem enviada quando um jogador com o mesmo nickname já está online.
-    already-online: "&cEste jogador já está online."
+    already-online: "<#E0575B>Este jogador já está online."
 
     # Mensagem enviada quando um comando só pode ser executado por jogadores.
-    player-command-usage: "&cEste comando foi desativado via console."
+    player-command-usage: "<#E0575B>Este comando foi desativado via console."
 
     # Mensagem enviada quando o plugin é recarregado.
-    plugin-reload-message: "&eO plugin foi recarregado com sucesso."
+    plugin-reload-message: "<#F2C14E>O plugin foi recarregado com sucesso."
 
     # Mensagem enviada quando uma operação no banco de dados não foi executada com êxito.
-    database-error: "&cDesculpe, mas não foi possível completar esta operação. Por favor, tente novamente. [SQL FAIL]"
+    database-error: "<#E0575B>Desculpe, mas não foi possível completar esta operação. Por favor, tente novamente. [SQL FAIL]"
 
   other-messages:
     # Uso do comando /logar.
-    message-login: "&eUtilize o comando &7/logar <senha>&e."
+    message-login: "<#F2C14E>Utilize o comando <#A0A0B0>/logar [senha]<#F2C14E>."
 
     # Uso do comando /register.
-    message-register: "&eUtilize o comando &7/registrar <senha> <senha>&e."
+    message-register: "<#F2C14E>Utilize o comando <#A0A0B0>/registrar [senha] [senha]<#F2C14E>."
 
     # Uso do comando /mudarsenha.
-    message-changepassword: "&eUtilize o comando &7/mudarsenha <senha atual> <nova senha>&e."
+    message-changepassword: "<#F2C14E>Utilize o comando <#A0A0B0>/mudarsenha [senha atual] [nova senha]<#F2C14E>."
 
     # Uso do comando /unregister.
-    message-unregister: "&eUtilize o comando &7/unregister <senha atual>&e."
+    message-unregister: "<#F2C14E>Utilize o comando <#A0A0B0>/unregister [senha atual]<#F2C14E>."

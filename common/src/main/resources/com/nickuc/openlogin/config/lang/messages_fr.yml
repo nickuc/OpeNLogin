@@ -14,16 +14,16 @@ Messages:
   Title:
     # Message sent before login
     before-login:
-      title: "&a&lBIENVENUE!"
-      subtitle: "&7Utilise: /login <mot de passe>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>BIENVENUE!</bold></gradient>"
+      subtitle: "<#A0A0B0>Utilise: /login [mot de passe]"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Message sent before registration
     before-register:
-      title: "&a&lBIENVENUE!"
-      subtitle: "&7Utilise: /register <mot de passe> <mot de passe>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>BIENVENUE!</bold></gradient>"
+      subtitle: "<#A0A0B0>Utilise: /register [mot de passe] [mot de passe]"
       delays:
         start: 0
         duration: 9999
@@ -31,7 +31,7 @@ Messages:
     # Message sent after login
     after-login:
       title: ""
-      subtitle: "&aTu es bien connecté!"
+      subtitle: "<#5EC26A>Tu es bien connecté!"
       delays:
         start: 0
         duration: 60
@@ -39,7 +39,7 @@ Messages:
     # Message sent after register
     after-register:
       title: ""
-      subtitle: "&aTu es bien enregistré!"
+      subtitle: "<#5EC26A>Tu es bien enregistré!"
       delays:
         start: 0
         duration: 60
@@ -47,80 +47,80 @@ Messages:
 
   delay-kick:
     # Message sent when a user takes a long time to register
-    register-kick: "&cTu as mis trop de temps à t'enregistrer."
+    register-kick: "<#E0575B>Tu as mis trop de temps à t'enregistrer."
 
     # Message sent when a user takes a long time to log in
-    login-kick: "&cTu as mis trop de temps à te connecter"
+    login-kick: "<#E0575B>Tu as mis trop de temps à te connecter"
 
   successful-operations:
     # Message when a user exchanges their password
-    password-changed: "&aTon mot de passe à bien été mis à jours."
+    password-changed: "<#5EC26A>Ton mot de passe à bien été mis à jours."
 
     # Message sent when a user successfully logs
-    successful-login: "&aTu es bien connecté."
+    successful-login: "<#5EC26A>Tu es bien connecté."
 
     # Message sent when a user successfully registers
-    successful-register: "&aTu es bien enregistré."
+    successful-register: "<#5EC26A>Tu es bien enregistré."
 
     # Message sent when a player successfully disregisters
-    unregister-kick: "&cTu est bien déinscrit."
+    unregister-kick: "<#E0575B>Tu est bien déinscrit."
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname
-    nick-already-registered: "&c Tu ne peux pas te connecter avec ce pseudo {0}&r\n&r&cCe pseudo à déjà été enregistré en temps que {1}&r\n&r\n&r&c Pour venir ton pseudo doit etre valide."
+    nick-already-registered: "<#E0575B> Tu ne peux pas te connecter avec ce pseudo <nickname>\n<#E0575B>Ce pseudo à déjà été enregistré en temps que <realname>\n\n<#E0575B> Pour venir ton pseudo doit etre valide."
 
     # Message sent when a user misses many times
-    failed-many-times: "&cMot de passe incorrect"
+    failed-many-times: "<#E0575B>Mot de passe incorrect"
 
     # Message sent when password entered is incorrect
-    incorrect-password: "&cMot de passe incorrect, merci de réessayer."
+    incorrect-password: "<#E0575B>Mot de passe incorrect, merci de réessayer."
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&c Tu es déjà connecté."
+    already-login: "<#E0575B> Tu es déjà connecté."
 
     # Message sent when a nickname has already been registered.
-    already-registered: "&c Ce pseudo est déjà enregistré."
+    already-registered: "<#E0575B> Ce pseudo est déjà enregistré."
 
     # Message sent when a nickname has not yet been registered.
-    not-registered: "&cCe pseudo n'as pas encore été enregistré."
+    not-registered: "<#E0575B>Ce pseudo n'as pas encore été enregistré."
 
     # Message sent when the entered password is not equal to the second
-    passwords-dont-match: "&cLes mots de passe ne correspondent pas."
+    passwords-dont-match: "<#E0575B>Les mots de passe ne correspondent pas."
 
     # Message sent when a player tries to change password by entering the same password as the current
-    password-same-as-old: "&cLe mot de passe est identique à l'ancien."
+    password-same-as-old: "<#E0575B>Le mot de passe est identique à l'ancien."
 
     # Message sent when the password entered is too large
-    password-too-large: "&cLe mot de passe entré est trop long."
+    password-too-large: "<#E0575B>Le mot de passe entré est trop long."
 
     # Message sent when the password entered is too small
-    password-too-small: "&cLe mot de passe entré est trop court"
+    password-too-small: "<#E0575B>Le mot de passe entré est trop court"
 
     # Message when a player does not possess the required permission
-    insufficient-permissions: "&cTu n'as pas la permission d'utiliser cette commande."
+    insufficient-permissions: "<#E0575B>Tu n'as pas la permission d'utiliser cette commande. <#A0A0B0>(<permission>)"
 
     # Message to kick a player now online
-    already-online: "&cCe joueur est déjà en ligne."
+    already-online: "<#E0575B>Ce joueur est déjà en ligne."
 
     # Message to show that the command cannot be executed via console
-    player-command-usage: "&cLa commande à été désactivé via la console."
+    player-command-usage: "<#E0575B>La commande à été désactivé via la console."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&eLe plugin à été rechargé."
+    plugin-reload-message: "<#F2C14E>Le plugin à été rechargé."
 
     # Message sent when a database operation has not been successfully performed
-    database-error: "&cDésolé impossible d'effectuer l'action. Merci de réessayer."
+    database-error: "<#E0575B>Désolé impossible d'effectuer l'action. Merci de réessayer."
 
   other-messages:
     # Mensagem enviada para o uso do comando /logar
-    message-login: "&eUtilise la commande /login <mot de passe>"
+    message-login: "<#F2C14E>Utilise la commande /login [mot de passe]"
 
     # Mensagem enviada para o uso do comando /register
-    message-register: "&eUtilise la commande /register <mot de passe> <mot de passe>"
+    message-register: "<#F2C14E>Utilise la commande /register [mot de passe] [mot de passe]"
 
     # Mensagem enviada para o uso do comando /mudarsenha
-    message-changepassword: "&eUtilise la commande /changepassword <ancien mot de passe> <nouveau mot de passe>"
+    message-changepassword: "<#F2C14E>Utilise la commande /changepassword [ancien mot de passe] [nouveau mot de passe]"
 
     # Message sent to use the /unregister command
-    message-unregister: "&eUtilise la commande /unregister <mot de passe>"
+    message-unregister: "<#F2C14E>Utilise la commande /unregister [mot de passe]"

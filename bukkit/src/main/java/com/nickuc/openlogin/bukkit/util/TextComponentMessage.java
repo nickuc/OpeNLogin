@@ -24,51 +24,50 @@
 
 package com.nickuc.openlogin.bukkit.util;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
+import com.nickuc.openlogin.common.util.MessageParser;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.entity.Player;
 
 public class TextComponentMessage {
 
     public static void sendPluginChoice(Player player) {
-        TextComponent first = new TextComponent("      ");
+        Component nlogin = MessageParser.parse("<#E8A33D>nLogin")
+                .hoverEvent(MessageParser.parse(
+                        "<#E8A33D>nLogin <#A0A0B0>is a <#E8A33D>proprietary <#A0A0B0>authentication plugin,\n" +
+                                "<#A0A0B0>updated and maintained by <#56CCF2>nickuc.com<#A0A0B0>. This means that you\n" +
+                                "<#A0A0B0>cannot view and modify the source code of the plugin.\n\n" +
+                                "<#F2C14E>If you still have questions, please contact us:\n" +
+                                "<#56CCF2>nickuc.com/discord"))
+                .clickEvent(ClickEvent.runCommand("/openlogin nlogin skip"));
 
-        TextComponent nlogin = new TextComponent("nLogin");
-        nlogin.setColor(ChatColor.YELLOW);
-        HoverEvent nloginHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§6nLogin §7is a §6proprietary §7authentication plugin,\n§7updated and maintained by §bnickuc.com§7. This means that you\n§7cannot view and modify the source code of the plugin.\n\n§eIf you still have questions, please contact us:\n§bnickuc.com/discord"));
-        ClickEvent nloginClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/openlogin nlogin skip");
-        nlogin.setHoverEvent(nloginHover);
-        nlogin.setClickEvent(nloginClick);
-        first.addExtra(nlogin);
-        first.addExtra("              ");
+        Component openlogin = MessageParser.parse("<#56CCF2>OpeNLogin")
+                .hoverEvent(MessageParser.parse(
+                        "<#56CCF2>OpeNLogin <#A0A0B0>is a <#56CCF2>open source <#A0A0B0>authentication plugin,\n" +
+                                "<#A0A0B0>updated and maintained by all OpeNLogin contributors.\n\n" +
+                                "<#E0575B>Currently the plugin does not have as many resources as nLogin."))
+                .clickEvent(ClickEvent.runCommand("/openlogin setup"));
 
-        TextComponent openlogin = new TextComponent("OpeNLogin");
-        openlogin.setColor(ChatColor.YELLOW);
-        HoverEvent openloginHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§bOpeNLogin §7is a §bopen source §7authentication plugin,\n§7updated and maintained by all OpeNLogin contributors.\n\n§cCurrently the plugin does not have as many resources as nLogin."));
-        ClickEvent openloginClick = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/openlogin setup");
-        openlogin.setHoverEvent(openloginHover);
-        openlogin.setClickEvent(openloginClick);
-        first.addExtra(openlogin);
+        Component proprietary = MessageParser.parse("<#E8A33D>(proprietary)")
+                .hoverEvent(nlogin.hoverEvent())
+                .clickEvent(nlogin.clickEvent());
 
-        TextComponent second = new TextComponent("  ");
+        Component opensource = MessageParser.parse("<#56CCF2>(open source)")
+                .hoverEvent(openlogin.hoverEvent())
+                .clickEvent(openlogin.clickEvent());
 
-        TextComponent proprietary = new TextComponent("(proprietary)");
-        proprietary.setColor(ChatColor.GOLD);
-        proprietary.setHoverEvent(nloginHover);
-        proprietary.setClickEvent(nloginClick);
-        second.addExtra(proprietary);
-        second.addExtra("      ");
+        Component first = Component.text("      ")
+                .append(nlogin)
+                .append(Component.text("              "))
+                .append(openlogin);
 
-        TextComponent opensource = new TextComponent("(open source)");
-        opensource.setColor(ChatColor.AQUA);
-        opensource.setHoverEvent(openloginHover);
-        opensource.setClickEvent(openloginClick);
-        second.addExtra(opensource);
+        Component second = Component.text("  ")
+                .append(proprietary)
+                .append(Component.text("      "))
+                .append(opensource);
 
-        Player.Spigot spigot = player.spigot();
-        spigot.sendMessage(first);
-        spigot.sendMessage(second);
+        ComponentSender.send(player, first);
+        ComponentSender.send(player, second);
     }
 }

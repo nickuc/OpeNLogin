@@ -12,16 +12,16 @@ Messages:
   Title:
     # Message sent before login
     before-login:
-      title: "&a&lVÍTEJ!"
-      subtitle: "&7Použij: /login <heslo>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>VÍTEJ!</bold></gradient>"
+      subtitle: "<#A0A0B0>Použij: /login [heslo]"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Message sent before registration
     before-register:
-      title: "&a&lVÍTEJ!"
-      subtitle: "&7Použij: /register <heslo> <heslo znovu>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>VÍTEJ!</bold></gradient>"
+      subtitle: "<#A0A0B0>Použij: /register [heslo] [heslo znovu]"
       delays:
         start: 0
         duration: 9999
@@ -29,7 +29,7 @@ Messages:
     # Message sent after login
     after-login:
       title: ""
-      subtitle: "&aPřihlášení bylo úspěšné!"
+      subtitle: "<#5EC26A>Přihlášení bylo úspěšné!"
       delays:
         start: 0
         duration: 60
@@ -37,7 +37,7 @@ Messages:
     # Message sent after register
     after-register:
       title: ""
-      subtitle: "&aRegistrace byla úspěšná!"
+      subtitle: "<#5EC26A>Registrace byla úspěšná!"
       delays:
         start: 0
         duration: 60
@@ -45,80 +45,80 @@ Messages:
 
   delay-kick:
     # Message sent when a user takes a long time to register
-    register-kick: "&cČas na registraci vypršel."
+    register-kick: "<#E0575B>Čas na registraci vypršel."
 
     # Message sent when a user takes a long time to log in
-    login-kick: "&cČas na přihlášení vypršel."
+    login-kick: "<#E0575B>Čas na přihlášení vypršel."
 
   successful-operations:
     # Message when a user exchanges their password
-    password-changed: "&aHeslo bylo úspěšně změněno."
+    password-changed: "<#5EC26A>Heslo bylo úspěšně změněno."
 
     # Message sent when a user successfully logs
-    successful-login: "&aPřihlášení bylo úspěšné."
+    successful-login: "<#5EC26A>Přihlášení bylo úspěšné."
 
     # Message sent when a user successfully registers
-    successful-register: "&aRegistrace byla úspěšná."
+    successful-register: "<#5EC26A>Registrace byla úspěšná."
 
     # Message sent when a player successfully disregisters
-    unregister-kick: "&cZrušení registrace bylo úspěšné."
+    unregister-kick: "<#E0575B>Zrušení registrace bylo úspěšné."
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname
-    nick-already-registered: "&cNelze se přihlásit s přezdívkou {0}&r\n&r&cToto jméno je již zaregistrováno jako {1}&r\n&r\n&r&cPro registraci zvol jméno bez velkých/malých písmen."
+    nick-already-registered: "<#E0575B>Nelze se přihlásit s přezdívkou <nickname>\n<#E0575B>Toto jméno je již zaregistrováno jako <realname>\n\n<#E0575B>Pro registraci zvol jméno bez velkých/malých písmen."
 
     # Message sent when a user misses many times
-    failed-many-times: "&cZadáno špatné heslo.."
+    failed-many-times: "<#E0575B>Zadáno špatné heslo.."
 
     # Message sent when password entered is incorrect
-    incorrect-password: "&cŠpatné heslo. Zkus to prosím znovu."
+    incorrect-password: "<#E0575B>Špatné heslo. Zkus to prosím znovu."
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&cJiž jsi přihlášen/a."
+    already-login: "<#E0575B>Již jsi přihlášen/a."
 
     # Message sent when a nickname has already been registered.
-    already-registered: "&cHráč s tímto jménem je již registrován."
+    already-registered: "<#E0575B>Hráč s tímto jménem je již registrován."
 
     # Message sent when a nickname has not yet been registered.
-    not-registered: "&cHráč s tímto jménem nebyl ještě registrován."
+    not-registered: "<#E0575B>Hráč s tímto jménem nebyl ještě registrován."
 
     # Message sent when the entered password is not equal to the second
-    passwords-dont-match: "&cHesla se neshodují."
+    passwords-dont-match: "<#E0575B>Hesla se neshodují."
 
     # Message sent when a player tries to change password by entering the same password as the current
-    password-same-as-old: "&cNové heslo je shodné se starým heslem."
+    password-same-as-old: "<#E0575B>Nové heslo je shodné se starým heslem."
 
     # Message sent when the password entered is too large
-    password-too-large: "&cZadané heslo je příliš dlouhé."
+    password-too-large: "<#E0575B>Zadané heslo je příliš dlouhé."
 
     # Message sent when the password entered is too small
-    password-too-small: "&cZadané heslo je příliš krátké."
+    password-too-small: "<#E0575B>Zadané heslo je příliš krátké."
 
     # Message when a player does not possess the required permission
-    insufficient-permissions: "&cNa tuto akci nemáš práva."
+    insufficient-permissions: "<#E0575B>Na tuto akci nemáš práva. <#A0A0B0>(<permission>)"
 
     # Message to kick a player now online
-    already-online: "&cTento hráč je již online."
+    already-online: "<#E0575B>Tento hráč je již online."
 
     # Message to show that the command cannot be executed via console
-    player-command-usage: "&cPříkaz byl zablokován konzolí."
+    player-command-usage: "<#E0575B>Příkaz byl zablokován konzolí."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&ePlugin byl úspěšně načten."
+    plugin-reload-message: "<#F2C14E>Plugin byl úspěšně načten."
 
     # Message sent when a database operation has not been successfully performed
-    database-error: "&cOmlouváme se, nepodařilo se vykonat operaci. Zkuste to znovu. [SQL FAIL]"
+    database-error: "<#E0575B>Omlouváme se, nepodařilo se vykonat operaci. Zkuste to znovu. [SQL FAIL]"
 
   other-messages:
     # Mensagem enviada para o uso do comando /logar
-    message-login: "&ePoužij příkaz /login <heslo>"
+    message-login: "<#F2C14E>Použij příkaz /login [heslo]"
 
     # Mensagem enviada para o uso do comando /register
-    message-register: "&ePoužij příkaz /register <heslo> <heslo znovu>"
+    message-register: "<#F2C14E>Použij příkaz /register [heslo] [heslo znovu]"
 
     # Mensagem enviada para o uso do comando /mudarsenha
-    message-changepassword: "&ePoužij příkaz /changepassword <aktuální heslo> <nové heslo>"
+    message-changepassword: "<#F2C14E>Použij příkaz /changepassword [aktuální heslo] [nové heslo]"
 
     # Message sent to use the /unregister command
-    message-unregister: "&ePoužij příkaz /unregister <heslo>"
+    message-unregister: "<#F2C14E>Použij příkaz /unregister [heslo]"

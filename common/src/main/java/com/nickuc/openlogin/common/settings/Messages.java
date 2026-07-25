@@ -25,11 +25,11 @@
 package com.nickuc.openlogin.common.settings;
 
 import com.nickuc.openlogin.common.model.Title;
-import com.nickuc.openlogin.common.util.ChatColor;
+import com.nickuc.openlogin.common.util.MessageParser;
 import lombok.Getter;
 import lombok.NonNull;
-
-import java.util.List;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 
 public enum Messages {
 
@@ -90,24 +90,13 @@ public enum Messages {
      * @param value   the message value
      */
     public static void define(@NonNull Messages message, Object value) {
-        if (value instanceof String) {
-            value = ChatColor.translateAlternateColorCodes('&', (String) value);
-        } else if (value instanceof List) {
-            List<Object> list = (List<Object>) value;
-            if (!list.isEmpty() && list.get(0) instanceof String) {
-                list.replaceAll(a -> ChatColor.translateAlternateColorCodes('&', (String) a));
-            }
-        }
         Settings.SETTINGS.put(message.key, value);
     }
 
-    public String asString(Object... format) {
-        return asString("§cMissing message: " + key, format);
-    }
-
-    public String asString(@NonNull String def, Object... format) {
+    public Component asComponent(TagResolver... placeholders) {
         Object obj = Settings.SETTINGS.get(key);
-        return String.format((String) (!(obj instanceof String) ? def : obj), format);
+        String raw = obj instanceof String ? (String) obj : "<red>Missing message: " + key;
+        return MessageParser.parse(raw, placeholders);
     }
 
     public Title asTitle() {

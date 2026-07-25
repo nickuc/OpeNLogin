@@ -16,16 +16,16 @@ Messages:
   Title:
     # Message sent before login.
     before-login:
-      title: "&2Willkommen!"
-      subtitle: "&7Benutze /login <dein Passwort>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>Willkommen!</bold></gradient>"
+      subtitle: "<#A0A0B0>Benutze /login [dein Passwort]"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Message sent before registration.
     before-register:
-      title: "&2Willkommen!"
-      subtitle: "&7Benutze /register <dein Passwort> <dein Passwort>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>Willkommen!</bold></gradient>"
+      subtitle: "<#A0A0B0>Benutze /register [dein Passwort] [dein Passwort]"
       delays:
         start: 0
         duration: 9999
@@ -33,7 +33,7 @@ Messages:
     # Message sent after login.
     after-login:
       title: ""
-      subtitle: "&aErfolgreich eingeloggt!"
+      subtitle: "<#5EC26A>Erfolgreich eingeloggt!"
       delays:
         start: 0
         duration: 60
@@ -41,7 +41,7 @@ Messages:
     # Message sent after registration.
     after-register:
       title: ""
-      subtitle: "&aErfolgreich registriert!"
+      subtitle: "<#5EC26A>Erfolgreich registriert!"
       delays:
         start: 0
         duration: 60
@@ -49,7 +49,7 @@ Messages:
     # Message sent when you miss a password.
     incorrect-password:
       title: ""
-      subtitle: "&cFalsches Passwort!"
+      subtitle: "<#E0575B>Falsches Passwort!"
       delays:
         start: 0
         duration: 60
@@ -57,7 +57,7 @@ Messages:
     # Message sent when already logged in.
     already-login:
       title: ""
-      subtitle: "&cDu bist bereits eingeloggt!"
+      subtitle: "<#E0575B>Du bist bereits eingeloggt!"
       delays:
         start: 0
         duration: 60
@@ -65,7 +65,7 @@ Messages:
     # Message sent when already registered.
     already-registered:
       title: ""
-      subtitle: "&cDu bist bereits registriert!"
+      subtitle: "<#E0575B>Du bist bereits registriert!"
       delays:
         start: 0
         duration: 60
@@ -73,7 +73,7 @@ Messages:
     # Message sent when passwords are not equal.
     passwords-dont-match:
       title: ""
-      subtitle: "&cDie Passwörter sind nicht gleich!"
+      subtitle: "<#E0575B>Die Passwörter sind nicht gleich!"
       delays:
         start: 0
         duration: 60
@@ -81,7 +81,7 @@ Messages:
     # Message sent when session is continued.
     session-login:
       title: ""
-      subtitle: "&eDeine Login Session wurde fortgesetzt."
+      subtitle: "<#F2C14E>Deine Login Session wurde fortgesetzt."
       delays:
         start: 0
         duration: 60
@@ -89,7 +89,7 @@ Messages:
     # Message sent when you are an original player.
     premium-login:
       title: ""
-      subtitle: "&eDein Account ist original, du wurdest eingeloggt."
+      subtitle: "<#F2C14E>Dein Account ist original, du wurdest eingeloggt."
       delays:
         start: 0
         duration: 60
@@ -97,7 +97,7 @@ Messages:
     # Message sent when a login session is continued.
     plugin-reload:
       title: ""
-      subtitle: "&aDie Konfiguration und die Sprach Dateien wurden neugeladen."
+      subtitle: "<#5EC26A>Die Konfiguration und die Sprach Dateien wurden neugeladen."
       delays:
         start: 0
         duration: 60
@@ -105,7 +105,7 @@ Messages:
     # Message sent from backup system.
     backup:
       title: ""
-      subtitle: "&aBackup wurde erfolgreich ausgeführt."
+      subtitle: "<#5EC26A>Backup wurde erfolgreich ausgeführt."
       delays:
         start: 0
         duration: 90
@@ -113,7 +113,7 @@ Messages:
     # Message sent from backup system.
     backup-error:
       title: ""
-      subtitle: "&cBackup konnte nicht ausgeführt werden."
+      subtitle: "<#E0575B>Backup konnte nicht ausgeführt werden."
       delays:
         start: 0
         duration: 90
@@ -121,7 +121,7 @@ Messages:
     # Message sent from security system.
     security-warning:
       title: ""
-      subtitle: "&cEine neue Sicherheits Nachricht wurde in den Chat gesendet"
+      subtitle: "<#E0575B>Eine neue Sicherheits Nachricht wurde in den Chat gesendet"
       delays:
         start: 0
         duration: 60
@@ -129,231 +129,231 @@ Messages:
 
   action-bar:
     # Message sent on the player's actionbar before login (singular).
-    singular: "&cDu hast {0} Sekunde für's {login/register}."
+    singular: "<#E0575B>Du hast {0} Sekunde für's {login/register}."
 
     # Message sent on the player's actionbar before login (plural).
-    plural: "&cDu hast {0} Sekunden für's {login/register}."
+    plural: "<#E0575B>Du hast {0} Sekunden für's {login/register}."
 
   delay-kick:
     # Message sent when a user takes a long time to register.
-    register-kick: "&cDu hast zu lange gebraucht um dich zu registrieren."
+    register-kick: "<#E0575B>Du hast zu lange gebraucht um dich zu registrieren."
 
     # Message sent when a user takes a long time to log in.
-    login-kick: "&cDu hast zu lange gebraucht um dich einzuloggen."
+    login-kick: "<#E0575B>Du hast zu lange gebraucht um dich einzuloggen."
 
   successful-operations:
     # Message when a user exchanges their password.
-    password-changed: "&aDein Passwort wurde erfolgreich geändert."
+    password-changed: "<#5EC26A>Dein Passwort wurde erfolgreich geändert."
 
     # Message sent when a user successfully logs.
-    successful-login: "&aDu hast dich erfolgreich eingeloggt."
+    successful-login: "<#5EC26A>Du hast dich erfolgreich eingeloggt."
 
     # Message sent when a user logs in with an original account.
-    successful-premium-login: "&aDu wurdest automatisch eingeloggt, da du einen originalen Account benutzt."
+    successful-premium-login: "<#5EC26A>Du wurdest automatisch eingeloggt, da du einen originalen Account benutzt."
 
     # Message sent when a user logs in using the same ip address.
-    successful-session-login: "&aDeine Login Session wurde erfolgreich fortgesetzt."
+    successful-session-login: "<#5EC26A>Deine Login Session wurde erfolgreich fortgesetzt."
 
     # Message sent when a user successfully registers.
-    successful-register: "&aDu hast dich erfolgreich registriert."
+    successful-register: "<#5EC26A>Du hast dich erfolgreich registriert."
 
     # Message sent when you force a player's login.
-    forcelogin: "&eDu hast einen Zwangs-Login an {0} ausgeführt."
+    forcelogin: "<#F2C14E>Du hast einen Zwangs-Login an {0} ausgeführt."
 
     # Message sent when a player successfully unregister.
-    unregister-kick: "&cDu hast dich erfolgreich entregistriert."
+    unregister-kick: "<#E0575B>Du hast dich erfolgreich entregistriert."
 
     # Message sent when a configuration is finished
-    config-finished: "&aKonfiguration wurde fertig gestellt."
+    config-finished: "<#5EC26A>Konfiguration wurde fertig gestellt."
 
     # Message sent when a configuration is cancelled
-    config-cancelled: "&cAktion abgebrochen."
+    config-cancelled: "<#E0575B>Aktion abgebrochen."
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname.
-    nick-already-registered: "&cDu kannst mit diesem Nicknamen nicht beitreten {0}&r\n&r&cDieser Nickname wurde bereits als {1} registriert&r\n&r\n&r&cUm beizutreten, musst du deinen Nicknamen in Groß- und Kleinbuchstaben schreiben."
+    nick-already-registered: "<#E0575B>Du kannst mit diesem Nicknamen nicht beitreten <nickname>\n<#E0575B>Dieser Nickname wurde bereits als <realname> registriert\n\n<#E0575B>Um beizutreten, musst du deinen Nicknamen in Groß- und Kleinbuchstaben schreiben."
 
     # Message sent when a user misses many times.
-    failed-many-times: "&cDu hast ein falsches Passwort eingegeben."
+    failed-many-times: "<#E0575B>Du hast ein falsches Passwort eingegeben."
 
     # Message sent when password entered is incorrect.
-    incorrect-password: "&cFalsches Passwort. Bitte versuche es erneut."
+    incorrect-password: "<#E0575B>Falsches Passwort. Bitte versuche es erneut."
 
     # Message sent when the security questions answer is incorrect.
-    incorrect-answer: "&cFalsche Antwort. Bitte versuche es erneut."
+    incorrect-answer: "<#E0575B>Falsche Antwort. Bitte versuche es erneut."
 
     # Message sent when server is still starting.
-    wait-server-start: "&cDer Server wurde noch nicht vollständig gestartet.\n&cWarte bis zu dich verbinden kannst."
+    wait-server-start: "<#E0575B>Der Server wurde noch nicht vollständig gestartet.\n<#E0575B>Warte bis zu dich verbinden kannst."
 
     # Message sent when an IP is blocked by suspected invasion.
-    account-blocked: "&cDeine Adresse wurde wegen verdächtiger Invasion gesperrt.&r\n&r&cVerbleibende Zeit: {0}"
+    account-blocked: "<#E0575B>Deine Adresse wurde wegen verdächtiger Invasion gesperrt.\n<#E0575B>Verbleibende Zeit: {0}"
 
     # Message sent when two-factor system temporary password is incorrect.
-    incorrect-temporary-password: "&cFalsches Passwort. Bitte versuche es erneut."
+    incorrect-temporary-password: "<#E0575B>Falsches Passwort. Bitte versuche es erneut."
 
     # Message to kick a user with an invalid nickname.
-    invalid-nickname: "&cDein Nickname ist nicht gültig, entferne Leerzeichen, Symbole, und ungültige Zeichen von deinem Namen."
+    invalid-nickname: "<#E0575B>Dein Nickname ist nicht gültig, entferne Leerzeichen, Symbole, und ungültige Zeichen von deinem Namen."
 
     # Message sent when the player's account has already been registered as unique.
-    premium-account: "&cTut uns leid, aber ein Premium Spieler hat sich mit diesem Namen schon registriert.&r\n&r&cUm auf dem Server spieln zu können, musst du deinen Namen ändern.&r\n&r\nFalls du der Besitzer von dem Account bist, versuche Minecraft neuzustarten."
+    premium-account: "<#E0575B>Tut uns leid, aber ein Premium Spieler hat sich mit diesem Namen schon registriert.\n<#E0575B>Um auf dem Server spieln zu können, musst du deinen Namen ändern.\n\nFalls du der Besitzer von dem Account bist, versuche Minecraft neuzustarten."
 
   security-messages:
     # Message sent when a user was protected by the heuristic system.
     hacking-attack-warning:
       - ""
-      - " &c&lSICHERHEITS ALARM"
-      - " &cDas Sicherheitssystem hat einen möglichen Hacking Angriff auf deinen Account geblockt."
-      - " &cDrei fehlgeschlagene Login Versuche wurden ausgeführt."
+      - " <#E0575B><bold>SICHERHEITS ALARM"
+      - " <#E0575B>Das Sicherheitssystem hat einen möglichen Hacking Angriff auf deinen Account geblockt."
+      - " <#E0575B>Drei fehlgeschlagene Login Versuche wurden ausgeführt."
       - ""
-      - " &e&lTipp: &eBenutze ein anderes Passwort als von anderen Servern."
+      - " <#F2C14E><bold>Tipp: <#F2C14E>Benutze ein anderes Passwort als von anderen Servern."
       - ""
 
     # Message sent when a user was protected more than once by the heuristic system.
     hacking-attack-warning2:
       - ""
-      - " &c&lSICHERHEITS ALARM"
-      - " &cDas Sicherheitssystem hat {0} mögliche Hacking Angriffe auf deinen Account geblockt."
-      - " &cDrei fehlgeschlagene Login Versuche wurden ausgeführt."
+      - " <#E0575B><bold>SICHERHEITS ALARM"
+      - " <#E0575B>Das Sicherheitssystem hat {0} mögliche Hacking Angriffe auf deinen Account geblockt."
+      - " <#E0575B>Drei fehlgeschlagene Login Versuche wurden ausgeführt."
       - ""
-      - " &e&lTipp: &eBenutze ein anderes Passwort als von anderen Servern."
+      - " <#F2C14E><bold>Tipp: <#F2C14E>Benutze ein anderes Passwort als von anderen Servern."
       - ""
 
     # Message sent when a user uses a weak password.
     weak-password:
       - ""
-      - " &cDas registrierte Passwort wurde als ein unsicheres erkannt."
-      - " &cBenutze Buchstaben, Zahlen und Symbole um die Sicherheit zu steigern."
-      - " &cBeispiel Passwort: {0}"
+      - " <#E0575B>Das registrierte Passwort wurde als ein unsicheres erkannt."
+      - " <#E0575B>Benutze Buchstaben, Zahlen und Symbole um die Sicherheit zu steigern."
+      - " <#E0575B>Beispiel Passwort: {0}"
       - ""
 
     # Message sent when a player has not yet registered the security questions.
     security-question-warn-message:
       - ""
-      - " &c&lSICHERHEITS FRAGEN"
-      - " &7Klick auf diese Nachricht um"
-      - " &cSicherheits Fragen zu registrieren&7. Damit verringerst"
-      - " &7du die Chance gehackt zu werden."
+      - " <#E0575B><bold>SICHERHEITS FRAGEN"
+      - " <#A0A0B0>Klick auf diese Nachricht um"
+      - " <#E0575B>Sicherheits Fragen zu registrieren<#A0A0B0>. Damit verringerst"
+      - " <#A0A0B0>du die Chance gehackt zu werden."
       - ""
 
     # Message sent when a security question is being added.
     security-question-add:
       - ""
-      - " &e{0}"
+      - " <#F2C14E>{0}"
       - ""
-      - " &7Benutze &f'cancel' &7um die Aktion abzubrechen."
-      - " &7Klick auf die Nachricht um eine weitere Frage zu generieren."
+      - " <#A0A0B0>Benutze [white]'cancel' <#A0A0B0>um die Aktion abzubrechen."
+      - " <#A0A0B0>Klick auf die Nachricht um eine weitere Frage zu generieren."
       - ""
 
     # Message sent when a security question should be reviewed.
     security-question-check:
       - ""
-      - " &aBevor du zustimmst, lies die Information:"
+      - " <#5EC26A>Bevor du zustimmst, lies die Information:"
       - ""
-      - " &7{0}: &f'{1}'"
+      - " <#A0A0B0>{0}: [white]'{1}'"
       - ""
-      - " &aFalls du dir sicher bist, schreib &f'confirm'&a."
-      - " &eFalls du etwas falsch eingegeben hast, schreib &f'repeat'&e."
-      - " &cFalls du die Aktion abbrechen möchtest, schreib &f'cancel'&c."
+      - " <#5EC26A>Falls du dir sicher bist, schreib [white]'confirm'<#5EC26A>."
+      - " <#F2C14E>Falls du etwas falsch eingegeben hast, schreib [white]'repeat'<#F2C14E>."
+      - " <#E0575B>Falls du die Aktion abbrechen möchtest, schreib [white]'cancel'<#E0575B>."
       - ""
 
     # Message sent when security questions are requested.
     security-question-request:
       - ""
-      - " &aTut uns leid, aber eine Identitäts Bestätigung ist erforderlich."
-      - " &aBeantworte die folgende Frage:"
+      - " <#5EC26A>Tut uns leid, aber eine Identitäts Bestätigung ist erforderlich."
+      - " <#5EC26A>Beantworte die folgende Frage:"
       - ""
-      - " &b{0}"
+      - " <#56CCF2>{0}"
       - ""
 
     # Message sent when security questions are requested a second time.
     security-question-request2:
-      - "&aNächste Frage..."
+      - "<#5EC26A>Nächste Frage..."
       - ""
-      - " &b{0}"
+      - " <#56CCF2>{0}"
       - ""
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&cDu bist bereits eingeloggt."
+    already-login: "<#E0575B>Du bist bereits eingeloggt."
 
     # Message sent when a user is already logged in.
-    already-login2: "&cDieser Spieler ist bereits eingeloggt."
+    already-login2: "<#E0575B>Dieser Spieler ist bereits eingeloggt."
 
     # Message sent when a nickname has already been registered.
-    already-registered: "&cDieser Nickname wurde bereits registriert."
+    already-registered: "<#E0575B>Dieser Nickname wurde bereits registriert."
 
     # Message sent when a nickname has not yet been registered.
-    not-registered: "&cDieser Nickname wurde noch nicht registriert."
+    not-registered: "<#E0575B>Dieser Nickname wurde noch nicht registriert."
 
     # Message sent when the entered password is not equal to the second.
-    passwords-dont-match: "&cDie Passwörter sind nicht gleich."
+    passwords-dont-match: "<#E0575B>Die Passwörter sind nicht gleich."
 
     # Message sent when a player does not confirm your password.
-    need-password-confirmation: "&cDu musst dein Passwort bestätigen."
+    need-password-confirmation: "<#E0575B>Du musst dein Passwort bestätigen."
 
     # Message sent when a user does not have a temporary password.
-    no-temporary-password: "&cEin temporäres Passwort wurde noch nicht generiert."
+    no-temporary-password: "<#E0575B>Ein temporäres Passwort wurde noch nicht generiert."
 
     # Message sent when IP limits per player pass the limit.
-    address-limiter-warning: "&cDu hast die Grenzen von deiner IP-Adresse ausgelastet."
+    address-limiter-warning: "<#E0575B>Du hast die Grenzen von deiner IP-Adresse ausgelastet."
 
     # Message sent when a player tries to change password by entering the same password as the current.
-    password-same-as-old: "&cDas eingegebene Passwort ist dein derzeitiges Passwort."
+    password-same-as-old: "<#E0575B>Das eingegebene Passwort ist dein derzeitiges Passwort."
 
     # Message sent when the password entered is too large.
-    password-too-large: "&cDas eingegebene Passwort ist zu groß."
+    password-too-large: "<#E0575B>Das eingegebene Passwort ist zu groß."
 
     # Message sent when the password entered is too small.
-    password-too-small: "&cDas eingegebene Passwort ist zu klein."
+    password-too-small: "<#E0575B>Das eingegebene Passwort ist zu klein."
 
     # Message sent when a user attempts to disable nLogin using PlugMan/System.
-    plugman-block: "&cDu kannst das Plugin damit nicht berühren."
+    plugman-block: "<#E0575B>Du kannst das Plugin damit nicht berühren."
 
     # Message when a player does not possess the required permission.
-    insufficient-permissions: "&cDu hast keine Rechte diesen Befehl auszuführen."
+    insufficient-permissions: "<#E0575B>Du hast keine Rechte diesen Befehl auszuführen. <#A0A0B0>(<permission>)"
 
     # Message to show the use of a command.
-    command-usage: "&cDu musst {0} benutzen."
+    command-usage: "<#E0575B>Du musst {0} benutzen."
 
     # Message to kick a player now online.
-    already-online: "&cDieser Spieler ist bereits online."
+    already-online: "<#E0575B>Dieser Spieler ist bereits online."
 
     # Message to display that a player is not online.
-    offline-error: "&cDieser Spieler ist offline."
+    offline-error: "<#E0575B>Dieser Spieler ist offline."
 
     # Message to show that the command cannot be executed via console.
-    player-command-usage: "&cDieser Befehl wurde von der Konsole deaktiviert."
+    player-command-usage: "<#E0575B>Dieser Befehl wurde von der Konsole deaktiviert."
 
     # Message to show that a command can only be executed by the console.
-    console-command-usage: "&cDieser Befehl kann nur von der Konsole ausgeführt werden."
+    console-command-usage: "<#E0575B>Dieser Befehl kann nur von der Konsole ausgeführt werden."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&eDas Plugin wurde erfolgreich neugeladen."
+    plugin-reload-message: "<#F2C14E>Das Plugin wurde erfolgreich neugeladen."
 
     # Message shown when the function of a command is disabled.
-    command-function-disabled: "&cDie Funktion von dem Befehl {0} wurde deaktiviert."
+    command-function-disabled: "<#E0575B>Die Funktion von dem Befehl {0} wurde deaktiviert."
 
     # Message sent when a database operation has not been successfully performed.
-    database-error: "&cTut uns leid, wir konnten die Aktion nicht vervollständigen. Bitte versuche es erneut. [SQL FEHLER]"
+    database-error: "<#E0575B>Tut uns leid, wir konnten die Aktion nicht vervollständigen. Bitte versuche es erneut. [SQL FEHLER]"
 
   other-messages:
     # Hover message: /login.
-    hover-message-login: "&7Klick hier um den Befehl zu vervollständigen und dich schneller einzuloggen."
+    hover-message-login: "<#A0A0B0>Klick hier um den Befehl zu vervollständigen und dich schneller einzuloggen."
 
     # Hover message: /register.
-    hover-message-register: "&7Klick hier um den Befehl zu vervollständigen und dich schneller zu registrieren."
+    hover-message-register: "<#A0A0B0>Klick hier um den Befehl zu vervollständigen und dich schneller zu registrieren."
 
     # Command usage: /login
-    message-login: "&eBenutze &7/login <Passwort>&e."
+    message-login: "<#F2C14E>Benutze <#A0A0B0>/login [Passwort]<#F2C14E>."
 
     # Command usage: /register
-    message-register: "&eBenutze &7/register <Passwort> <Passwort>&e."
+    message-register: "<#F2C14E>Benutze <#A0A0B0>/register [Passwort] [Passwort]<#F2C14E>."
 
     # Command usage: /changepassword
-    message-changepassword: "&eBenutze &7/changepassword <derzeitiges Passwort> <neues Passwort>&e."
+    message-changepassword: "<#F2C14E>Benutze <#A0A0B0>/changepassword [derzeitiges Passwort] [neues Passwort]<#F2C14E>."
 
     # Command usage: /checkprofile
-    message-verify: "&eBenutze &7/checkprofile <Spieler>&e."
+    message-verify: "<#F2C14E>Benutze <#A0A0B0>/checkprofile [Spieler]<#F2C14E>."
 
     # Command usage: /unregister
-    message-unregister: "&eBenutze &7/unregister <derzeitiges Passwort>&e."
+    message-unregister: "<#F2C14E>Benutze <#A0A0B0>/unregister [derzeitiges Passwort]<#F2C14E>."

@@ -25,15 +25,16 @@
 package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import com.nickuc.openlogin.bukkit.api.events.AsyncRegisterEvent;
 import com.nickuc.openlogin.bukkit.command.BukkitCommand;
-import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -57,12 +58,12 @@ public class RegisterCommand extends BukkitCommand {
         String name = sender.getName();
         LoginManagement loginManagement = plugin.getLoginManagement();
         if (loginManagement.isAuthenticated(name)) {
-            sender.sendMessage(Messages.ALREADY_LOGIN.asString());
+            ComponentSender.send(sender, Messages.ALREADY_LOGIN.asComponent());
             return;
         }
 
         if (args.length != 2) {
-            sender.sendMessage(Messages.MESSAGE_REGISTER.asString());
+            ComponentSender.send(sender, Messages.MESSAGE_REGISTER.asComponent());
             return;
         }
 
@@ -70,24 +71,24 @@ public class RegisterCommand extends BukkitCommand {
         int passwordLength = password.length();
 
         if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_SMALL.asComponent());
             return;
         }
 
         if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_LARGE.asComponent());
             return;
         }
 
         if (!password.equals(args[1])) {
-            sender.sendMessage(Messages.PASSWORDS_DONT_MATCH.asString());
+            ComponentSender.send(sender, Messages.PASSWORDS_DONT_MATCH.asComponent());
             return;
         }
 
         AccountManagement accountManagement = plugin.getAccountManagement();
         boolean exists = accountManagement.retrieveOrLoad(name).isPresent();
         if (exists) {
-            sender.sendMessage(Messages.ALREADY_REGISTERED.asString());
+            ComponentSender.send(sender, Messages.ALREADY_REGISTERED.asComponent());
             return;
         }
 
@@ -95,7 +96,7 @@ public class RegisterCommand extends BukkitCommand {
         String hashedPassword = BCrypt.hashpw(password, salt);
         String address = sender.getAddress().getAddress().getHostAddress();
         if (!accountManagement.update(name, hashedPassword, address, false)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            ComponentSender.send(sender, Messages.DATABASE_ERROR.asComponent());
             return;
         }
 
@@ -103,8 +104,8 @@ public class RegisterCommand extends BukkitCommand {
         if (registerEvent.callEvt()) {
             plugin.getLoginManagement().setAuthenticated(name);
 
-            TitleAPI.getApi().send(sender, Messages.TITLE_AFTER_REGISTER.asTitle());
-            sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+            ComponentSender.sendTitle(sender, Messages.TITLE_AFTER_REGISTER.asTitle());
+            ComponentSender.send(sender, Messages.SUCCESSFUL_REGISTER.asComponent());
 
             plugin.getFoliaLib().runAtEntity(sender, task -> {
                 sender.setWalkSpeed(0.2F);
@@ -117,12 +118,12 @@ public class RegisterCommand extends BukkitCommand {
 
     private void performConsole(CommandSender sender, String lb, String[] args) {
         if (!sender.hasPermission("openlogin.admin")) {
-            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString("openlogin.admin"));
+            ComponentSender.send(sender, Messages.INSUFFICIENT_PERMISSIONS.asComponent(Placeholder.unparsed("permission", "openlogin.admin")));
             return;
         }
 
         if (args.length != 2) {
-            sender.sendMessage("§cUsage: /" + lb + " <player> <password>");
+            ComponentSender.send(sender, "<#E0575B>Usage: /" + lb + " [player] [password]");
             return;
         }
 
@@ -131,12 +132,12 @@ public class RegisterCommand extends BukkitCommand {
         int passwordLength = password.length();
 
         if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_SMALL.asComponent());
             return;
         }
 
         if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_LARGE.asComponent());
             return;
         }
 
@@ -148,7 +149,7 @@ public class RegisterCommand extends BukkitCommand {
         AccountManagement accountManagement = plugin.getAccountManagement();
         boolean exists = accountManagement.retrieveOrLoad(playerName).isPresent();
         if (exists) {
-            sender.sendMessage(Messages.ALREADY_REGISTERED.asString());
+            ComponentSender.send(sender, Messages.ALREADY_REGISTERED.asComponent());
             return;
         }
 
@@ -157,19 +158,19 @@ public class RegisterCommand extends BukkitCommand {
         String address = playerIfOnline != null ?
                 Objects.requireNonNull(playerIfOnline.getAddress()).getAddress().getHostAddress() : null;
         if (!accountManagement.update(playerName, hashedPassword, address, false)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            ComponentSender.send(sender, Messages.DATABASE_ERROR.asComponent());
             return;
         }
 
-        sender.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+        ComponentSender.send(sender, Messages.SUCCESSFUL_REGISTER.asComponent());
 
         if (playerIfOnline != null) {
             AsyncRegisterEvent registerEvent = new AsyncRegisterEvent(playerIfOnline);
             if (registerEvent.callEvt()) {
                 plugin.getLoginManagement().setAuthenticated(playerName);
 
-                TitleAPI.getApi().send(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
-                playerIfOnline.sendMessage(Messages.SUCCESSFUL_REGISTER.asString());
+                ComponentSender.sendTitle(playerIfOnline, Messages.TITLE_AFTER_REGISTER.asTitle());
+                ComponentSender.send(playerIfOnline, Messages.SUCCESSFUL_REGISTER.asComponent());
 
                 plugin.getFoliaLib().runAtEntity(playerIfOnline, task -> {
                     playerIfOnline.setWalkSpeed(0.2F);

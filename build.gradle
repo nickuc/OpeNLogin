@@ -1,6 +1,11 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '2.4.10' apply false
+}
+
 subprojects {
     apply plugin: 'idea'
     apply plugin: 'java'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
 
     group = 'com.nickuc.openlogin'
     version = '1.6.7'
@@ -17,6 +22,10 @@ subprojects {
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions.jvmTarget = '1.8'
     }
 
     dependencies {

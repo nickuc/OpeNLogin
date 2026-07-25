@@ -25,12 +25,12 @@
 package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.command.BukkitCommand;
-import com.nickuc.openlogin.bukkit.ui.chat.ActionbarAPI;
-import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.util.FileUtils;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -63,13 +63,13 @@ public class OpenLoginCommand extends BukkitCommand {
 
                     plugin.reloadConfig();
                     plugin.setupSettings();
-                    sender.sendMessage(Messages.PLUGIN_RELOAD_MESSAGE.asString());
+                    ComponentSender.send(sender, Messages.PLUGIN_RELOAD_MESSAGE.asComponent());
                     return;
                 }
 
                 case "update": {
                     if (!(sender instanceof Player)) {
-                        sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
+                        ComponentSender.send(sender, Messages.PLAYER_COMMAND_USAGE.asComponent());
                         return;
                     }
 
@@ -80,12 +80,12 @@ public class OpenLoginCommand extends BukkitCommand {
                     }
 
                     if (!plugin.isUpdateAvailable()) {
-                        sender.sendMessage("§cYou are already using the latest version.");
+                        ComponentSender.send(sender, "<#E0575B>You are already using the latest version.");
                         return;
                     }
 
                     if (downloadLock.getAndSet(true)) {
-                        sender.sendMessage("§cDownload in progress...");
+                        ComponentSender.send(sender, "<#E0575B>Download in progress...");
                     } else if (!update(player)) {
                         downloadLock.set(false);
                     }
@@ -94,7 +94,7 @@ public class OpenLoginCommand extends BukkitCommand {
 
                 case "setup": {
                     if (!(sender instanceof Player)) {
-                        sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
+                        ComponentSender.send(sender, Messages.PLAYER_COMMAND_USAGE.asComponent());
                         return;
                     }
 
@@ -103,16 +103,16 @@ public class OpenLoginCommand extends BukkitCommand {
                     }
 
                     if (!confirmOpenLogin.getAndSet(true)) {
-                        sender.sendMessage("");
-                        sender.sendMessage(" §cnLogin is generally a better solution for most users.");
-                        sender.sendMessage(" §7If you want to install §fOpeNLogin §7anyway,");
-                        sender.sendMessage(" §7please click on the message again.");
-                        sender.sendMessage("");
+                        ComponentSender.send(sender, "");
+                        ComponentSender.send(sender, " <#E0575B>nLogin is generally a better solution for most users.");
+                        ComponentSender.send(sender, " <#A0A0B0>If you want to install <white>OpeNLogin <#A0A0B0>anyway,");
+                        ComponentSender.send(sender, " <#A0A0B0>please click on the message again.");
+                        ComponentSender.send(sender, "");
                         return;
                     }
 
                     for (Player on : plugin.getServer().getOnlinePlayers()) {
-                        plugin.getFoliaLib().runAtEntity(on, task -> on.kickPlayer("§aPlease rejoin to complete the plugin installation."));
+                        plugin.getFoliaLib().runAtEntity(on, task -> on.kickPlayer(ComponentSender.toKickString("<#5EC26A>Please rejoin to complete the plugin installation.")));
                     }
 
                     plugin.setNewUser(false);
@@ -127,7 +127,7 @@ public class OpenLoginCommand extends BukkitCommand {
 
                 case "nlogin": {
                     if (!(sender instanceof Player)) {
-                        sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
+                        ComponentSender.send(sender, Messages.PLAYER_COMMAND_USAGE.asComponent());
                         return;
                     }
 
@@ -137,31 +137,31 @@ public class OpenLoginCommand extends BukkitCommand {
                         if (!plugin.getLoginManagement().isAuthenticated(name)) return;
 
                         if (!sender.hasPermission("openlogin.admin")) {
-                            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString("openlogin.admin"));
+                            ComponentSender.send(sender, Messages.INSUFFICIENT_PERMISSIONS.asComponent(Placeholder.unparsed("permission", "openlogin.admin")));
                             return;
                         }
                     }
 
                     if (downloadLock.get()) {
-                        sender.sendMessage("§cDownload in progress...");
+                        ComponentSender.send(sender, "<#E0575B>Download in progress...");
                         return;
                     }
 
                     boolean skip = args.length == 2 && args[1].equalsIgnoreCase("skip");
                     if (!skip && !confirmNLogin.getAndSet(true)) {
-                        sender.sendMessage("");
-                        sender.sendMessage(" §6nLogin §7is a §6proprietary §7authentication plugin,");
-                        sender.sendMessage(" §7updated and maintained by §cnickuc.com§7. This means that you");
-                        sender.sendMessage(" §7cannot view and modify the source code of the plugin.");
-                        sender.sendMessage("");
-                        sender.sendMessage(" §eIf you still have questions, please contact us:");
-                        sender.sendMessage(" §bnickuc.com/discord");
-                        sender.sendMessage("");
-                        sender.sendMessage(" §7To proceed with the download, type §b/openlogin nlogin §7again.");
-                        sender.sendMessage("");
+                        ComponentSender.send(sender, "");
+                        ComponentSender.send(sender, " <#E8A33D>nLogin <#A0A0B0>is a <#E8A33D>proprietary <#A0A0B0>authentication plugin,");
+                        ComponentSender.send(sender, " <#A0A0B0>updated and maintained by <#E0575B>nickuc.com<#A0A0B0>. This means that you");
+                        ComponentSender.send(sender, " <#A0A0B0>cannot view and modify the source code of the plugin.");
+                        ComponentSender.send(sender, "");
+                        ComponentSender.send(sender, " <#F2C14E>If you still have questions, please contact us:");
+                        ComponentSender.send(sender, " <#56CCF2>nickuc.com/discord");
+                        ComponentSender.send(sender, "");
+                        ComponentSender.send(sender, " <#A0A0B0>To proceed with the download, type <#56CCF2>/openlogin nlogin <#A0A0B0>again.");
+                        ComponentSender.send(sender, "");
                     } else {
                         if (downloadLock.getAndSet(true)) {
-                            sender.sendMessage("§cDownload already in progress!");
+                            ComponentSender.send(sender, "<#E0575B>Download already in progress!");
                             return;
                         }
 
@@ -171,12 +171,12 @@ public class OpenLoginCommand extends BukkitCommand {
                                 for (Player on : plugin.getServer().getOnlinePlayers()) {
                                     plugin.getFoliaLib().runAtEntity(on, task -> {
                                         on.closeInventory();
-                                        on.kickPlayer("§anLogin was successfully installed. We are restarting the server to apply the changes.");
+                                        on.kickPlayer(ComponentSender.toKickString("<#5EC26A>nLogin was successfully installed. We are restarting the server to apply the changes."));
                                     });
                                 }
                                 plugin.getServer().shutdown();
                             };
-                            TitleAPI.getApi().reset(player);
+                            ComponentSender.resetTitle(player);
                         }
                         if (!downloadNLogin(player, callback)) {
                             downloadLock.set(false);
@@ -187,12 +187,12 @@ public class OpenLoginCommand extends BukkitCommand {
             }
         }
 
-        sender.sendMessage("");
-        sender.sendMessage(" §eThis server is running §fOpenLogin v " + plugin.getDescription().getVersion() + ".");
-        sender.sendMessage(" §7Powered by §bwww.nickuc.com§7.");
-        sender.sendMessage("");
-        sender.sendMessage(" §7GitHub: §fhttps://github.com/nickuc-com/OpeNLogin");
-        sender.sendMessage("");
+        ComponentSender.send(sender, "");
+        ComponentSender.send(sender, " <#F2C14E>This server is running <white>OpenLogin v " + plugin.getDescription().getVersion() + ".");
+        ComponentSender.send(sender, " <#A0A0B0>Powered by <#56CCF2>www.nickuc.com<#A0A0B0>.");
+        ComponentSender.send(sender, "");
+        ComponentSender.send(sender, " <#A0A0B0>GitHub: <white>https://github.com/nickuc-com/OpeNLogin");
+        ComponentSender.send(sender, "");
     }
 
     private boolean update(Player player) {
@@ -206,15 +206,15 @@ public class OpenLoginCommand extends BukkitCommand {
     }
 
     private boolean downloadActionbar(Player player, String url, File output, boolean update, Runnable callback) {
-        player.sendMessage("§eDownloading...");
-        ActionbarAPI.getApi().send(player, "§eConnecting...");
+        ComponentSender.send(player, "<#F2C14E>Downloading...");
+        ComponentSender.sendActionbar(player, "<#F2C14E>Connecting...");
 
         final int barsCount = 40;
         final HttpClient.AsyncDownloadResult downloadResult;
         try {
             if ((downloadResult = HttpClient.DEFAULT.download(url, output)) == null) {
-                ActionbarAPI.getApi().send(player, "§cDownload failed!");
-                player.sendMessage("§cDownload failed, could not delete old file.");
+                ComponentSender.sendActionbar(player, "<#E0575B>Download failed!");
+                ComponentSender.send(player, "<#E0575B>Download failed, could not delete old file.");
                 return false;
             }
         } catch (IOException exception) {
@@ -227,21 +227,21 @@ public class OpenLoginCommand extends BukkitCommand {
         plugin.getFoliaLib().runAtEntityTimer(player, task -> {
             if (downloadFinished.get()) {
                 if (downloadSuccessful.get()) {
-                    ActionbarAPI.getApi().send(player, "§aDownload finished! §7(§a" + repeatString("|", barsCount) + "§7)");
-                    player.sendMessage("§aDownload finished. Please restart your server.");
+                    ComponentSender.sendActionbar(player, "<#5EC26A>Download finished! <#A0A0B0>(<#5EC26A>" + repeatString("|", barsCount) + "<#A0A0B0>)");
+                    ComponentSender.send(player, "<#5EC26A>Download finished. Please restart your server.");
                     if (callback != null) {
                         callback.run();
                     }
                 } else {
-                    ActionbarAPI.getApi().send(player, "§cDownload failed! §7(§a" + repeatString("|", barsCount) + "§7)");
-                    player.sendMessage("§cDownload failed, please try again.");
+                    ComponentSender.sendActionbar(player, "<#E0575B>Download failed! <#A0A0B0>(<#5EC26A>" + repeatString("|", barsCount) + "<#A0A0B0>)");
+                    ComponentSender.send(player, "<#E0575B>Download failed, please try again.");
                 }
                 task.cancel();
                 return;
             }
             int bars = (int) (barsCount * (downloadResult.downloaded() / downloadResult.contentLength()));
-            String progressBar = "§a" + repeatString("|", bars) + "§c" + repeatString("|", barsCount - bars);
-            ActionbarAPI.getApi().send(player, "§eDownloading... §7(" + progressBar + "§7)");
+            String progressBar = "<#5EC26A>" + repeatString("|", bars) + "<#E0575B>" + repeatString("|", barsCount - bars);
+            ComponentSender.sendActionbar(player, "<#F2C14E>Downloading... <#A0A0B0>(" + progressBar + "<#A0A0B0>)");
         }, 0, 200, TimeUnit.MILLISECONDS);
 
         try {
@@ -253,11 +253,14 @@ public class OpenLoginCommand extends BukkitCommand {
         } catch (IOException exception) {
             downloadLock.set(false);
             exception.printStackTrace();
-            String msg = update ?
+            String consoleMsg = update ?
                     "§cFailed to download new version. Update manually at: https://github.com/nickuc-com/OpeNLogin/releases" :
                     "§cFailed to download nLogin :c. Download manually at: nickuc.com";
-            plugin.sendMessage(msg);
-            player.sendMessage(msg);
+            String playerMsg = update ?
+                    "<#E0575B>Failed to download new version. Update manually at: https://github.com/nickuc-com/OpeNLogin/releases" :
+                    "<#E0575B>Failed to download nLogin :c. Download manually at: nickuc.com";
+            plugin.sendMessage(consoleMsg);
+            ComponentSender.send(player, playerMsg);
         } finally {
             downloadFinished.set(true);
         }

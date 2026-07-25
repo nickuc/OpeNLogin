@@ -25,10 +25,12 @@
 package com.nickuc.openlogin.bukkit.command;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.command.ext.OpenLoginCommand;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.settings.Messages;
 import lombok.NonNull;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -63,7 +65,7 @@ public abstract class BukkitCommand implements CommandExecutor {
                 return true;
             }
         } else if (!sender.hasPermission(permission)) {
-            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString(permission));
+            ComponentSender.send(sender, Messages.INSUFFICIENT_PERMISSIONS.asComponent(Placeholder.unparsed("permission", permission)));
             return true;
         }
 

@@ -14,4 +14,6 @@ shadowJar {
     def libPkg = project.group + '.lib.'
     relocate 'org.bstats', libPkg + 'bstats'
     relocate 'com.tcoded.folialib', libPkg + 'folialib'
+    relocate 'net.kyori', libPkg + 'adventure'
+    relocate 'kotlin', libPkg + 'kotlin'
 }

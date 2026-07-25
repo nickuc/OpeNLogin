@@ -22,29 +22,27 @@
  * SOFTWARE.
  */
 
-package com.nickuc.openlogin.bukkit.ui.chat;
+package com.nickuc.openlogin.bukkit.adventure
 
-import com.nickuc.openlogin.bukkit.ui.chat.impl.SpigotActionbarImpl;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences
+import org.bukkit.plugin.Plugin
 
-public class ActionbarAPIHolder {
+object AudienceProvider {
 
-    private static ActionbarAPI api;
+    private var audiences: BukkitAudiences? = null
 
-    static {
-        try {
-            api = new SpigotActionbarImpl();
-        } catch (ReflectiveOperationException ignored) {
-            // Spigot Actionbar API is not available, fall back to the default no-op implementation
-        }
-
-        if (api == null) {
-            api = (player, message) -> {
-                // Default no-op implementation
-            };
-        }
+    @JvmStatic
+    fun init(plugin: Plugin) {
+        audiences = BukkitAudiences.create(plugin)
     }
 
-    static ActionbarAPI getApi() {
-        return api;
+    @JvmStatic
+    fun get(): BukkitAudiences =
+        audiences ?: throw IllegalStateException("AudienceProvider.init(plugin) was not called")
+
+    @JvmStatic
+    fun close() {
+        audiences?.close()
+        audiences = null
     }
 }

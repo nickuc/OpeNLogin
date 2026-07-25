@@ -16,16 +16,16 @@ Messages:
   Title:
     # Message sent before login.
     before-login:
-      title: "&a&lSveiki!"
-      subtitle: "&7Naudokite: /login <Tavo slaptažodis>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>Sveiki!</bold></gradient>"
+      subtitle: "<#A0A0B0>Naudokite: /login [Tavo slaptažodis]"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Message sent before registration.
     before-register:
-      title: "&a&lSveiki!"
-      subtitle: "&7Naudokite: /register <Slaptažodis> <Slaptažodis>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>Sveiki!</bold></gradient>"
+      subtitle: "<#A0A0B0>Naudokite: /register [Slaptažodis] [Slaptažodis]"
       delays:
         start: 0
         duration: 9999
@@ -33,7 +33,7 @@ Messages:
     # Message sent after login.
     after-login:
       title: ""
-      subtitle: "&aJūs sėkmingai prisijungėte!"
+      subtitle: "<#5EC26A>Jūs sėkmingai prisijungėte!"
       delays:
         start: 0
         duration: 60
@@ -41,7 +41,7 @@ Messages:
     # Message sent after registration.
     after-register:
       title: ""
-      subtitle: "&aJūs sėkmingai Užsiregistravote!"
+      subtitle: "<#5EC26A>Jūs sėkmingai Užsiregistravote!"
       delays:
         start: 0
         duration: 60
@@ -49,7 +49,7 @@ Messages:
     # Message sent when you miss a password.
     incorrect-password:
       title: ""
-      subtitle: "&cNeteisingas slaptažodis!"
+      subtitle: "<#E0575B>Neteisingas slaptažodis!"
       delays:
         start: 0
         duration: 60
@@ -57,7 +57,7 @@ Messages:
     # Message sent when already logged in.
     already-login:
       title: ""
-      subtitle: "&cJūs jau prisijungęs!"
+      subtitle: "<#E0575B>Jūs jau prisijungęs!"
       delays:
         start: 0
         duration: 60
@@ -65,7 +65,7 @@ Messages:
     # Message sent when already registered.
     already-registered:
       title: ""
-      subtitle: "&cJūs jau prisiregistavęs!"
+      subtitle: "<#E0575B>Jūs jau prisiregistavęs!"
       delays:
         start: 0
         duration: 60
@@ -73,7 +73,7 @@ Messages:
     # Message sent when passwords are not equal.
     passwords-dont-match:
       title: ""
-      subtitle: "&cSlaptažodžiai nesutampa!"
+      subtitle: "<#E0575B>Slaptažodžiai nesutampa!"
       delays:
         start: 0
         duration: 60
@@ -81,7 +81,7 @@ Messages:
     # Message sent when session is continued.
     session-login:
       title: ""
-      subtitle: "&eJūsų prisijungimo sesija yra tęsiama."
+      subtitle: "<#F2C14E>Jūsų prisijungimo sesija yra tęsiama."
       delays:
         start: 0
         duration: 60
@@ -89,7 +89,7 @@ Messages:
     # Message sent when you are an original player.
     premium-login:
       title: ""
-      subtitle: "&eJūsų paskyra yra unikali, sėkmingai prisijungėte."
+      subtitle: "<#F2C14E>Jūsų paskyra yra unikali, sėkmingai prisijungėte."
       delays:
         start: 0
         duration: 60
@@ -97,7 +97,7 @@ Messages:
     # Message sent when a login session is continued.
     plugin-reload:
       title: ""
-      subtitle: "&aKonfigūracijos ir kalbos failai buvo perkrauti."
+      subtitle: "<#5EC26A>Konfigūracijos ir kalbos failai buvo perkrauti."
       delays:
         start: 0
         duration: 60
@@ -105,7 +105,7 @@ Messages:
     # Message sent from backup system.
     backup:
       title: ""
-      subtitle: "&aAtsarginė kopija sukurta sėkmingai."
+      subtitle: "<#5EC26A>Atsarginė kopija sukurta sėkmingai."
       delays:
         start: 0
         duration: 90
@@ -113,7 +113,7 @@ Messages:
     # Message sent from backup system.
     backup-error:
       title: ""
-      subtitle: "&cNeišėjo sukurti atsarginės kopijos."
+      subtitle: "<#E0575B>Neišėjo sukurti atsarginės kopijos."
       delays:
         start: 0
         duration: 90
@@ -121,7 +121,7 @@ Messages:
     # Message sent from security system.
     security-warning:
       title: ""
-      subtitle: "&cChat'e išsiustas naujas saugumo įspėjimas"
+      subtitle: "<#E0575B>Chat'e išsiustas naujas saugumo įspėjimas"
       delays:
         start: 0
         duration: 60
@@ -129,230 +129,230 @@ Messages:
 
   action-bar:
     # Message sent on the player's actionbar before login (singular).
-    singular: "&cJūs turite {0} sekundę, kad {prisijunktumėte/Užsiregistruotumėte}."
+    singular: "<#E0575B>Jūs turite {0} sekundę, kad {prisijunktumėte/Užsiregistruotumėte}."
 
     # Message sent on the player's actionbar before login (plural).
-    plural: "&cJūs turite {0} sekundes kad {lprisijunktumėte/Užsoregistruotumėte}."
+    plural: "<#E0575B>Jūs turite {0} sekundes kad {lprisijunktumėte/Užsoregistruotumėte}."
 
   delay-kick:
     # Message sent when a user takes a long time to register.
-    register-kick: "&cPer ilgai užtrukote registruodamiesi."
+    register-kick: "<#E0575B>Per ilgai užtrukote registruodamiesi."
 
     # Message sent when a user takes a long time to log in.
-    login-kick: "&cPer ilgai užtrukote prisijunkdami."
+    login-kick: "<#E0575B>Per ilgai užtrukote prisijunkdami."
 
   successful-operations:
     # Message when a user exchanges their password.
-    password-changed: "&aJūsų slaptažodis buvo sėkmingai pakeistas."
+    password-changed: "<#5EC26A>Jūsų slaptažodis buvo sėkmingai pakeistas."
 
     # Message sent when a user successfully logs.
-    successful-login: "&aJūs sėkmingai prisijungėte."
+    successful-login: "<#5EC26A>Jūs sėkmingai prisijungėte."
 
     # Message sent when a user logs in with an original account.
-    successful-premium-login: "&aJūs esate automatiškai prisijungęs, kai naudojate unikalią paskyrą."
+    successful-premium-login: "<#5EC26A>Jūs esate automatiškai prisijungęs, kai naudojate unikalią paskyrą."
 
     # Message sent when a user logs in using the same ip address.
-    successful-session-login: "&aJūsų prisijungimo sesija yra tęsiama."
+    successful-session-login: "<#5EC26A>Jūsų prisijungimo sesija yra tęsiama."
 
     # Message sent when a user successfully registers.
-    successful-register: "&aJūs sėkmingai užsiregistravote."
+    successful-register: "<#5EC26A>Jūs sėkmingai užsiregistravote."
 
     # Message sent when you force a player's login.
-    forcelogin: "&eJūs buvote prijunktas {0}"
+    forcelogin: "<#F2C14E>Jūs buvote prijunktas {0}"
 
     # Message sent when a player successfully unregister.
-    unregister-kick: "&cJūs sėkmingai išsiregistravote."
+    unregister-kick: "<#E0575B>Jūs sėkmingai išsiregistravote."
 
     # Message sent when a configuration is finished
-    config-finished: "&aConfiguracija baigta."
+    config-finished: "<#5EC26A>Configuracija baigta."
 
     # Message sent when a configuration is cancelled
-    config-cancelled: "&cVeiksmas atšauktas."
+    config-cancelled: "<#E0575B>Veiksmas atšauktas."
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname.
-    nick-already-registered: "&cJūs negalite įeiti su slapyvardziu {0}&r\n&r&cdėl to nes šis slapyvardis jau užregistruotas kaip {1}&r\n&r\n&r&cKad, įeiti turite naudoti savo slapyvardį be didžiųjų/mažųjų raidžių"
+    nick-already-registered: "<#E0575B>Jūs negalite įeiti su slapyvardziu <nickname>\n<#E0575B>dėl to nes šis slapyvardis jau užregistruotas kaip <realname>\n\n<#E0575B>Kad, įeiti turite naudoti savo slapyvardį be didžiųjų/mažųjų raidžių"
 
     # Message sent when a user misses many times.
-    failed-many-times: "&cĮvedėte neteisingą slaptažodį."
+    failed-many-times: "<#E0575B>Įvedėte neteisingą slaptažodį."
 
     # Message sent when password entered is incorrect.
-    incorrect-password: "&cNeteisingas slaptažodis. Bandykite dar kartą."
+    incorrect-password: "<#E0575B>Neteisingas slaptažodis. Bandykite dar kartą."
 
     # Message sent when the security questions answer is incorrect.
-    incorrect-answer: "&cNeteisingas atsakymas. Bandykite dar kartą."
+    incorrect-answer: "<#E0575B>Neteisingas atsakymas. Bandykite dar kartą."
 
     # Message sent when server is still starting.
-    wait-server-start: "&cServeris dar nėra visiškai paleistas.\n&cTruputi palaukite, kad prisijunkti."
+    wait-server-start: "<#E0575B>Serveris dar nėra visiškai paleistas.\n<#E0575B>Truputi palaukite, kad prisijunkti."
 
     # Message sent when an IP is blocked by suspected invasion.
-    account-blocked: "&cJūsų adresas buvo užblokuotas dėl įtariamos invazijos.&r\n&r&cLikęs užblokavimo laikas: {0}"
+    account-blocked: "<#E0575B>Jūsų adresas buvo užblokuotas dėl įtariamos invazijos.\n<#E0575B>Likęs užblokavimo laikas: {0}"
 
     # Message sent when two-factor system temporary password is incorrect.
-    incorrect-temporary-password: "&cNeteisingas slaptažodis.Bandykite dar kartą."
+    incorrect-temporary-password: "<#E0575B>Neteisingas slaptažodis.Bandykite dar kartą."
 
     # Message to kick a user with an invalid nickname.
-    invalid-nickname: "&cJūsų slapyvardis yra neteisingas, iš vardo pašalinkite tarpus, simbolius ir netinkamus simbolius."
+    invalid-nickname: "<#E0575B>Jūsų slapyvardis yra neteisingas, iš vardo pašalinkite tarpus, simbolius ir netinkamus simbolius."
 
     # Message sent when the player's account has already been registered as unique.
-    premium-account: "&cAtsiprašome, bet premium vartotojas (nusipirkęs minecraft) jau prisijungė prie šios paskyros.&r\n&r&cNorėdami žaisti serveryje, turite naudoti kitą slapyvardį.&r\n&r\nJei esate šios paskyros savininkas, pabandykite iš naujo paleisti „Minecraft“."
+    premium-account: "<#E0575B>Atsiprašome, bet premium vartotojas (nusipirkęs minecraft) jau prisijungė prie šios paskyros.\n<#E0575B>Norėdami žaisti serveryje, turite naudoti kitą slapyvardį.\n\nJei esate šios paskyros savininkas, pabandykite iš naujo paleisti „Minecraft“."
 
   security-messages:
     # Message sent when a user was protected by the heuristic system.
     hacking-attack-warning:
       - ""
-      - " &c&lSAUGUMO ĮSPĖJIMAS"
-      - " &cSaugumo sistema užblokavo galimas įsilaužimo atakas jūsų paskyroje."
-      - " &cBuvo bandyta tris kartus nesėkmingai prisijungti."
+      - " <#E0575B><bold>SAUGUMO ĮSPĖJIMAS"
+      - " <#E0575B>Saugumo sistema užblokavo galimas įsilaužimo atakas jūsų paskyroje."
+      - " <#E0575B>Buvo bandyta tris kartus nesėkmingai prisijungti."
       - ""
-      - " &e&lPATARIMAS: &eNAudokite skirtingus slaptažodžius skirtinguose serveriuose."
+      - " <#F2C14E><bold>PATARIMAS: <#F2C14E>NAudokite skirtingus slaptažodžius skirtinguose serveriuose."
 
     # Message sent when a user was protected more than once by the heuristic system.
     hacking-attack-warning2:
       - ""
-      - " &c&lSAUGUMO ĮSPĖJIMAS"
-      - " &cSaugumo sistema užblokavo {0} galimas įsilaužimo atakas jūsų paskyroje."
-      - " &cBuvo bandyta tris kartus nesėkmingai prisijungti."
+      - " <#E0575B><bold>SAUGUMO ĮSPĖJIMAS"
+      - " <#E0575B>Saugumo sistema užblokavo {0} galimas įsilaužimo atakas jūsų paskyroje."
+      - " <#E0575B>Buvo bandyta tris kartus nesėkmingai prisijungti."
       - ""
-      - " &e&Susisiekite su serverio administatoriais."
+      - " <#F2C14E>&Susisiekite su serverio administatoriais."
       - ""
 
     # Message sent when a user uses a weak password.
     weak-password:
       - ""
-      - " &cUžregistruotas slaptažodis laikomas nesaugiu."
-      - " &cNorėdami pagerinti saugumą, naudokite raides, skaičius ir simbolius."
-      - " &cSaugaus slaptažodžio pavyzdys: {0}"
+      - " <#E0575B>Užregistruotas slaptažodis laikomas nesaugiu."
+      - " <#E0575B>Norėdami pagerinti saugumą, naudokite raides, skaičius ir simbolius."
+      - " <#E0575B>Saugaus slaptažodžio pavyzdys: {0}"
       - ""
 
     # Message sent when a player has not yet registered the security questions.
     security-question-warn-message:
       - ""
-      - " &c&lAPSAUGOS KLAUSIMAI"
-      - " &7Norėdami užsiregistruoti, spustelėkite šį pranešimą"
-      - " &cApsaugos klausimai&7. Tai darydami"
-      - " &7sumažinsite įsilaužimo tikimybę."
+      - " <#E0575B><bold>APSAUGOS KLAUSIMAI"
+      - " <#A0A0B0>Norėdami užsiregistruoti, spustelėkite šį pranešimą"
+      - " <#E0575B>Apsaugos klausimai<#A0A0B0>. Tai darydami"
+      - " <#A0A0B0>sumažinsite įsilaužimo tikimybę."
       - ""
 
     # Message sent when a security question is being added.
     security-question-add:
       - ""
-      - " &e{0}"
+      - " <#F2C14E>{0}"
       - ""
-      - " &7Norėdami atšaukti operaciją, įveskite &f'cancel'."
-      - " &7Spustelėkite šį pranešimą, kad sugeneruotumėte kitą klausimą."
+      - " <#A0A0B0>Norėdami atšaukti operaciją, įveskite [white]'cancel'."
+      - " <#A0A0B0>Spustelėkite šį pranešimą, kad sugeneruotumėte kitą klausimą."
       - ""
 
     # Message sent when a security question should be reviewed.
     security-question-check:
       - ""
-      - " &aPrieš patvirtindami, patikrinkite informaciją:"
+      - " <#5EC26A>Prieš patvirtindami, patikrinkite informaciją:"
       - ""
-      - " &7{0}: &f'{1}'"
+      - " <#A0A0B0>{0}: [white]'{1}'"
       - ""
-      - " &aJei esate tikras, įveskite &f'confirm'&a."
-      - " &eJei įvedėte kažką ne taip, įveskite &f'repeat'&e."
-      - " &cJei norite atšaukti šią operaciją, įveskite &f'cancel'&c."
+      - " <#5EC26A>Jei esate tikras, įveskite [white]'confirm'<#5EC26A>."
+      - " <#F2C14E>Jei įvedėte kažką ne taip, įveskite [white]'repeat'<#F2C14E>."
+      - " <#E0575B>Jei norite atšaukti šią operaciją, įveskite [white]'cancel'<#E0575B>."
       - ""
 
     # Message sent when security questions are requested.
     security-question-request:
       - ""
-      - " &aAtsiprašome, bet reikalingas tapatybės patvirtinimas."
-      - " &aAtsakykite į pateiktą klausimą chat'e:"
+      - " <#5EC26A>Atsiprašome, bet reikalingas tapatybės patvirtinimas."
+      - " <#5EC26A>Atsakykite į pateiktą klausimą chat'e:"
       - ""
-      - " &b{0}"
+      - " <#56CCF2>{0}"
       - ""
 
     # Message sent when security questions are requested a second time.
     security-question-request2:
-      - "&aKitas klausimas..."
+      - "<#5EC26A>Kitas klausimas..."
       - ""
-      - " &b{0}"
+      - " <#56CCF2>{0}"
       - ""
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&cJūs jau esate prisijungęs."
+    already-login: "<#E0575B>Jūs jau esate prisijungęs."
 
     # Message sent when a user is already logged in.
-    already-login2: "&cŠis žaidėjau jau prisijungęs."
+    already-login2: "<#E0575B>Šis žaidėjau jau prisijungęs."
 
     # Message sent when a nickname has already been registered.
-    already-registered: "&cŠis slapyvardis jau buvo užregistruotas."
+    already-registered: "<#E0575B>Šis slapyvardis jau buvo užregistruotas."
 
     # Message sent when a nickname has not yet been registered.
-    not-registered: "&cŠis slapyvardis dar nebuvo užregistruotas."
+    not-registered: "<#E0575B>Šis slapyvardis dar nebuvo užregistruotas."
 
     # Message sent when the entered password is not equal to the second.
-    passwords-dont-match: "&cSlaptažodžiai nėra vienodi."
+    passwords-dont-match: "<#E0575B>Slaptažodžiai nėra vienodi."
 
     # Message sent when a player does not confirm your password.
-    need-password-confirmation: "&cTurite patvirtinti savo slaptažodį."
+    need-password-confirmation: "<#E0575B>Turite patvirtinti savo slaptažodį."
 
     # Message sent when a user does not have a temporary password.
-    no-temporary-password: "&cLaikinas slaptažodis dar nesugeneruotas."
+    no-temporary-password: "<#E0575B>Laikinas slaptažodis dar nesugeneruotas."
 
     # Message sent when IP limits per player pass the limit.
-    address-limiter-warning: "&cJūs išnaudojote žaidėjų limitą per IP adresą."
+    address-limiter-warning: "<#E0575B>Jūs išnaudojote žaidėjų limitą per IP adresą."
 
     # Message sent when a player tries to change password by entering the same password as the current.
-    password-same-as-old: "&cĮvestas slaptažodis yra toks pats kaip dabartinis."
+    password-same-as-old: "<#E0575B>Įvestas slaptažodis yra toks pats kaip dabartinis."
 
     # Message sent when the password entered is too large.
-    password-too-large: "&cĮvestas slaptažodis per ilgas."
+    password-too-large: "<#E0575B>Įvestas slaptažodis per ilgas."
 
     # Message sent when the password entered is too small.
-    password-too-small: "&cĮvestas slaptažodis per trumpas."
+    password-too-small: "<#E0575B>Įvestas slaptažodis per trumpas."
 
     # Message sent when a user attempts to disable nLogin using PlugMan/System.
-    plugman-block: "&cJūs negalite liesti plugino (naudokite /nlogin reload)."
+    plugman-block: "<#E0575B>Jūs negalite liesti plugino (naudokite /nlogin reload)."
 
     # Message when a player does not possess the required permission.
-    insufficient-permissions: "&cJūs neturite leidimo vykdyti šią komandą."
+    insufficient-permissions: "<#E0575B>Jūs neturite leidimo vykdyti šią komandą. <#A0A0B0>(<permission>)"
 
     # Message to show the use of a command.
-    command-usage: "&cJūs turite naudoti {0}."
+    command-usage: "<#E0575B>Jūs turite naudoti {0}."
 
     # Message to kick a player now online.
-    already-online: "&cŠis žaidėjas jau prisijungęs."
+    already-online: "<#E0575B>Šis žaidėjas jau prisijungęs."
 
     # Message to display that a player is not online.
-    offline-error: "&cNorimas žaidėjas neprisijungęs."
+    offline-error: "<#E0575B>Norimas žaidėjas neprisijungęs."
 
     # Message to show that the command cannot be executed via console.
-    player-command-usage: "&cŠi komanda buvo išjungta per konsolę."
+    player-command-usage: "<#E0575B>Ši komanda buvo išjungta per konsolę."
 
     # Message to show that a command can only be executed by the console.
-    console-command-usage: "&cŠią komandą galima naudoti tik per konsolę."
+    console-command-usage: "<#E0575B>Šią komandą galima naudoti tik per konsolę."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&ePapildinys sėkmingai perkrautas."
+    plugin-reload-message: "<#F2C14E>Papildinys sėkmingai perkrautas."
 
     # Message shown when the function of a command is disabled.
-    command-function-disabled: "&cKomandos funkcija {0} yra išjungta."
+    command-function-disabled: "<#E0575B>Komandos funkcija {0} yra išjungta."
 
     # Message sent when a database operation has not been successfully performed.
-    database-error: "&cDeja, mums nepavyko užbaigti šios operacijos. Prašau, pabandykite dar kartą. [SQL FAIL]"
+    database-error: "<#E0575B>Deja, mums nepavyko užbaigti šios operacijos. Prašau, pabandykite dar kartą. [SQL FAIL]"
 
   other-messages:
     # Hover message: /login.
-    hover-message-login: "&7Spustelėkite čia, kad užbaigtumėte komandą ir greitai prisijungtumėte."
+    hover-message-login: "<#A0A0B0>Spustelėkite čia, kad užbaigtumėte komandą ir greitai prisijungtumėte."
 
     # Hover message: /register.
-    hover-message-register: "&7Spustelėkite čia, kad užbaigtumėte komandą ir greitai užregistruotumėte."
+    hover-message-register: "<#A0A0B0>Spustelėkite čia, kad užbaigtumėte komandą ir greitai užregistruotumėte."
 
     # Command usage: /login
-    message-login: "&eNaudokite komandą &7/login <slaptažodis>&e."
+    message-login: "<#F2C14E>Naudokite komandą <#A0A0B0>/login [slaptažodis]<#F2C14E>."
 
     # Command usage: /register
-    message-register: "&eNaudokite komandą &7/register <slaptažodis> <slaptažodis>&e."
+    message-register: "<#F2C14E>Naudokite komandą <#A0A0B0>/register [slaptažodis] [slaptažodis]<#F2C14E>."
 
     # Command usage: /changepassword
-    message-changepassword: "&eNaudokite komandą &7/changepassword <dabartinis slaptažodis> <naujas slaptažodis>&e."
+    message-changepassword: "<#F2C14E>Naudokite komandą <#A0A0B0>/changepassword [dabartinis slaptažodis] [naujas slaptažodis]<#F2C14E>."
 
     # Command usage: /checkprofile
-    message-verify: "&eNaudokite komandą &7/checkprofile <žaidėjas>&e."
+    message-verify: "<#F2C14E>Naudokite komandą <#A0A0B0>/checkprofile [žaidėjas]<#F2C14E>."
 
     # Command usage: /unregister
-    message-unregister: "&eNaudokite komandą &7/unregister <dabartinis slaptažodis>&e."
+    message-unregister: "<#F2C14E>Naudokite komandą <#A0A0B0>/unregister [dabartinis slaptažodis]<#F2C14E>."

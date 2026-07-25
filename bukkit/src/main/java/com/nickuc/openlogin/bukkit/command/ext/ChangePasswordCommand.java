@@ -25,12 +25,14 @@
 package com.nickuc.openlogin.bukkit.command.ext;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.command.BukkitCommand;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.model.Account;
 import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -53,7 +55,7 @@ public class ChangePasswordCommand extends BukkitCommand {
 
     private void performPlayer(Player sender, String lb, String[] args) {
         if (args.length != 2) {
-            sender.sendMessage(Messages.MESSAGE_CHANGEPASSWORD.asString());
+            ComponentSender.send(sender, Messages.MESSAGE_CHANGEPASSWORD.asComponent());
             return;
         }
 
@@ -62,17 +64,17 @@ public class ChangePasswordCommand extends BukkitCommand {
         int passwordLength = newPassword.length();
 
         if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_SMALL.asComponent());
             return;
         }
 
         if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_LARGE.asComponent());
             return;
         }
 
         if (currentPassword.equals(newPassword)) {
-            sender.sendMessage(Messages.PASSWORD_SAME_AS_OLD.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_SAME_AS_OLD.asComponent());
             return;
         }
 
@@ -80,13 +82,13 @@ public class ChangePasswordCommand extends BukkitCommand {
         String name = sender.getName();
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(name);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            ComponentSender.send(sender, Messages.NOT_REGISTERED.asComponent());
             return;
         }
 
         Account account = accountOpt.get();
         if (!accountManagement.comparePassword(account, currentPassword)) {
-            sender.sendMessage(Messages.PASSWORDS_DONT_MATCH.asString());
+            ComponentSender.send(sender, Messages.PASSWORDS_DONT_MATCH.asComponent());
             return;
         }
 
@@ -94,21 +96,21 @@ public class ChangePasswordCommand extends BukkitCommand {
         String hashedPassword = BCrypt.hashpw(newPassword, salt);
         String address = Objects.requireNonNull(sender.getAddress()).getAddress().getHostAddress();
         if (!accountManagement.update(name, hashedPassword, address)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            ComponentSender.send(sender, Messages.DATABASE_ERROR.asComponent());
             return;
         }
 
-        sender.sendMessage(Messages.PASSWORD_CHANGED.asString());
+        ComponentSender.send(sender, Messages.PASSWORD_CHANGED.asComponent());
     }
 
     private void performConsole(CommandSender sender, String lb, String[] args) {
         if (!sender.hasPermission("openlogin.admin")) {
-            sender.sendMessage(Messages.INSUFFICIENT_PERMISSIONS.asString("openlogin.admin"));
+            ComponentSender.send(sender, Messages.INSUFFICIENT_PERMISSIONS.asComponent(Placeholder.unparsed("permission", "openlogin.admin")));
             return;
         }
 
         if (args.length != 2) {
-            sender.sendMessage("§cUsage: /" + lb + " <player> <new password>");
+            ComponentSender.send(sender, "<#E0575B>Usage: /" + lb + " [player] [new password]");
             return;
         }
 
@@ -117,12 +119,12 @@ public class ChangePasswordCommand extends BukkitCommand {
         int passwordLength = newPassword.length();
 
         if (passwordLength <= Settings.PASSWORD_SMALL.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_SMALL.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_SMALL.asComponent());
             return;
         }
 
         if (passwordLength >= Settings.PASSWORD_LARGE.asInt()) {
-            sender.sendMessage(Messages.PASSWORD_TOO_LARGE.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_TOO_LARGE.asComponent());
             return;
         }
 
@@ -134,13 +136,13 @@ public class ChangePasswordCommand extends BukkitCommand {
         AccountManagement accountManagement = plugin.getAccountManagement();
         Optional<Account> accountOpt = accountManagement.retrieveOrLoad(playerName);
         if (!accountOpt.isPresent()) {
-            sender.sendMessage(Messages.NOT_REGISTERED.asString());
+            ComponentSender.send(sender, Messages.NOT_REGISTERED.asComponent());
             return;
         }
 
         Account account = accountOpt.get();
         if (accountManagement.comparePassword(account, newPassword)) {
-            sender.sendMessage(Messages.PASSWORD_SAME_AS_OLD.asString());
+            ComponentSender.send(sender, Messages.PASSWORD_SAME_AS_OLD.asComponent());
             return;
         }
 
@@ -149,14 +151,14 @@ public class ChangePasswordCommand extends BukkitCommand {
         String address = playerIfOnline != null ?
                 Objects.requireNonNull(playerIfOnline.getAddress()).getAddress().getHostAddress() : null;
         if (!accountManagement.update(playerName, hashedPassword, address)) {
-            sender.sendMessage(Messages.DATABASE_ERROR.asString());
+            ComponentSender.send(sender, Messages.DATABASE_ERROR.asComponent());
             return;
         }
 
-        sender.sendMessage(Messages.PASSWORD_CHANGED.asString());
+        ComponentSender.send(sender, Messages.PASSWORD_CHANGED.asComponent());
 
         if (playerIfOnline != null) {
-            playerIfOnline.sendMessage(Messages.PASSWORD_CHANGED.asString());
+            ComponentSender.send(playerIfOnline, Messages.PASSWORD_CHANGED.asComponent());
         }
     }
 }

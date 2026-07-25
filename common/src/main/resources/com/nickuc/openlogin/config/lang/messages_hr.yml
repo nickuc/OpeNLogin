@@ -12,16 +12,16 @@ Messages:
   Title:
     # Message sent before login
     before-login:
-      title: "&a&lDobrodošli!"
-      subtitle: "&7Koristite: /login <lozinka>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>Dobrodošli!</bold></gradient>"
+      subtitle: "<#A0A0B0>Koristite: /login [lozinka]"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Message sent before registration
     before-register:
-      title: "&a&lDobrodošli!"
-      subtitle: "&7Koristite: /register <lozinka> <lozinka>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>Dobrodošli!</bold></gradient>"
+      subtitle: "<#A0A0B0>Koristite: /register [lozinka] [lozinka]"
       delays:
         start: 0
         duration: 9999
@@ -29,7 +29,7 @@ Messages:
     # Message sent after login
     after-login:
       title: ""
-      subtitle: "&aUspjeli ste se logirat!"
+      subtitle: "<#5EC26A>Uspjeli ste se logirat!"
       delays:
         start: 0
         duration: 60
@@ -37,7 +37,7 @@ Messages:
     # Message sent after register
     after-register:
       title: ""
-      subtitle: "&aUspjeli ste se logirat!"
+      subtitle: "<#5EC26A>Uspjeli ste se logirat!"
       delays:
         start: 0
         duration: 60
@@ -45,83 +45,83 @@ Messages:
 
   delay-kick:
     # Message sent when a user takes a long time to register
-    register-kick: "&cPreviše vam je trebalo da se registrirate."
+    register-kick: "<#E0575B>Previše vam je trebalo da se registrirate."
 
     # Message sent when a user takes a long time to log in
-    login-kick: "&cPreviše vam je trebalo da se logirate."
+    login-kick: "<#E0575B>Previše vam je trebalo da se logirate."
 
   successful-operations:
     # Message when a user exchanges their password
-    password-changed: "&aUspješno ste promijenili lozinku."
+    password-changed: "<#5EC26A>Uspješno ste promijenili lozinku."
 
     # Message sent when a user successfully logs
-    successful-login: "&aUspješno ste se logirali."
+    successful-login: "<#5EC26A>Uspješno ste se logirali."
 
     # Message sent when a user successfully registers
-    successful-register: "&aUspješno ste se registrirali."
+    successful-register: "<#5EC26A>Uspješno ste se registrirali."
 
     # Message sent when a player successfully disregisters
-    unregister-kick: "&cUspješno ste se iz-registrirali."
+    unregister-kick: "<#E0575B>Uspješno ste se iz-registrirali."
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname
-    nick-already-registered: "&cNemožete ući sa {0}&r\n&r&cTo ime je već registrirano kao {1}&r\n&r\n&r&cDa uđete morate koristit ime bez razlike u velikom i malom slovu"
+    nick-already-registered: "<#E0575B>Nemožete ući sa <nickname>\n<#E0575B>To ime je već registrirano kao <realname>\n\n<#E0575B>Da uđete morate koristit ime bez razlike u velikom i malom slovu"
 
     # Message sent when a user misses many times
-    failed-many-times: "&cKriva lozinka."
+    failed-many-times: "<#E0575B>Kriva lozinka."
 
     # Message sent when password entered is incorrect
-    incorrect-password: "&cKriva lozinka, Pokušajte ponovno."
+    incorrect-password: "<#E0575B>Kriva lozinka, Pokušajte ponovno."
 
     # Message sent when a player enters an invalid nickname.
-    invalid-nickname: "&cKoristite ne-validno ime."
+    invalid-nickname: "<#E0575B>Koristite ne-validno ime."
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&cVeć ste logirani."
+    already-login: "<#E0575B>Već ste logirani."
 
     # Message sent when a nickname has already been registered.
-    already-registered: "&cOvo ime je već registrirano."
+    already-registered: "<#E0575B>Ovo ime je već registrirano."
 
     # Message sent when a nickname has not yet been registered.
-    not-registered: "&cOvo ime još nije registrirano."
+    not-registered: "<#E0575B>Ovo ime još nije registrirano."
 
     # Message sent when the entered password is not equal to the second
-    passwords-dont-match: "&cLozinke nisu jednake."
+    passwords-dont-match: "<#E0575B>Lozinke nisu jednake."
 
     # Message sent when a player tries to change password by entering the same password as the current
-    password-same-as-old: "&cUpisana lozinka je ista kao prije."
+    password-same-as-old: "<#E0575B>Upisana lozinka je ista kao prije."
 
     # Message sent when the password entered is too large
-    password-too-large: "&cPredugačka lozinka."
+    password-too-large: "<#E0575B>Predugačka lozinka."
 
     # Message sent when the password entered is too small
-    password-too-small: "&cLozinka je prekratka."
+    password-too-small: "<#E0575B>Lozinka je prekratka."
 
     # Message when a player does not possess the required permission
-    insufficient-permissions: "&cNemate dozvolu za tu komandu."
+    insufficient-permissions: "<#E0575B>Nemate dozvolu za tu komandu. <#A0A0B0>(<permission>)"
 
     # Message to kick a player now online
-    already-online: "&cTa osoba je već online."
+    already-online: "<#E0575B>Ta osoba je već online."
 
     # Message to show that the command cannot be executed via console
-    player-command-usage: "&cOva komanda je isključena putem konzole."
+    player-command-usage: "<#E0575B>Ova komanda je isključena putem konzole."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&ePlugin je uspješno reloadan."
+    plugin-reload-message: "<#F2C14E>Plugin je uspješno reloadan."
 
     # Message sent when a database operation has not been successfully performed
-    database-error: "&cNeuspješno smo pokrenuli ovu operaciju,molimo vas pokušajte ponovno [SQL FAIL]"
+    database-error: "<#E0575B>Neuspješno smo pokrenuli ovu operaciju,molimo vas pokušajte ponovno [SQL FAIL]"
 
   other-messages:
     # Mensagem enviada para o uso do comando /logar
-    message-login: "&eKoristi ovu komandu /login <lozinka>"
+    message-login: "<#F2C14E>Koristi ovu komandu /login [lozinka]"
 
     # Mensagem enviada para o uso do comando /register
-    message-register: "&eKoristi ovu komandu /register <lozinka> <lozinka>"
+    message-register: "<#F2C14E>Koristi ovu komandu /register [lozinka] [lozinka]"
 
     # Mensagem enviada para o uso do comando /mudarsenha
-    message-changepassword: "&eKoristi ovu komandu /changepassword <trenutna lozinka> <trenutna lozinka>"
+    message-changepassword: "<#F2C14E>Koristi ovu komandu /changepassword [trenutna lozinka] [trenutna lozinka]"
 
     # Message sent to use the /unregister command
-    message-unregister: "&eKoristi ovu komandu /unregister <trenutna lozinka>"
+    message-unregister: "<#F2C14E>Koristi ovu komandu /unregister [trenutna lozinka]"

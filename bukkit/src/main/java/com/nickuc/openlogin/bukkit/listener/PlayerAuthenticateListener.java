@@ -25,6 +25,7 @@
 package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.api.events.AsyncAuthenticateEvent;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
@@ -43,21 +44,21 @@ public class PlayerAuthenticateListener implements Listener {
         if (!player.hasPermission("openlogin.admin")) return;
 
         if (welcomeMessage) {
-            player.sendMessage("");
-            player.sendMessage(" §eWelcome to OpeNLogin!");
-            player.sendMessage("");
-            player.sendMessage(" §7Documentation:");
-            player.sendMessage(" §bhttps://github.com/nickuc/OpeNLogin/tree/master/docs");
-            player.sendMessage("");
-            player.sendMessage(" §7If you need help, fell free to contact our support:");
-            player.sendMessage(" §bhttps://www.nickuc.com/discord");
-            player.sendMessage("");
+            ComponentSender.send(player, "");
+            ComponentSender.send(player, " <gradient:#7F5AF0:#2CB67D><bold>Welcome to OpeNLogin!</bold></gradient>");
+            ComponentSender.send(player, "");
+            ComponentSender.send(player, " <#A0A0B0>Documentation:");
+            ComponentSender.send(player, " <#56CCF2>https://github.com/nickuc/OpeNLogin/tree/master/docs");
+            ComponentSender.send(player, "");
+            ComponentSender.send(player, " <#A0A0B0>If you need help, feel free to contact our support:");
+            ComponentSender.send(player, " <#56CCF2>https://www.nickuc.com/discord");
+            ComponentSender.send(player, "");
             welcomeMessage = false;
         } else if (plugin.isUpdateAvailable()) {
-            player.sendMessage("");
-            player.sendMessage(" §7A new version of §aOpeNLogin §7is available §a(v" + plugin.getDescription().getVersion() + " -> " + plugin.getLatestVersion() + ")§7.");
-            player.sendMessage(" §7Use the command §f'/openlogin update' §7to download new version.");
-            player.sendMessage("");
+            ComponentSender.send(player, "");
+            ComponentSender.send(player, " <#A0A0B0>A new version of <#5EC26A>OpeNLogin <#A0A0B0>is available <#5EC26A>(v" + plugin.getDescription().getVersion() + " -> " + plugin.getLatestVersion() + ")<#A0A0B0>.");
+            ComponentSender.send(player, " <#A0A0B0>Use the command <white>'/openlogin update' <#A0A0B0>to download new version.");
+            ComponentSender.send(player, "");
         }
     }
 }

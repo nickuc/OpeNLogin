@@ -12,16 +12,16 @@ Messages:
   Title:
     # Message sent before login
     before-login:
-      title: "&a&lWELCOME!"
-      subtitle: "&7Use: /login <your password>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>WELCOME!</bold></gradient>"
+      subtitle: "<#A0A0B0>Use: /login [your password]"
       delays:
         start: 0
         duration: 9999
         end: 6
     # Message sent before registration
     before-register:
-      title: "&a&lWELCOME!"
-      subtitle: "&7Use: /register <your password> <your password>"
+      title: "<gradient:#7F5AF0:#2CB67D><bold>WELCOME!</bold></gradient>"
+      subtitle: "<#A0A0B0>Use: /register [your password] [your password]"
       delays:
         start: 0
         duration: 9999
@@ -29,7 +29,7 @@ Messages:
     # Message sent after login
     after-login:
       title: ""
-      subtitle: "&aYou have successfully logged in!"
+      subtitle: "<#5EC26A>You have successfully logged in!"
       delays:
         start: 0
         duration: 60
@@ -37,7 +37,7 @@ Messages:
     # Message sent after register
     after-register:
       title: ""
-      subtitle: "&aYou have successfully registered!"
+      subtitle: "<#5EC26A>You have successfully registered!"
       delays:
         start: 0
         duration: 60
@@ -45,83 +45,83 @@ Messages:
 
   delay-kick:
     # Message sent when a user takes a long time to register
-    register-kick: "&cYou took too long to register."
+    register-kick: "<#E0575B>You took too long to register."
 
     # Message sent when a user takes a long time to log in
-    login-kick: "&cYou took too long to login."
+    login-kick: "<#E0575B>You took too long to login."
 
   successful-operations:
     # Message when a user exchanges their password
-    password-changed: "&aYour password has been successfully changed."
+    password-changed: "<#5EC26A>Your password has been successfully changed."
 
     # Message sent when a user successfully logs
-    successful-login: "&aYou have successfully logged."
+    successful-login: "<#5EC26A>You have successfully logged."
 
     # Message sent when a user successfully registers
-    successful-register: "&aYou have successfully registered."
+    successful-register: "<#5EC26A>You have successfully registered."
 
     # Message sent when a player successfully disregisters
-    unregister-kick: "&cYou have successfully unregistered."
+    unregister-kick: "<#E0575B>You have successfully unregistered."
 
   kick-messages:
     # Message when a player tries to log on to the server with a small difference in the nickname
-    nick-already-registered: "&cYou can not enter with nickname {0}&r\n&r&cThis username has already been registered as {1}&r\n&r\n&r&cTo enter, you must use your nickname without uppercase/lowercase"
+    nick-already-registered: "<#E0575B>You can not enter with nickname <nickname>\n<#E0575B>This username has already been registered as <realname>\n\n<#E0575B>To enter, you must use your nickname without uppercase/lowercase"
 
     # Message sent when a user misses many times
-    failed-many-times: "&cYou entered the incorrect password."
+    failed-many-times: "<#E0575B>You entered the incorrect password."
 
     # Message sent when password entered is incorrect
-    incorrect-password: "&cIncorrect password. Please, try again."
+    incorrect-password: "<#E0575B>Incorrect password. Please, try again."
 
     # Message sent when a player enters an invalid nickname.
-    invalid-nickname: "&cSorry, but you are using an invalid nickname."
+    invalid-nickname: "<#E0575B>Sorry, but you are using an invalid nickname."
 
   error-messages:
     # Message sent when you are already logged in.
-    already-login: "&cYou are already logged in."
+    already-login: "<#E0575B>You are already logged in."
 
     # Message sent when a nickname has already been registered.
-    already-registered: "&cThis nickname has already been registered."
+    already-registered: "<#E0575B>This nickname has already been registered."
 
     # Message sent when a nickname has not yet been registered.
-    not-registered: "&cThis nickname has not yet been registered."
+    not-registered: "<#E0575B>This nickname has not yet been registered."
 
     # Message sent when the entered password is not equal to the second
-    passwords-dont-match: "&cPasswords are not the same."
+    passwords-dont-match: "<#E0575B>Passwords are not the same."
 
     # Message sent when a player tries to change password by entering the same password as the current
-    password-same-as-old: "&cThe password entered is the same as the current."
+    password-same-as-old: "<#E0575B>The password entered is the same as the current."
 
     # Message sent when the password entered is too large
-    password-too-large: "&cThe password entered is too large."
+    password-too-large: "<#E0575B>The password entered is too large."
 
     # Message sent when the password entered is too small
-    password-too-small: "&cThe password entered is too small."
+    password-too-small: "<#E0575B>The password entered is too small."
 
     # Message when a player does not possess the required permission
-    insufficient-permissions: "&cYou do not have permission to run this command."
+    insufficient-permissions: "<#E0575B>You do not have permission to run this command. <#A0A0B0>(<permission>)"
 
     # Message to kick a player now online
-    already-online: "&cThis player is already online."
+    already-online: "<#E0575B>This player is already online."
 
     # Message to show that the command cannot be executed via console
-    player-command-usage: "&cThis command has been disabled via console."
+    player-command-usage: "<#E0575B>This command has been disabled via console."
 
     # Message shown when the plugin is reloaded.
-    plugin-reload-message: "&eThe plugin has been successfully reloaded."
+    plugin-reload-message: "<#F2C14E>The plugin has been successfully reloaded."
 
     # Message sent when a database operation has not been successfully performed
-    database-error: "&cSorry, we were unable to complete this operation. Please try again. [SQL FAIL]"
+    database-error: "<#E0575B>Sorry, we were unable to complete this operation. Please try again. [SQL FAIL]"
 
   other-messages:
     # Message sent to use the /login command
-    message-login: "&eUse the command /login <password>"
+    message-login: "<#F2C14E>Use the command /login [password]"
 
     # Message sent to use the /register command
-    message-register: "&eUse the command /register <password> <password>"
+    message-register: "<#F2C14E>Use the command /register [password] [password]"
 
     # Message sent to use the /changepassword command
-    message-changepassword: "&eUse the command /changepassword <current password> <new password>"
+    message-changepassword: "<#F2C14E>Use the command /changepassword [current password] [new password]"
 
     # Message sent to use the /unregister command
-    message-unregister: "&eUse the command /unregister <current password>"
+    message-unregister: "<#F2C14E>Use the command /unregister [current password]"

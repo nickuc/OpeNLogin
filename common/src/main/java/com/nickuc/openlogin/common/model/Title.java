@@ -24,8 +24,6 @@
 
 package com.nickuc.openlogin.common.model;
 
-import com.nickuc.openlogin.common.util.ChatColor;
-
 public class Title {
 
     private static final Title empty = new Title("", "", 0, 0, 0);
@@ -34,8 +32,8 @@ public class Title {
     public final int fadeIn, stay, fadeOut;
 
     public Title(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
-        this.title = ChatColor.translateAlternateColorCodes('&', title);
-        this.subtitle = ChatColor.translateAlternateColorCodes('&', subtitle);
+        this.title = title;
+        this.subtitle = subtitle;
         this.fadeIn = fadeIn;
         this.stay = stay;
         this.fadeOut = fadeOut;

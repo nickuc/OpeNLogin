@@ -25,8 +25,8 @@
 package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
-import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
@@ -55,7 +55,7 @@ public class PlayerGeneralListeners implements Listener {
         LoginManagement loginManagement = plugin.getLoginManagement();
         loginManagement.cleanup(name);
         LoginQueue.removeFromQueue(name);
-        TitleAPI.getApi().reset(player);
+        ComponentSender.resetTitle(player);
     }
 
     @EventHandler(priority = EventPriority.HIGH)

@@ -25,12 +25,11 @@
 package com.nickuc.openlogin.bukkit.listener;
 
 import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
+import com.nickuc.openlogin.bukkit.adventure.ComponentSender;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
-import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.bukkit.util.TextComponentMessage;
 import com.nickuc.openlogin.common.model.Title;
 import com.nickuc.openlogin.common.settings.Messages;
-import com.nickuc.openlogin.common.util.ClassUtils;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,25 +53,17 @@ public class PlayerJoinListeners implements Listener {
                     return;
                 }
 
-                player.sendMessage("");
-                player.sendMessage(" §eHello, " + player.getName() + "!");
-                player.sendMessage("");
-                player.sendMessage("  §7Before we start, please select");
-                player.sendMessage("  §7your favorite login plugin.");
-                player.sendMessage("");
-                if (ClassUtils.exists("net.md_5.bungee.api.chat.TextComponent")) {
-                    TextComponentMessage.sendPluginChoice(player);
-                } else {
-                    player.sendMessage("      §enLogin              §eOpeNLogin");
-                    player.sendMessage("  §6(proprietary)      §b(open source)");
-                    player.sendMessage("");
-                    player.sendMessage(" §7To use nLogin, type: §f'/openlogin nlogin'");
-                    player.sendMessage(" §7To use OpeNLogin, type: §f'/openlogin setup'");
-                }
-                player.sendMessage("");
+                ComponentSender.send(player, "");
+                ComponentSender.send(player, " <#F2C14E>Hello, " + player.getName() + "!");
+                ComponentSender.send(player, "");
+                ComponentSender.send(player, "  <#A0A0B0>Before we start, please select");
+                ComponentSender.send(player, "  <#A0A0B0>your favorite login plugin.");
+                ComponentSender.send(player, "");
+                TextComponentMessage.sendPluginChoice(player);
+                ComponentSender.send(player, "");
 
-                TitleAPI.getApi().send(player,
-                        new Title("", "§ePlease answer the question sent in the chat.", 0, 9999, 10));
+                ComponentSender.sendTitle(player,
+                        new Title("", "<#A0A0B0>Please answer the question sent in the chat.", 0, 9999, 10));
             }, 30L);
 
             event.setJoinMessage("");
@@ -86,11 +77,11 @@ public class PlayerJoinListeners implements Listener {
         player.setFlySpeed(0F);
 
         if (registered) {
-            player.sendMessage(Messages.MESSAGE_LOGIN.asString());
-            TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
+            ComponentSender.send(player, Messages.MESSAGE_LOGIN.asComponent());
+            ComponentSender.sendTitle(player, Messages.TITLE_BEFORE_LOGIN.asTitle());
         } else {
-            player.sendMessage(Messages.MESSAGE_REGISTER.asString());
-            TitleAPI.getApi().send(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
+            ComponentSender.send(player, Messages.MESSAGE_REGISTER.asComponent());
+            ComponentSender.sendTitle(player, Messages.TITLE_BEFORE_REGISTER.asTitle());
         }
     }
 }
