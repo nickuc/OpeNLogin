@@ -31,11 +31,15 @@ public class ConsoleFilter implements Filter {
 
     @Override
     public boolean isLoggable(LogRecord logRecord) {
-        if (logRecord == null || logRecord.getMessage() == null || LoggerFilterManager.isOpenLoginCommand(logRecord.getMessage())) {
+        if (logRecord == null || logRecord.getMessage() == null) {
             return true;
         }
 
-        logRecord.setMessage("[OpeNLogin] This content has been filtered.");
-        return false;
+        if (LoggerFilterManager.isOpenLoginCommand(logRecord.getMessage())) {
+            logRecord.setMessage("[OpeNLogin] This content has been filtered.");
+            return false;
+        }
+
+        return true;
     }
 }
