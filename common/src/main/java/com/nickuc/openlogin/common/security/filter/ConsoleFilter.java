@@ -32,7 +32,7 @@ public class ConsoleFilter implements Filter {
     @Override
     public boolean isLoggable(LogRecord logRecord) {
         if (logRecord == null || logRecord.getMessage() == null) {
-            return false;
+            return true;
         }
 
         if (LoggerFilterManager.isOpenLoginCommand(logRecord.getMessage())) {
