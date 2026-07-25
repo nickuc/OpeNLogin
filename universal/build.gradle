@@ -1,0 +1,17 @@
+plugins {
+    id 'com.gradleup.shadow' version '9.3.1'
+}
+tasks.build.dependsOn('shadowJar')
+
+dependencies {
+    implementation project(':common')
+    implementation project(':bukkit')
+}
+
+shadowJar {
+    archiveFileName = 'OpenLogin.jar'
+
+    def libPkg = project.group + '.lib.'
+    relocate 'org.bstats', libPkg + 'bstats'
+    relocate 'com.tcoded.folialib', libPkg + 'folialib'
+}

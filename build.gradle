@@ -1,11 +1,15 @@
 subprojects {
+    apply plugin: 'idea'
     apply plugin: 'java'
 
     group = 'com.nickuc.openlogin'
     version = '1.6.7'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(8)
+        }
+    }
 
     javadoc {
         options.encoding = 'UTF-8'
@@ -16,7 +20,7 @@ subprojects {
     }
 
     dependencies {
-        def lombok = 'org.projectlombok:lombok:1.18.24'
+        def lombok = 'org.projectlombok:lombok:1.18.42'
         compileOnly lombok
         annotationProcessor lombok
         testCompileOnly lombok

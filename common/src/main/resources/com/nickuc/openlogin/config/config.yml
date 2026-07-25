@@ -1,0 +1,28 @@
+#    ___                __  __
+#   /___\_ __   ___  /\ \ \/ /  ___   __ _(_)_ __
+#  //  // '_ \ / _ \/  \/ / /  / _ \ / _` | | '_ \
+# / \_//| |_) |  __/ /\  / /__| (_) | (_| | | | | |
+# \___/ | .__/ \___\_\ \/\____/\___/ \__, |_|_| |_|
+#       |_|                          |___/
+
+# Official website: https://www.nickuc.com
+# Discord: https://www.nickuc.com/discord
+
+# Do not change this setting
+file-version: 1
+
+# Language of the plugin.
+# For more information: https://github.com/nickuc-com/OpeNLogin/blob/master/docs/lang.md
+languageFile: 'messages_en.yml'
+
+# Security system related settings.
+Security:
+  # Amount of time for a player to log in/register (set in seconds).
+  time-to-login: 45
+
+  password:
+    # Small password size.
+    small: 5
+
+    # Size for big passwords.
+    large: 15

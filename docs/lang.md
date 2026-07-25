@@ -2,24 +2,24 @@
 
 | Code | Language |
 | ---- | -------- |
-[ar](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ar.yml) | Argentinian
-[br](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_br.yml) | Portuguese (Brazil)
-[cn](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_cn.yml) | Chinese (simplified)
-[cz](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_cz.yml) | Czech
-[de](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_de.yml) | German
-[en](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_en.yml) | English
-[es](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_es.yml) | Spanish
-[fr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_fr.yml) | French
-[hr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_hr.yml) | Croatian
-[hu](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_hu.yml) | Hungarian
-[it](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_it.yml) | Italian
-[lt](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_lt.yml) | Lithuanian
-[pl](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pl.yml) | Polish
-[pt](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pt.yml) | Portuguese
-[ru](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ru.yml) | Russian
-[sr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_sr.yml) | Serbian
-[tr](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_tr.yml) | Turkish
-[ua](https://github.com/nickuc/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ua.yml) | Ukrainian
+[ar](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ar.yml) | Argentinian
+[br](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_br.yml) | Portuguese (Brazil)
+[cn](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_cn.yml) | Chinese (simplified)
+[cz](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_cz.yml) | Czech
+[de](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_de.yml) | German
+[en](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_en.yml) | English
+[es](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_es.yml) | Spanish
+[fr](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_fr.yml) | French
+[hr](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_hr.yml) | Croatian
+[hu](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_hu.yml) | Hungarian
+[it](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_it.yml) | Italian
+[lt](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_lt.yml) | Lithuanian
+[pl](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pl.yml) | Polish
+[pt](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_pt.yml) | Portuguese
+[ru](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ru.yml) | Russian
+[sr](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_sr.yml) | Serbian
+[tr](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_tr.yml) | Turkish
+[ua](https://github.com/nickuc-com/OpeNLogin/blob/master/openlogin-common/src/main/resources/com/nickuc/openlogin/config/lang/messages_ua.yml) | Ukrainian
 
 ### How to change the language file?
 
