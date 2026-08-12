@@ -44,8 +44,7 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
     private final AtomicBoolean
             downloadLock = new AtomicBoolean(),
             confirmNLogin = new AtomicBoolean(),
-            confirmOpenLogin = new AtomicBoolean(),
-            confirmAd = new AtomicBoolean();
+            confirmOpenLogin = new AtomicBoolean();
 
     public OpenLoginCommand(OpenLoginBukkit plugin) {
         super(plugin, "openlogin");
@@ -89,29 +88,6 @@ public class OpenLoginCommand extends BukkitAbstractCommand {
                         sender.sendMessage("§cDownload in progress...");
                     } else if (!update(player)) {
                         downloadLock.set(false);
-                    }
-                    return;
-                }
-
-                case "nlogin_ad": {
-                    if (!(sender instanceof Player)) {
-                        sender.sendMessage(Messages.PLAYER_COMMAND_USAGE.asString());
-                        return;
-                    }
-
-                    if (!confirmAd.getAndSet(true)) {
-                        sender.sendMessage("");
-                        sender.sendMessage(" §cnLogin is generally a better solution for most users.");
-                        sender.sendMessage(" §7If you want to keep §fOpeNLogin §7anyway,");
-                        sender.sendMessage(" §7please click on the message again.");
-                        sender.sendMessage("");
-                        return;
-                    }
-
-                    if (plugin.getPluginSettings().set("nlogin_ad", Long.toString(System.currentTimeMillis()))) {
-                        sender.sendMessage("§eYou will not be notified again of the migration for a long time.");
-                    } else {
-                        sender.sendMessage("§cDatabase error :C, please try again.");
                     }
                     return;
                 }
