@@ -4,7 +4,9 @@ dependencies {
     implementation 'org.bstats:bstats-bukkit:3.0.0'
     implementation 'com.tcoded:FoliaLib:0.3.3'
 
-    compileOnly 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
+    testImplementation 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
+    testImplementation 'org.xerial:sqlite-jdbc:3.45.1.0'
 }
 
 processResources {

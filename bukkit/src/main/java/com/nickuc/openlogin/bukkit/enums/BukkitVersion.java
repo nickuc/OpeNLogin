@@ -32,6 +32,8 @@ import org.bukkit.Bukkit;
 @Getter
 public enum BukkitVersion {
 
+    v1_21("1.21"),
+    v1_20("1.20"),
     v1_19("1.19"),
     v1_18("1.18"),
     v1_17("1.17"),

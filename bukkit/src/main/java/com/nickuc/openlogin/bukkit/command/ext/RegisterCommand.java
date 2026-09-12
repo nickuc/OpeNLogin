@@ -31,13 +31,13 @@ import com.nickuc.openlogin.bukkit.command.BukkitCommand;
 import com.nickuc.openlogin.bukkit.ui.title.TitleAPI;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
-import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class RegisterCommand extends BukkitCommand {
 
@@ -91,10 +91,8 @@ public class RegisterCommand extends BukkitCommand {
             return;
         }
 
-        String salt = BCrypt.gensalt();
-        String hashedPassword = BCrypt.hashpw(password, salt);
         String address = sender.getAddress().getAddress().getHostAddress();
-        if (!accountManagement.update(name, hashedPassword, address, false)) {
+        if (!accountManagement.update(sender.getUniqueId(), name, password, address, false)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }
@@ -152,11 +150,10 @@ public class RegisterCommand extends BukkitCommand {
             return;
         }
 
-        String salt = BCrypt.gensalt();
-        String hashedPassword = BCrypt.hashpw(password, salt);
+        UUID uuid = playerIfOnline != null ? playerIfOnline.getUniqueId() : null;
         String address = playerIfOnline != null ?
                 Objects.requireNonNull(playerIfOnline.getAddress()).getAddress().getHostAddress() : null;
-        if (!accountManagement.update(playerName, hashedPassword, address, false)) {
+        if (!accountManagement.update(uuid, playerName, password, address, false)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }

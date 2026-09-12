@@ -7,7 +7,7 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(8)
+            languageVersion = JavaLanguageVersion.of(21)
         }
     }
 
@@ -19,16 +19,24 @@ subprojects {
         options.encoding = 'UTF-8'
     }
 
+    test {
+        useJUnitPlatform()
+    }
+
     dependencies {
         def lombok = 'org.projectlombok:lombok:1.18.42'
         compileOnly lombok
         annotationProcessor lombok
         testCompileOnly lombok
         testAnnotationProcessor lombok
+
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 
     repositories {
         mavenCentral()
+        maven { url = uri('https://repo.papermc.io/repository/maven-public/') }
         maven { url = uri('https://hub.spigotmc.org/nexus/content/repositories/snapshots/') }
         maven { url = uri('https://repo.codemc.org/repository/maven-public') }
         maven { url = uri("https://nexuslite.gcnt.net/repos/other/")}

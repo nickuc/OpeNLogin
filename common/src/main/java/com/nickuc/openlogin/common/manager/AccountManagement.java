@@ -24,45 +24,55 @@
 
 package com.nickuc.openlogin.common.manager;
 
-import com.nickuc.openlogin.common.database.Database;
 import com.nickuc.openlogin.common.model.Account;
-import com.nickuc.openlogin.common.security.hashing.BCrypt;
+import com.nickuc.openlogin.common.security.hashing.PasswordSecurity;
+import com.nickuc.openlogin.common.security.hashing.PlaintextPasswordSecurity;
+import com.nickuc.openlogin.common.storage.AccountRepository;
+import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import javax.annotation.Nullable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
-@RequiredArgsConstructor
 public class AccountManagement {
 
     private final Map<String, Account> accountCache = new HashMap<>();
 
-    private final Database database;
+    @Getter
+    private final AccountRepository accountRepository;
+    @Getter
+    private final PasswordSecurity passwordSecurity;
+
+    public AccountManagement(@NonNull AccountRepository accountRepository, @NonNull PasswordSecurity passwordSecurity) {
+        this.accountRepository = accountRepository;
+        this.passwordSecurity = passwordSecurity;
+    }
+
+    public AccountManagement(@NonNull AccountRepository accountRepository) {
+        this(accountRepository, new PlaintextPasswordSecurity());
+    }
 
     /**
      * Checks if the password provided is valid.
      *
+     * @param account  the target account
      * @param password the password to compare
      * @return true if the passwords match
      */
     public boolean comparePassword(@NonNull Account account, @NonNull String password) {
-        String hashedPassword = account.getHashedPassword();
-        if (hashedPassword == null) {
+        String storedPassword = account.getPassword();
+        if (storedPassword == null) {
             return false;
         }
-        if (!hashedPassword.startsWith("$2")) {
-            throw new IllegalArgumentException("Invalid hashed password for " + account.getRealName() + "! " + hashedPassword);
-        }
-        return BCrypt.checkpw(password, hashedPassword);
+        return passwordSecurity.matches(password, storedPassword);
     }
 
     /**
-     * Retrieve or load an account.
+     * Retrieve or load an account by name.
      *
      * @param name the name of the player
      * @return the player's {@link Account}. Failing, will return empty Optional.
@@ -79,6 +89,18 @@ public class AccountManagement {
             }
             return Optional.ofNullable(account);
         }
+    }
+
+    /**
+     * Retrieve or load an account by UUID.
+     *
+     * @param uuid the unique identifier of the player
+     * @return the player's {@link Account}. Failing, will return empty Optional.
+     */
+    public Optional<Account> retrieveOrLoad(@NonNull UUID uuid) {
+        Optional<Account> accountOpt = search(uuid);
+        accountOpt.ifPresent(this::addToCache);
+        return accountOpt;
     }
 
     /**
@@ -99,113 +121,133 @@ public class AccountManagement {
      */
     public void invalidateCache(@NonNull String key) {
         synchronized (accountCache) {
-            accountCache.remove(key);
+            accountCache.remove(key.toLowerCase());
         }
     }
 
     /**
-     * Searches for saved accounts.
+     * Searches for saved accounts by username.
      *
      * @param name the name of the player
      * @return optional of {@link Account}
      */
     public Optional<Account> search(@NonNull String name) {
-        try (Database.Query query = database.query("SELECT * FROM `openlogin` WHERE `name` = ?", name.toLowerCase())) {
-            ResultSet resultSet = query.resultSet;
-            if (resultSet.next()) {
-                String realName = resultSet.getString("realname");
-                String hashedPassword = resultSet.getString("password");
-                String address = resultSet.getString("address");
-                long lastLogin = resultSet.getLong("lastlogin");
-                long regdate = resultSet.getLong("regdate");
-                return Optional.of(new Account(realName, hashedPassword, address, lastLogin, regdate));
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return Optional.empty();
+        return accountRepository.findByUsername(name);
+    }
+
+    /**
+     * Searches for saved accounts by UUID.
+     *
+     * @param uuid the unique identifier of the player
+     * @return optional of {@link Account}
+     */
+    public Optional<Account> search(@NonNull UUID uuid) {
+        return accountRepository.findByUuid(uuid);
     }
 
     /**
      * Update the player's database column.
      *
-     * @param name           the name of the player (realname)
-     * @param hashedPassword the hashed password
-     * @param address        the player address
+     * @param name     the name of the player (realname)
+     * @param password the password
+     * @param address  the player address
      * @return true on success
      */
-    public boolean update(@NonNull String name, @NonNull String hashedPassword, @Nullable String address) {
-        return update(name, hashedPassword, address, true);
+    public boolean update(@NonNull String name, @NonNull String password, @Nullable String address) {
+        return update(name, password, address, true);
     }
 
     /**
      * Update the player's data.
      *
-     * @param name           the name of the player (realname)
-     * @param hashedPassword the hashed password
-     * @param address        the player address
-     * @param replace        forces update if player data exists
+     * @param name     the name of the player (realname)
+     * @param password the password
+     * @param address  the player address
+     * @param replace  forces update if player data exists
      * @return true on success
      */
-    public boolean update(@NonNull String name, @NonNull String hashedPassword, @Nullable String address, boolean replace) {
-        boolean exists = search(name).isPresent();
-        if (exists) {
-            if (!replace) {
-                return false;
-            }
+    public boolean update(@NonNull String name, @NonNull String password, @Nullable String address, boolean replace) {
+        return update(null, name, password, address, replace);
+    }
+
+    /**
+     * Update the player's data with UUID awareness.
+     *
+     * @param uuid     the unique identifier (optional, will be resolved or generated if null)
+     * @param name     the name of the player (realname)
+     * @param password the password
+     * @param address  the player address
+     * @param replace  forces update if player data exists
+     * @return true on success
+     */
+    public boolean update(@Nullable UUID uuid, @NonNull String name, @NonNull String password, @Nullable String address, boolean replace) {
+        Optional<Account> existingOpt = search(name);
+        boolean exists = existingOpt.isPresent();
+        if (exists && !replace) {
+            return false;
         }
 
-        if (hashedPassword.trim().isEmpty()) {
+        if (password.trim().isEmpty()) {
             return false;
         }
 
         long current = System.currentTimeMillis();
+        UUID accountUuid = uuid;
+        long regDate = current;
 
-        try {
-            if (exists) {
-                database.update(
-                        "UPDATE `openlogin` SET `password` = ?, `address` = ?, `lastlogin` = ? WHERE `name` = ?",
-                        hashedPassword,
-                        address == null ? "127.0.0.1" : address,
-                        current,
-                        name.toLowerCase()
-                );
-            } else {
-                database.update(
-                        "INSERT INTO `openlogin` (`name`, `realname`, `password`, `address`, `lastlogin`, `regdate`) VALUES (?, ?, ?, ?, ?, ?)",
-                        name.toLowerCase(),
-                        name,
-                        hashedPassword,
-                        address == null ? "127.0.0.1" : address,
-                        current,
-                        current
-                );
+        if (exists) {
+            Account existing = existingOpt.get();
+            if (accountUuid == null) {
+                accountUuid = existing.getUuid();
             }
-            return true;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            return false;
+            regDate = existing.getRegDate();
+        } else if (accountUuid == null) {
+            accountUuid = UUID.nameUUIDFromBytes(("OfflinePlayer:" + name).getBytes(StandardCharsets.UTF_8));
         }
+
+        String preparedPassword = passwordSecurity.prepareForStorage(password);
+        Account account = new Account(
+                accountUuid,
+                name,
+                preparedPassword,
+                address == null ? "127.0.0.1" : address,
+                current,
+                regDate
+        );
+
+        boolean saved = accountRepository.save(account);
+        if (saved) {
+            addToCache(account);
+        }
+        return saved;
     }
 
     /**
-     * Delete all of the player's data.
+     * Delete all of the player's data by username.
      *
      * @param name the name of the player
      * @return true on success
      */
     public boolean delete(@NonNull String name) {
-        boolean exists = search(name).isPresent();
-        if (!exists) {
-            return false;
+        boolean deleted = accountRepository.deleteByUsername(name);
+        if (deleted) {
+            invalidateCache(name.toLowerCase());
         }
+        return deleted;
+    }
 
-        try {
-            database.update("DELETE FROM `openlogin` WHERE `name` = ?", name.toLowerCase());
-            return true;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            return false;
+    /**
+     * Delete all of the player's data by UUID.
+     *
+     * @param uuid the unique identifier of the player
+     * @return true on success
+     */
+    public boolean delete(@NonNull UUID uuid) {
+        Optional<Account> accountOpt = accountRepository.findByUuid(uuid);
+        boolean deleted = accountRepository.delete(uuid);
+        if (deleted) {
+            accountOpt.ifPresent(account -> invalidateCache(account.getRealName().toLowerCase()));
         }
+        return deleted;
     }
 }

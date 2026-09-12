@@ -31,18 +31,19 @@ import com.nickuc.openlogin.bukkit.listener.PlayerGeneralListeners;
 import com.nickuc.openlogin.bukkit.listener.PlayerJoinListeners;
 import com.nickuc.openlogin.bukkit.listener.PlayerKickListeners;
 import com.nickuc.openlogin.bukkit.task.LoginQueue;
+import com.nickuc.openlogin.bukkit.storage.YamlAccountRepository;
+import com.nickuc.openlogin.bukkit.storage.migration.SQLiteMigration;
 import com.nickuc.openlogin.common.OpenLogin;
 import com.nickuc.openlogin.common.api.OpenLoginAPI;
-import com.nickuc.openlogin.common.database.Database;
-import com.nickuc.openlogin.common.database.PluginSettings;
-import com.nickuc.openlogin.common.database.SQLite;
 import com.nickuc.openlogin.common.http.HttpClient;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.manager.LoginManagement;
 import com.nickuc.openlogin.common.model.Title;
 import com.nickuc.openlogin.common.security.filter.LoggerFilterManager;
+import com.nickuc.openlogin.common.security.hashing.PlaintextPasswordSecurity;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
+import com.nickuc.openlogin.common.storage.AccountRepository;
 import com.nickuc.openlogin.common.util.FileUtils;
 import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.impl.ServerImplementation;
@@ -58,8 +59,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.logging.Level;
 
 @Getter
 public class OpenLoginBukkit extends JavaPlugin {
@@ -69,8 +69,8 @@ public class OpenLoginBukkit extends JavaPlugin {
     private CommandManagement commandManagement;
     private ServerImplementation foliaLib;
 
-    private Database database;
-    private PluginSettings pluginSettings;
+    private AccountRepository accountRepository;
+    private com.nickuc.openlogin.common.database.PluginSettings pluginSettings;
 
     private String latestVersion;
     private boolean updateAvailable;
@@ -101,7 +101,7 @@ public class OpenLoginBukkit extends JavaPlugin {
         Server server = getServer();
 
         File newUserfile = new File(getDataFolder(), "new-user");
-        newUser = !new File(getDataFolder() + "/database", "accounts.db").exists() && !new File(getDataFolder(), "config.yml").exists() || newUserfile.exists();
+        newUser = !new File(getDataFolder(), "accounts.yml").exists() && !new File(getDataFolder(), "config.yml").exists() || newUserfile.exists();
         if (newUser && !newUserfile.exists()) {
             try {
                 if (newUserfile.getParentFile().mkdirs()) {
@@ -118,8 +118,8 @@ public class OpenLoginBukkit extends JavaPlugin {
             return;
         }
 
-        // setup database
-        if (!setupDatabase()) {
+        // setup storage
+        if (!setupStorage()) {
             server.shutdown();
             return;
         }
@@ -127,8 +127,8 @@ public class OpenLoginBukkit extends JavaPlugin {
         // setup Folia lib
         foliaLib = new FoliaLib(this).getImpl();
 
-        // setup account management
-        accountManagement = new AccountManagement(database);
+        // setup account management with modular PlaintextPasswordSecurity
+        accountManagement = new AccountManagement(accountRepository, new PlaintextPasswordSecurity());
 
         // setup login management
         loginManagement = new LoginManagement(accountManagement);
@@ -156,6 +156,13 @@ public class OpenLoginBukkit extends JavaPlugin {
         foliaLib.runAsync(task -> this.detectUpdates());
     }
 
+    @Override
+    public void onDisable() {
+        if (accountRepository != null) {
+            accountRepository.close();
+        }
+    }
+
     public void sendMessage(String message) {
         getServer().getConsoleSender().sendMessage("[" + getName() + "] " + message);
     }
@@ -164,27 +171,21 @@ public class OpenLoginBukkit extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(color + "[" + getName() + "] " + message);
     }
 
-    private boolean setupDatabase() {
-        File databaseFile = new File(getDataFolder(), "accounts.db");
-        database = new SQLite(databaseFile);
+    private boolean setupStorage() {
+        File accountsFile = new File(getDataFolder(), "accounts.yml");
+        accountRepository = new YamlAccountRepository(accountsFile, getLogger());
         try {
-            database.openConnection();
-            database.update("CREATE TABLE IF NOT EXISTS `openlogin` (`name` TEXT, `realname` TEXT, `password` TEXT, `address` TEXT, `lastlogin` INTEGER, `regdate` INTEGER)");
-            database.update("CREATE TABLE IF NOT EXISTS `settings` (`key` TEXT, `value` TEXT)");
-            try (Database.Query query = database.query("SELECT COUNT(*) FROM `openlogin`")) {
-                ResultSet rs = query.resultSet;
-                if (rs.next()) {
-                    registeredUsers = rs.getInt("COUNT(*)");
-                }
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                sendMessage("§cFailed to update the register count.");
-            }
-            pluginSettings = new PluginSettings(database);
+            accountRepository.load();
+
+            // Perform SQLite migration if legacy database is detected
+            SQLiteMigration.migrateIfPresent(getDataFolder(), accountRepository, getLogger());
+
+            registeredUsers = accountRepository.count();
+            pluginSettings = new com.nickuc.openlogin.common.database.PluginSettings(new File(getDataFolder(), "settings.properties"));
             return true;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            sendMessage("§cFailed to start database. Shutting down server...");
+        } catch (Exception exception) {
+            getLogger().log(Level.SEVERE, "Failed to start account storage. Shutting down server...", exception);
+            sendMessage("§cFailed to start account storage. Shutting down server...");
             return false;
         }
     }
