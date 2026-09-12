@@ -25,16 +25,53 @@
 package com.nickuc.openlogin.common.database;
 
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import javax.annotation.Nullable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
-@RequiredArgsConstructor
 public class PluginSettings {
 
-    private final Database database;
+    private final File file;
+    private final Properties properties = new Properties();
+
+    public PluginSettings(File file) {
+        this.file = file;
+        load();
+    }
+
+    public PluginSettings() {
+        this(null);
+    }
+
+    private void load() {
+        if (file == null || !file.exists()) {
+            return;
+        }
+        try (InputStream in = new FileInputStream(file);
+             Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
+            properties.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void save() {
+        if (file == null) {
+            return;
+        }
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
+        }
+        try (OutputStream out = new FileOutputStream(file);
+             Writer writer = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
+            properties.store(writer, "OpenLogin Plugin Settings");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String read(@NonNull String key, @NonNull String def) {
         String value = read(key);
@@ -43,30 +80,13 @@ public class PluginSettings {
 
     @Nullable
     public String read(@NonNull String key) {
-        try (Database.Query query = database.query("SELECT `value` FROM `settings` WHERE `key` = ?", key)) {
-            ResultSet resultSet = query.resultSet;
-            if (resultSet.next()) {
-                return resultSet.getString("value");
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+        return properties.getProperty(key);
     }
 
     public boolean set(@NonNull String key, @NonNull String value) {
-        try (Database.Query query = database.query("SELECT `value` FROM `settings` WHERE `key` = ?", key)) {
-            ResultSet resultSet = query.resultSet;
-            if (resultSet.next()) {
-                database.update("UPDATE `settings` SET `value` = ? WHERE `key` = ?", value, key);
-            } else {
-                database.update("INSERT INTO `settings` (`key`, `value`) VALUES (?, ?)", key, value);
-            }
-            return true;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-            return false;
-        }
+        properties.setProperty(key, value);
+        save();
+        return true;
     }
 
 }

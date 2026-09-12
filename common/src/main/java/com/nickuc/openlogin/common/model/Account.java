@@ -25,13 +25,41 @@
 package com.nickuc.openlogin.common.model;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
 @Getter
 public class Account {
 
-    private final String realName, hashedPassword, address;
-    private final long lastLogin, regDate;
+    private final UUID uuid;
+    private final String realName;
+    private final String password;
+    private final String address;
+    private final long lastLogin;
+    private final long regDate;
+
+    public Account(UUID uuid, String realName, String password, String address, long lastLogin, long regDate) {
+        this.uuid = uuid != null ? uuid : UUID.nameUUIDFromBytes(("OfflinePlayer:" + realName).getBytes(StandardCharsets.UTF_8));
+        this.realName = realName;
+        this.password = password;
+        this.address = address;
+        this.lastLogin = lastLogin;
+        this.regDate = regDate;
+    }
+
+    public Account(String realName, String password, String address, long lastLogin, long regDate) {
+        this(UUID.nameUUIDFromBytes(("OfflinePlayer:" + realName).getBytes(StandardCharsets.UTF_8)),
+                realName, password, address, lastLogin, regDate);
+    }
+
+    /**
+     * Backward-compatibility alias for {@link #getPassword()}.
+     *
+     * @return the stored password representation
+     */
+    public String getHashedPassword() {
+        return password;
+    }
 
 }

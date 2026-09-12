@@ -28,7 +28,6 @@ import com.nickuc.openlogin.bukkit.OpenLoginBukkit;
 import com.nickuc.openlogin.bukkit.command.BukkitCommand;
 import com.nickuc.openlogin.common.manager.AccountManagement;
 import com.nickuc.openlogin.common.model.Account;
-import com.nickuc.openlogin.common.security.hashing.BCrypt;
 import com.nickuc.openlogin.common.settings.Messages;
 import com.nickuc.openlogin.common.settings.Settings;
 import org.bukkit.command.CommandSender;
@@ -90,10 +89,8 @@ public class ChangePasswordCommand extends BukkitCommand {
             return;
         }
 
-        String salt = BCrypt.gensalt();
-        String hashedPassword = BCrypt.hashpw(newPassword, salt);
         String address = Objects.requireNonNull(sender.getAddress()).getAddress().getHostAddress();
-        if (!accountManagement.update(name, hashedPassword, address)) {
+        if (!accountManagement.update(account.getUuid(), name, newPassword, address, true)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }
@@ -144,11 +141,9 @@ public class ChangePasswordCommand extends BukkitCommand {
             return;
         }
 
-        String salt = BCrypt.gensalt();
-        String hashedPassword = BCrypt.hashpw(newPassword, salt);
         String address = playerIfOnline != null ?
                 Objects.requireNonNull(playerIfOnline.getAddress()).getAddress().getHostAddress() : null;
-        if (!accountManagement.update(playerName, hashedPassword, address)) {
+        if (!accountManagement.update(account.getUuid(), playerName, newPassword, address, true)) {
             sender.sendMessage(Messages.DATABASE_ERROR.asString());
             return;
         }
